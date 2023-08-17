@@ -35,6 +35,9 @@ import Switch from "@mui/material/Switch";
 import Grid from "@mui/material/Grid";
 import Autocomplete from "@mui/material/Autocomplete";
 import MDTypography from "components/MDTypography";
+import Chip from "@mui/material/Chip";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -86,7 +89,55 @@ const From = () => {
     <DashboardLayout>
       <DashboardNavbar />
       <h1>Advanced Search</h1>
-      <MDInput
+      <Stack spacing={3} sx={{ width: 1000 }}>
+        <Autocomplete
+          multiple
+          id="tags-standard"
+          options={top100Keywords}
+          getOptionLabel={(option) => option.title}
+          defaultValue={[top100Keywords[13]]}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              variant="standard"
+              label="Any Keywords"
+              placeholder="Skills, Designation, Role"
+            />
+          )}
+        />
+        <Autocomplete
+          multiple
+          id="tags-standard"
+          options={top100Keywords}
+          getOptionLabel={(option) => option.title}
+          defaultValue={[top100Keywords[13]]}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              variant="standard"
+              label="All Keywords"
+              placeholder="Skills, Designation, Role"
+            />
+          )}
+        />
+        <Autocomplete
+          multiple
+          id="tags-standard"
+          options={top100Keywords}
+          getOptionLabel={(option) => option.title}
+          defaultValue={[top100Keywords[13]]}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              variant="standard"
+              label="Excluding Keywords"
+              placeholder="Skills, Designation, Role"
+            />
+          )}
+        />
+      </Stack>
+
+      {/* <MDInput
         type="text"
         label="Any Keywords"
         fullWidth
@@ -106,28 +157,123 @@ const From = () => {
         fullWidth
         placeholder="Excluding Keywords"
         margin="normal"
-      />
-      <div className="input">
+      /> */}
+      {/* <div className="input">
         <MDInput
           type="integer"
           label="Experience (min)"
           halfWidth
           placeholder="min"
           margin="normal"
+        /> */}
+      {/* <span>To</span> */}
+      {/* <MDInput type="integer" label="max" halfWidth placeholder="max" margin="normal" />
+      </div> */}
+      <div className="input">
+        <p>Total Experience(in years)</p>
+        <Autocomplete
+          className="experience"
+          sx={{ width: 300 }}
+          defaultValue="min"
+          options={["0", "1", "2", "3", "4", "5"]}
+          renderInput={(params) => <MDInput {...params} variant="standard" />}
         />
-        {/* <span>To</span> */}
-        <MDInput type="integer" label="max" halfWidth placeholder="max" margin="normal" />
+        <Autocomplete
+          className="experience"
+          sx={{ width: 300 }}
+          defaultValue="max"
+          options={["1", "2", "3", "4", "5", "6", "7", "8", "9"]}
+          renderInput={(params) => <MDInput {...params} variant="standard" />}
+        />
       </div>
       <div className="input">
+        <p>Annual Salary(LPA)</p>
+        <Autocomplete
+          className="experience"
+          sx={{ width: 300 }}
+          defaultValue="min"
+          options={[
+            "0",
+            "1",
+            "1.25",
+            "1.5",
+            "1.75",
+            "2",
+            "2.25",
+            "2.5",
+            "2.75",
+            "3",
+            "3.25",
+            "3.5",
+            "3.75",
+            "4",
+            "4.25",
+            "4.5",
+            "4.75",
+            "5",
+          ]}
+          renderInput={(params) => <MDInput {...params} variant="standard" />}
+        />
+        <Autocomplete
+          className="experience"
+          sx={{ width: 300 }}
+          defaultValue="max"
+          options={[
+            "1",
+            "1.25",
+            "1.5",
+            "1.75",
+            "2",
+            "2.25",
+            "2.5",
+            "2.75",
+            "3",
+            "3.25",
+            "3.5",
+            "3.75",
+            "4",
+            "4.25",
+            "4.5",
+            "4.75",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+          ]}
+          renderInput={(params) => <MDInput {...params} variant="standard" />}
+        />
+      </div>
+      <div className="location">
+        <p>Current Location</p>
+        <Autocomplete
+          defaultValue="Type or select a location from the list"
+          options={["New Delhi", "NCR", "Bangalore", "Mumbai", "Chennai", "Pune"]}
+          renderInput={(params) => <MDInput {...params} variant="standard" />}
+        />
+      </div>
+      {/* </div> */}
+      {/* <div className="input">
         <MDInput
           type="integer"
           label="Annual Salary (min)"
           halfWidth
           placeholder="min"
           margin="normal"
-        />
-        {/* <span>To</span> */}
-        <MDInput type="integer" label="max" halfWidth placeholder="max" margin="normal" />
+        /> */}
+      {/* <span>To</span> */}
+      {/* <MDInput type="integer" label="max" halfWidth placeholder="max" margin="normal" />
       </div>
       <MDInput
         type="location"
@@ -136,6 +282,85 @@ const From = () => {
         placeholder="Type or select location from list"
         margin="normal"
       />
+      <Accordion expanded={expanded === "panel1"} onChange={handleChangeAccordion("panel1")}>
+        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+          <Typography>Educational Details</Typography>
+        </AccordionSummary>
+        <h3>UG Qualifications</h3>
+        <ToggleButtonGroup
+          color="info"
+          value={alignment}
+          exclusive
+          onChange={handleChange}
+          aria-label="Platform"
+        >
+          <ToggleButton value="Any UG Qualifications">Any UG Qualifications</ToggleButton>
+          <ToggleButton value="Specific UG Qualifications">Specific UG Qualifications</ToggleButton>
+          <ToggleButton value="UG not necessary">UG not necessary</ToggleButton>
+        </ToggleButtonGroup>
+        <MDInput
+          type="text"
+          label="Institute Name"
+          fullWidth
+          placeholder="Institue name"
+          margin="normal"
+        />
+        <div className="input">
+          <MDInput
+            type="integer"
+            label="Year of graduation (From)"
+            halfWidth
+            placeholder="From"
+            margin="normal"
+          /> */}
+      {/* <span>To</span> */}
+      {/* <MDInput type="integer" label="To" halfWidth placeholder="To" margin="normal" />
+        </div>
+        <MDInput
+          type="text"
+          label="Education type"
+          fullWidth
+          placeholder="Type here or select"
+          margin="normal"
+        /> */}
+      {/* <h3>PG Qualifications</h3>
+        <ToggleButtonGroup
+          color="info"
+          value={alignment}
+          exclusive
+          onChange={handleChange}
+          aria-label="Platform"
+        >
+          <ToggleButton value="Any PG Qualifications">Any PG Qualifications</ToggleButton>
+          <ToggleButton value="Specific PG Qualifications">Specific PG Qualifications</ToggleButton>
+          <ToggleButton value="PG not necessary">PG not necessary</ToggleButton>
+        </ToggleButtonGroup>
+
+        <MDInput
+          type="text"
+          label="Institute Name"
+          fullWidth
+          placeholder="Institue name"
+          margin="normal"
+        />
+        <div className="input">
+          <MDInput
+            type="integer"
+            label="Year of graduation (From)"
+            halfWidth
+            placeholder="From"
+            margin="normal"
+          /> */}
+      {/* <span>To</span> */}
+      {/* <MDInput type="integer" label="To" halfWidth placeholder="To" margin="normal" />
+        </div>
+        <MDInput
+          type="text"
+          label="Education type"
+          fullWidth
+          placeholder="Type here or select"
+          margin="normal"
+        /> */}
       <Accordion expanded={expanded === "panel1"} onChange={handleChangeAccordion("panel1")}>
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
           <Typography>Educational Details</Typography>
@@ -219,6 +444,10 @@ const From = () => {
           <Typography></Typography>
         </AccordionDetails>
       </Accordion>
+      <AccordionDetails>
+        <Typography></Typography>
+      </AccordionDetails>
+
       <div>
         <Accordion expanded={expanded === "panel2"} onChange={handleChangeAccordion("panel2")}>
           <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
@@ -439,5 +668,46 @@ const From = () => {
     </DashboardLayout>
   );
 };
-
+const top100Keywords = [
+  { title: "Data Analytics" },
+  { title: "Data Science" },
+  { title: "Frontend Development" },
+  { title: "Backend Development" },
+  { title: "Fullstack Development" },
+  { title: "ReactJS" },
+  { title: "NodeJS" },
+  { title: "MongoDB" },
+  { title: "HR" },
+  { title: "SDE1" },
+  { title: "SDE2" },
+  { title: "Manager" },
+  { title: "Senior Managr" },
+  { title: "Full Time" },
+  { title: "Part Time" },
+  { title: "Contract Based" },
+  { title: "Internship" },
+  { title: "Frontend Development" },
+  { title: "Backend Development" },
+  { title: "Fullstack Development" },
+  { title: "Data Analytics" },
+  { title: "Data Science" },
+  { title: "Frontend Development" },
+  { title: "Backend Development" },
+  { title: "Fullstack Development" },
+  { title: "Data Analytics" },
+  { title: "Data Science" },
+  { title: "Frontend Development" },
+  { title: "Backend Development" },
+  { title: "Fullstack Development" },
+  { title: "Data Analytics" },
+  { title: "Data Science" },
+  { title: "Frontend Development" },
+  { title: "Backend Development" },
+  { title: "Fullstack Development" },
+  { title: "Data Analytics" },
+  { title: "Data Science" },
+  { title: "Frontend Development" },
+  { title: "Backend Development" },
+  { title: "AI/ML" },
+];
 export default From;
