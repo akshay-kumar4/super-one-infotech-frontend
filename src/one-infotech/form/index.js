@@ -32,6 +32,9 @@ import Typography from "@mui/material/Typography";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
+import Grid from "@mui/material/Grid";
+import Autocomplete from "@mui/material/Autocomplete";
+import MDTypography from "components/MDTypography";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -221,20 +224,33 @@ const From = () => {
           <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
             <Typography>Employment Details</Typography>
           </AccordionSummary>
-          <MDInput
+          {/* <MDInput
             type="text"
             label="Functional Area"
             placeholder="Select Functional Area/Role(s) or start trying"
             fullWidth
             margin="normal"
-          />
-          <MDInput
-            type="text"
-            label="Industry"
-            placeholder="Select industry(s) or start typing"
-            fullWidth
-            margin="normal"
-          />
+          /> */}
+          <Grid item xs={12} lg={5}>
+            <MDBox mb={1.5} lineHeight={0} display="inline-block">
+              <MDTypography component="label" variant="button" color="text" fontWeight="regular">
+                Functional Area
+              </MDTypography>
+            </MDBox>
+            <Autocomplete
+              sx={{ width: 300 }}
+              options={[
+                "Any",
+                "Accounting / Tax / Company Secretary / Audit",
+                "Agent",
+                "Airline / Reservations / Ticketing / Travel",
+                "Analytics & Business Intelligence",
+                "Anchoring / TV / Films / Production",
+              ]}
+              renderInput={(params) => <MDInput {...params} variant="standard" />}
+            />
+          </Grid>
+          <MDInput type="text" label="Industry" fullWidth margin="normal" />
           <MDInput
             type="text"
             label="Employers"
@@ -286,19 +302,87 @@ const From = () => {
             label="Search Candidates with Special Abilities Only"
           />
         </FormGroup>
-        <MDInput type="text" label="Candidate Age (Min)" placeholder="Min" margin="normal" />
-        <MDInput type="text" label="Candidate Age (Max)" placeholder="max" margin="normal" />
-        <MDInput
-          type="text"
-          label="Work Status for"
-          placeholder="Country"
-          fullWidth
-          margin="normal"
-        />
+        {/* <MDInput type="text" label="Candidate Age (Min)" placeholder="Min" margin="normal" />
+        <MDInput type="text" label="Candidate Age (Max)" placeholder="max" margin="normal" /> */}
+        <span>
+          <Grid item xs={12} lg={5}>
+            <MDBox mb={1.5} lineHeight={0}>
+              <MDTypography component="label" variant="button" color="text" fontWeight="regular">
+                Candidate Age
+              </MDTypography>
+            </MDBox>
+            <Autocomplete
+              sx={{ width: 300 }}
+              defaultValue="MIN"
+              options={[
+                "18years",
+                "19years",
+                "20years",
+                "21years",
+                "22years",
+                "23years",
+                "24years",
+                "25years",
+                "26years",
+                "27years",
+                "28years",
+                "29years",
+                "30years",
+              ]}
+              renderInput={(params) => <MDInput {...params} variant="standard" />}
+            />
+          </Grid>
+          <Grid item xs={12} lg={5}>
+            <MDBox mb={1.5} lineHeight={0}>
+              <MDTypography
+                component="label"
+                variant="button"
+                color="text"
+                halfWidth
+                fontWeight="regular"
+              >
+                Candidate Age
+              </MDTypography>
+            </MDBox>
+            <Autocomplete
+              defaultValue="MAX"
+              sx={{ width: 300 }}
+              options={[
+                "18years",
+                "19years",
+                "20years",
+                "21years",
+                "22years",
+                "23years",
+                "24years",
+                "25years",
+                "26years",
+                "27years",
+                "28years",
+                "29years",
+                "30years",
+              ]}
+              renderInput={(params) => <MDInput {...params} variant="standard" />}
+            />
+          </Grid>
+        </span>
+        {/* <MDInput type="text" label="Work Status for USA" fullWidth margin="normal" /> */}
+        <Grid item xs={12} lg={5}>
+          <MDBox mb={1.5} lineHeight={0} display="inline-block">
+            <MDTypography component="label" variant="button" color="text" fontWeight="regular">
+              Work Status for USA
+            </MDTypography>
+          </MDBox>
+          <Autocomplete
+            defaultValue="Select"
+            options={["yes eligible", "not eligible"]}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
+          />
+        </Grid>
         <MDInput
           type="text"
           label="Work Permit for"
-          placeholder="Select Countries"
+          placeholder="Enter Country"
           fullWidth
           margin="normal"
         />
@@ -310,26 +394,39 @@ const From = () => {
         <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
           <Typography>Display Details</Typography>
         </AccordionSummary>
-        <MDInput
-          type="text"
-          label="Candidate Category"
-          placeholder="Select Category"
-          fullWidth
-          margin="normal"
-        />
         <p>Show only candidate with</p>
         <FormGroup>
           <FormControlLabel control={<Switch />} label="Verified mobile number" />
           <FormControlLabel control={<Switch />} label="Verified email ID" />
           <FormControlLabel control={<Switch />} label="Attached Resume" />
         </FormGroup>
-        <MDInput
-          type="integer"
-          label="Resume per page"
-          placeholder="160"
-          fullWidth
-          margin="normal"
-        />
+        <div>
+          Show Candidate Seeking
+          <break />
+          <MDInput type="text" label="Job Type" margin="normal" />
+          <MDInput type="text" label="Emplyement Type" margin="normal" />
+          <FormGroup>
+            <FormControlLabel control={<Switch />} label="Search only Premium Resumes" />
+            <FormControlLabel control={<Switch />} label="Search only Featured Candidates" />
+            <FormControlLabel
+              control={<Switch />}
+              label="Search Only those candidates that can be contacted by SMS"
+            />
+          </FormGroup>
+        </div>
+        <Grid item xs={12} lg={5}>
+          <MDBox mb={1.5} lineHeight={0} display="inline-block">
+            <MDTypography component="label" variant="button" color="text" fontWeight="regular">
+              Resume per page
+            </MDTypography>
+          </MDBox>
+          <Autocomplete
+            sx={{ width: 300 }}
+            defaultValue="SELECT"
+            options={["1", "2", "3", "3", "4", "5"]}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
+          />
+        </Grid>
         <MDInput type="text" label="Sort By" placeholder="Relevance" fullWidth margin="normal" />
         <p>Semantic Search</p>
         <FormGroup>
