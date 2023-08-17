@@ -385,23 +385,58 @@ const From = () => {
           margin="normal"
         />
         <div className="input">
-          <MDInput
-            type="integer"
-            label="Year of graduation (From)"
-            halfWidth
-            placeholder="From"
-            margin="normal"
+          <p>Year of Graduation</p>
+          <Autocomplete
+            defaultValue="From"
+            sx={{ width: 300 }}
+            options={[
+              "2010",
+              "2011",
+              "2012",
+              "2013",
+              "2014",
+              "2015",
+              "2016",
+              "2017",
+              "2018",
+              "2019",
+              "2020",
+              "2022",
+              "2023",
+            ]}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
           {/* <span>To</span> */}
-          <MDInput type="integer" label="To" halfWidth placeholder="To" margin="normal" />
+          <Autocomplete
+            defaultValue="To"
+            sx={{ width: 300 }}
+            options={[
+              "2010",
+              "2011",
+              "2012",
+              "2013",
+              "2014",
+              "2015",
+              "2016",
+              "2017",
+              "2018",
+              "2019",
+              "2020",
+              "2022",
+              "2023",
+            ]}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
+          />
         </div>
-        <MDInput
-          type="text"
-          label="Education type"
-          fullWidth
-          placeholder="Type here or select"
-          margin="normal"
-        />
+        <div className="location">
+          <p>Education Type</p>
+          <Autocomplete
+            defaultValue="Any"
+            sx={{ width: 300 }}
+            options={["Any", "Full Time", "Part Time", "Correspondence"]}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
+          />
+        </div>
         <h3>PG Qualifications</h3>
         <ToggleButtonGroup
           color="info"
@@ -423,23 +458,58 @@ const From = () => {
           margin="normal"
         />
         <div className="input">
-          <MDInput
-            type="integer"
-            label="Year of graduation (From)"
-            halfWidth
-            placeholder="From"
-            margin="normal"
+          <p>Year of Graduation</p>
+          <Autocomplete
+            defaultValue="From"
+            sx={{ width: 300 }}
+            options={[
+              "2010",
+              "2011",
+              "2012",
+              "2013",
+              "2014",
+              "2015",
+              "2016",
+              "2017",
+              "2018",
+              "2019",
+              "2020",
+              "2022",
+              "2023",
+            ]}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
           {/* <span>To</span> */}
-          <MDInput type="integer" label="To" halfWidth placeholder="To" margin="normal" />
+          <Autocomplete
+            defaultValue="To"
+            sx={{ width: 300 }}
+            options={[
+              "2010",
+              "2011",
+              "2012",
+              "2013",
+              "2014",
+              "2015",
+              "2016",
+              "2017",
+              "2018",
+              "2019",
+              "2020",
+              "2022",
+              "2023",
+            ]}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
+          />
         </div>
-        <MDInput
-          type="text"
-          label="Education type"
-          fullWidth
-          placeholder="Type here or select"
-          margin="normal"
-        />
+        <div className="location">
+          <p>Education Type</p>
+          <Autocomplete
+            defaultValue="Any"
+            sx={{ width: 300 }}
+            options={["Any", "Full Time", "Part Time", "Correspondence"]}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
+          />
+        </div>
         <AccordionDetails>
           <Typography></Typography>
         </AccordionDetails>
