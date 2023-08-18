@@ -538,13 +538,11 @@ const From = () => {
             fullWidth
             margin="normal"
           /> */}
-          <Grid item xs={12} lg={5} sx={{ paddingLeft: "20px" }}>
-            <MDBox mb={1.5} lineHeight={0} display="inline-block">
-              <MDTypography component="label" variant="button" color="text" fontWeight="regular">
-                Functional Area
-              </MDTypography>
-            </MDBox>
+
+          <MDBox sx={{ paddingRight: "20px", paddingLeft: "20px" }}>
+            <p>Functional Area</p>
             <Autocomplete
+              defaultValue="Select Functional Area/Role(s) or Start typing"
               sx={{ width: 300 }}
               options={[
                 "Any",
@@ -556,9 +554,28 @@ const From = () => {
               ]}
               renderInput={(params) => <MDInput {...params} variant="standard" />}
             />
-          </Grid>
-          <MDBox sx={{ paddingRight: "20px", paddingLeft: "20px" }}>
-            <MDInput type="text" label="Industry" fullWidth margin="normal" />
+            {/* <MDInput type="text" label="Industry" fullWidth margin="normal" /> */}
+            <p>Industry</p>
+            <Autocomplete
+              defaultValue="Select Industry(s) or start typing"
+              sx={{ width: 300 }}
+              options={[
+                "2010",
+                "2011",
+                "2012",
+                "2013",
+                "2014",
+                "2015",
+                "2016",
+                "2017",
+                "2018",
+                "2019",
+                "2020",
+                "2022",
+                "2023",
+              ]}
+              renderInput={(params) => <MDInput {...params} variant="standard" />}
+            />
             <MDInput
               type="text"
               label="Employers"
@@ -580,13 +597,26 @@ const From = () => {
               fullWidth
               margin="normal"
             />
-            <MDInput
-              type="text"
-              label="Notice Period"
-              placeholder="Type here if any"
-              fullWidth
-              margin="normal"
-              sx={{ marginBottom: "20px" }}
+            <p>Notice Period</p>
+            <Autocomplete
+              defaultValue="Type here or select"
+              sx={{ width: 300 }}
+              options={[
+                "2010",
+                "2011",
+                "2012",
+                "2013",
+                "2014",
+                "2015",
+                "2016",
+                "2017",
+                "2018",
+                "2019",
+                "2020",
+                "2022",
+                "2023",
+              ]}
+              renderInput={(params) => <MDInput {...params} variant="standard" />}
             />
           </MDBox>
 
@@ -599,162 +629,184 @@ const From = () => {
         <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
           <Typography>Additional Details</Typography>
         </AccordionSummary>
-        <MDInput
-          type="text"
-          label="Candidate Category"
-          placeholder="Select Category"
-          fullWidth
-          margin="normal"
-        />
-        <FormGroup>
-          <FormControlLabel control={<Switch />} label="Search Women Candidates Only" />
-          <FormControlLabel
-            control={<Switch />}
-            label="Search Candidates with Special Abilities Only"
+        <MDBox sx={{ paddingRight: "20px", paddingLeft: "20px" }}>
+          <p>Candidate Category</p>
+          <Autocomplete
+            defaultValue="Select Category"
+            sx={{ width: 300 }}
+            options={["1", "2", "3", "4"]}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
-        </FormGroup>
-        {/* <MDInput type="text" label="Candidate Age (Min)" placeholder="Min" margin="normal" />
+          <FormGroup>
+            <FormControlLabel control={<Switch />} label="Search Women Candidates Only" />
+            <FormControlLabel
+              control={<Switch />}
+              label="Search Candidates with Special Abilities Only"
+            />
+          </FormGroup>
+          {/* <MDInput type="text" label="Candidate Age (Min)" placeholder="Min" margin="normal" />
         <MDInput type="text" label="Candidate Age (Max)" placeholder="max" margin="normal" /> */}
-        <span>
-          <Grid item xs={12} lg={5}>
-            <MDBox mb={1.5} lineHeight={0}>
-              <MDTypography component="label" variant="button" color="text" fontWeight="regular">
-                Candidate Age
-              </MDTypography>
-            </MDBox>
-            <Autocomplete
-              sx={{ width: 300 }}
-              defaultValue="MIN"
-              options={[
-                "18years",
-                "19years",
-                "20years",
-                "21years",
-                "22years",
-                "23years",
-                "24years",
-                "25years",
-                "26years",
-                "27years",
-                "28years",
-                "29years",
-                "30years",
-              ]}
-              renderInput={(params) => <MDInput {...params} variant="standard" />}
-            />
-          </Grid>
-          <Grid item xs={12} lg={5}>
-            <MDBox mb={1.5} lineHeight={0}>
-              <MDTypography
-                component="label"
-                variant="button"
-                color="text"
-                halfWidth
-                fontWeight="regular"
-              >
-                Candidate Age
-              </MDTypography>
-            </MDBox>
-            <Autocomplete
-              defaultValue="MAX"
-              sx={{ width: 300 }}
-              options={[
-                "18years",
-                "19years",
-                "20years",
-                "21years",
-                "22years",
-                "23years",
-                "24years",
-                "25years",
-                "26years",
-                "27years",
-                "28years",
-                "29years",
-                "30years",
-              ]}
-              renderInput={(params) => <MDInput {...params} variant="standard" />}
-            />
-          </Grid>
-        </span>
-        {/* <MDInput type="text" label="Work Status for USA" fullWidth margin="normal" /> */}
-        <Grid item xs={12} lg={5}>
-          <MDBox mb={1.5} lineHeight={0} display="inline-block">
-            <MDTypography component="label" variant="button" color="text" fontWeight="regular">
-              Work Status for USA
-            </MDTypography>
+          <MDBox sx={{ display: "flex", marginTop: "20px", marginBottom: "20px" }}>
+            <Grid item xs={12} lg={5}>
+              <MDBox mb={1.5} lineHeight={0}>
+                <MDTypography
+                  component="label"
+                  variant="button"
+                  color="text"
+                  fontWeight="regular"
+                ></MDTypography>
+              </MDBox>
+              <p>Candidate Age</p>
+              <Autocomplete
+                sx={{ width: 300 }}
+                defaultValue="MIN"
+                options={[
+                  "18years",
+                  "19years",
+                  "20years",
+                  "21years",
+                  "22years",
+                  "23years",
+                  "24years",
+                  "25years",
+                  "26years",
+                  "27years",
+                  "28years",
+                  "29years",
+                  "30years",
+                ]}
+                renderInput={(params) => <MDInput {...params} variant="standard" />}
+              />
+            </Grid>
+            <Grid item xs={12} lg={5}>
+              <MDBox mb={1.5} lineHeight={0}>
+                <MDTypography
+                  component="label"
+                  variant="button"
+                  color="text"
+                  halfWidth
+                  fontWeight="regular"
+                ></MDTypography>
+              </MDBox>
+              <p>Candidate Age</p>
+              <Autocomplete
+                defaultValue="MAX"
+                sx={{ width: 300, marginLeft: "15px" }}
+                options={[
+                  "18years",
+                  "19years",
+                  "20years",
+                  "21years",
+                  "22years",
+                  "23years",
+                  "24years",
+                  "25years",
+                  "26years",
+                  "27years",
+                  "28years",
+                  "29years",
+                  "30years",
+                ]}
+                renderInput={(params) => <MDInput {...params} variant="standard" />}
+              />
+            </Grid>
           </MDBox>
+          {/* <MDInput type="text" label="Work Status for USA" fullWidth margin="normal" /> */}
+          <p>Work status for USA</p>
           <Autocomplete
             defaultValue="Select"
+            sx={{ width: 300 }}
             options={["yes eligible", "not eligible"]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
-        </Grid>
-        <MDInput
-          type="text"
-          label="Work Permit for"
-          placeholder="Enter Country"
-          fullWidth
-          margin="normal"
-        />
-        <AccordionDetails>
-          <Typography></Typography>
-        </AccordionDetails>
+          {/* <MDInput
+            type="text"
+            label="Work Permit for"
+            placeholder="Enter Country"
+            fullWidth
+            margin="normal"
+          /> */}
+          <p>Work Permit For</p>
+          <Autocomplete
+            defaultValue="Select Country"
+            sx={{ width: 300 }}
+            options={["India", "Italy", "Japan", "Indonesia", "Jordan"]}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
+          />
+        </MDBox>
       </Accordion>
       <Accordion expanded={expanded === "panel4"} onChange={handleChangeAccordion("panel4")}>
         <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
           <Typography>Display Details</Typography>
         </AccordionSummary>
-        <p>Show only candidate with</p>
-        <FormGroup>
-          <FormControlLabel control={<Switch />} label="Verified mobile number" />
-          <FormControlLabel control={<Switch />} label="Verified email ID" />
-          <FormControlLabel control={<Switch />} label="Attached Resume" />
-        </FormGroup>
-        <MDBox sx={{ display: "flex", flexDirection: "column" }}>
-          <MDBox sx={{ display: "flex", alignItems: "center" }}>
-            Show Candidate Seeking
-            <break />
-            <MDInput
-              type="text"
-              label="Job Type"
-              margin="normal"
-              sx={{ marginLeft: "20px", marginRight: "20px" }}
-            />
-            <MDInput type="text" label="Emplyement Type" margin="normal" />
-          </MDBox>
-          <MDBox>
-            <FormGroup>
-              <FormControlLabel control={<Switch />} label="Search only Premium Resumes" />
-              <FormControlLabel control={<Switch />} label="Search only Featured Candidates" />
-              <FormControlLabel
-                control={<Switch />}
-                label="Search Only those candidates that can be contacted by SMS"
+        <MDBox sx={{ paddingRight: "20px", paddingLeft: "20px" }}>
+          <p>Show only candidate with</p>
+          <FormGroup>
+            <FormControlLabel control={<Switch />} label="Verified mobile number" />
+            <FormControlLabel control={<Switch />} label="Verified email ID" />
+            <FormControlLabel control={<Switch />} label="Attached Resume" />
+          </FormGroup>
+          <MDBox sx={{ display: "flex", flexDirection: "column" }}>
+            <MDBox sx={{ display: "flex", alignItems: "center" }}>
+              Show Candidate Seeking
+              <break />
+              <Autocomplete
+                defaultValue="Job Type"
+                sx={{ width: 300, marginLeft: "15px" }}
+                options={["1", "2", "3", "3", "4", "5"]}
+                renderInput={(params) => <MDInput {...params} variant="standard" />}
               />
-            </FormGroup>
+              <Autocomplete
+                defaultValue="Emplyement Type"
+                sx={{ width: 300, marginLeft: "15px" }}
+                options={["1", "2", "3", "3", "4", "5"]}
+                renderInput={(params) => <MDInput {...params} variant="standard" />}
+              />
+            </MDBox>
+            <MDBox>
+              <FormGroup>
+                <FormControlLabel control={<Switch />} label="Search only Premium Resumes" />
+                <FormControlLabel control={<Switch />} label="Search only Featured Candidates" />
+                <FormControlLabel
+                  control={<Switch />}
+                  label="Search Only those candidates that can be contacted by SMS"
+                />
+              </FormGroup>
+            </MDBox>
           </MDBox>
-        </MDBox>
-        <Grid item xs={12} lg={5}>
-          <MDBox mb={1.5} lineHeight={0} display="inline-block">
-            <MDTypography component="label" variant="button" color="text" fontWeight="regular">
-              Resume per page
-            </MDTypography>
-          </MDBox>
+          {/* <Grid item xs={12} lg={5}>
+            <MDBox mb={1.5} lineHeight={0} display="inline-block">
+              <MDTypography component="label" variant="button" color="text" fontWeight="regular">
+                Resume per page
+              </MDTypography>
+            </MDBox>
+            <Autocomplete
+              sx={{ width: 300 }}
+              defaultValue="SELECT"
+              options={["1", "2", "3", "3", "4", "5"]}
+              renderInput={(params) => <MDInput {...params} variant="standard" />}
+            />
+          </Grid> */}
+          <p>Resume per page</p>
           <Autocomplete
-            sx={{ width: 300 }}
             defaultValue="SELECT"
+            sx={{ width: 300 }}
             options={["1", "2", "3", "3", "4", "5"]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
-        </Grid>
-        <MDInput type="text" label="Sort By" placeholder="Relevance" fullWidth margin="normal" />
-        <p>Semantic Search</p>
-        <FormGroup>
-          <FormControlLabel control={<Switch />} label="ON" />
-        </FormGroup>
-        <AccordionDetails>
-          <Typography></Typography>
-        </AccordionDetails>
+          {/* <MDInput type="text" label="Sort By" placeholder="Relevance" fullWidth margin="normal" /> */}
+          <p>Sort By</p>
+          <Autocomplete
+            defaultValue="Relevance"
+            sx={{ width: 300 }}
+            options={["1", "2", "3", "3", "4", "5"]}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
+          />
+          <p>Semantic Search</p>
+          <FormGroup>
+            <FormControlLabel control={<Switch />} label="ON" />
+          </FormGroup>
+        </MDBox>
       </Accordion>
     </DashboardLayout>
   );
