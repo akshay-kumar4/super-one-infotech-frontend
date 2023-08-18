@@ -711,20 +711,29 @@ const From = () => {
           <FormControlLabel control={<Switch />} label="Verified email ID" />
           <FormControlLabel control={<Switch />} label="Attached Resume" />
         </FormGroup>
-        <div>
-          Show Candidate Seeking
-          <break />
-          <MDInput type="text" label="Job Type" margin="normal" />
-          <MDInput type="text" label="Emplyement Type" margin="normal" />
-          <FormGroup>
-            <FormControlLabel control={<Switch />} label="Search only Premium Resumes" />
-            <FormControlLabel control={<Switch />} label="Search only Featured Candidates" />
-            <FormControlLabel
-              control={<Switch />}
-              label="Search Only those candidates that can be contacted by SMS"
+        <MDBox sx={{ display: "flex", flexDirection: "column" }}>
+          <MDBox sx={{ display: "flex", alignItems: "center" }}>
+            Show Candidate Seeking
+            <break />
+            <MDInput
+              type="text"
+              label="Job Type"
+              margin="normal"
+              sx={{ marginLeft: "20px", marginRight: "20px" }}
             />
-          </FormGroup>
-        </div>
+            <MDInput type="text" label="Emplyement Type" margin="normal" />
+          </MDBox>
+          <MDBox>
+            <FormGroup>
+              <FormControlLabel control={<Switch />} label="Search only Premium Resumes" />
+              <FormControlLabel control={<Switch />} label="Search only Featured Candidates" />
+              <FormControlLabel
+                control={<Switch />}
+                label="Search Only those candidates that can be contacted by SMS"
+              />
+            </FormGroup>
+          </MDBox>
+        </MDBox>
         <Grid item xs={12} lg={5}>
           <MDBox mb={1.5} lineHeight={0} display="inline-block">
             <MDTypography component="label" variant="button" color="text" fontWeight="regular">
