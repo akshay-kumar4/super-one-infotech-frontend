@@ -1,5 +1,5 @@
 import React from "react";
-// small change
+
 // @mui material components
 // import Grid from "@mui/material/Grid";
 // import Menu from "@mui/material/Menu";
@@ -84,7 +84,7 @@ const From = () => {
   const handleChangeAccordion = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
-  // meaw meaw
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -137,40 +137,8 @@ const From = () => {
         />
       </Stack>
 
-      {/* <MDInput
-        type="text"
-        label="Any Keywords"
-        fullWidth
-        placeholder="Any Keywords"
-        margin="normal"
-      />
-      <MDInput
-        type="text"
-        label="All Keywords"
-        fullWidth
-        placeholder="All Keywords"
-        margin="normal"
-      />
-      <MDInput
-        type="text"
-        label="Excluding Keywords"
-        fullWidth
-        placeholder="Excluding Keywords"
-        margin="normal"
-      /> */}
-      {/* <div className="input">
-        <MDInput
-          type="integer"
-          label="Experience (min)"
-          halfWidth
-          placeholder="min"
-          margin="normal"
-        /> */}
-      {/* <span>To</span> */}
-      {/* <MDInput type="integer" label="max" halfWidth placeholder="max" margin="normal" />
-      </div> */}
       <MDBox className="input" sx={{ display: "flex", marginTop: "20px" }}>
-        <p>Total Experience(in years):</p>
+        <p>Total Experience:</p>
         <MDBox sx={{ display: "flex" }}>
           <Autocomplete
             className="experience"
@@ -179,65 +147,37 @@ const From = () => {
             options={["0", "1", "2", "3", "4", "5"]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
+          <p>To</p>
           <Autocomplete
             className="experience"
-            sx={{ width: 300 }}
+            sx={{ width: 300, marginRight: "20px", marginLeft: "20px" }}
             defaultValue="max"
             options={["1", "2", "3", "4", "5", "6", "7", "8", "9"]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
+          <p>in years</p>
         </MDBox>
       </MDBox>
       <MDBox className="input" sx={{ display: "flex", marginTop: "20px", marginBottom: "20px" }}>
-        <p>Annual Salary(LPA):</p>
+        <p>Annual Salary</p>
+        <Autocomplete
+          className="experience"
+          sx={{ width: 50, marginRight: "20px", marginLeft: "20px" }}
+          defaultValue="₹"
+          options={["$", "€", "£", "¥", "₣"]}
+          renderInput={(params) => <MDInput {...params} variant="standard" />}
+        />
         <MDBox sx={{ display: "flex" }}>
           <Autocomplete
             className="experience"
-            sx={{ width: 300, marginRight: "20px", marginLeft: "20px" }}
-            defaultValue="min"
+            sx={{ width: 100, marginRight: "20px", marginLeft: "20px" }}
+            defaultValue="Lacs"
             options={[
               "0",
               "1",
-              "1.25",
-              "1.5",
-              "1.75",
               "2",
-              "2.25",
-              "2.5",
-              "2.75",
               "3",
-              "3.25",
-              "3.5",
-              "3.75",
               "4",
-              "4.25",
-              "4.5",
-              "4.75",
-              "5",
-            ]}
-            renderInput={(params) => <MDInput {...params} variant="standard" />}
-          />
-          <Autocomplete
-            className="experience"
-            sx={{ width: 300 }}
-            defaultValue="max"
-            options={[
-              "1",
-              "1.25",
-              "1.5",
-              "1.75",
-              "2",
-              "2.25",
-              "2.5",
-              "2.75",
-              "3",
-              "3.25",
-              "3.5",
-              "3.75",
-              "4",
-              "4.25",
-              "4.5",
-              "4.75",
               "5",
               "6",
               "7",
@@ -257,114 +197,104 @@ const From = () => {
             ]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
+          <Autocomplete
+            className="experience"
+            sx={{ width: 200, marginRight: "20px" }}
+            defaultValue="Thousand"
+            options={[
+              "0",
+              "5",
+              "10",
+              "15",
+              "20",
+              "25",
+              "30",
+              "35",
+              "40",
+              "45",
+              "50",
+              "55",
+              "60",
+              "65",
+              "70",
+              "75",
+              "80",
+              "85",
+              "90",
+              "95",
+            ]}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
+          />
+          <span>To</span>
+          <Autocomplete
+            className="experience"
+            sx={{ width: 100, marginRight: "20px", marginLeft: "20px" }}
+            defaultValue="Lacs"
+            options={[
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+            ]}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
+          />
+          <Autocomplete
+            className="experience"
+            sx={{ width: 200 }}
+            defaultValue="Thousand"
+            options={[
+              "0",
+              "5",
+              "10",
+              "15",
+              "20",
+              "25",
+              "30",
+              "35",
+              "40",
+              "45",
+              "50",
+              "55",
+              "60",
+              "65",
+              "70",
+              "75",
+              "80",
+              "85",
+              "90",
+              "95",
+            ]}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
+          />
         </MDBox>
       </MDBox>
-      <MDBox className="location" sx={{ marginBottom: "20px" }}>
+      <MDBox className="location" sx={{ marginBottom: "20px" }} display="flex">
         <p>Current Location</p>
         <Autocomplete
           defaultValue="Type or select a location from the list"
           options={["New Delhi", "NCR", "Bangalore", "Mumbai", "Chennai", "Pune"]}
           renderInput={(params) => <MDInput {...params} variant="standard" />}
+          sx={{ width: 500, marginLeft: "20px" }}
         />
       </MDBox>
-      {/* </div> */}
-      {/* <div className="input">
-        <MDInput
-          type="integer"
-          label="Annual Salary (min)"
-          halfWidth
-          placeholder="min"
-          margin="normal"
-        /> */}
-      {/* <span>To</span> */}
-      {/* <MDInput type="integer" label="max" halfWidth placeholder="max" margin="normal" />
-      </div>
-      <MDInput
-        type="location"
-        label="Current Location"
-        fullWidth
-        placeholder="Type or select location from list"
-        margin="normal"
-      />
-      <Accordion expanded={expanded === "panel1"} onChange={handleChangeAccordion("panel1")}>
-        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-          <Typography>Educational Details</Typography>
-        </AccordionSummary>
-        <h3>UG Qualifications</h3>
-        <ToggleButtonGroup
-          color="info"
-          value={alignment}
-          exclusive
-          onChange={handleChange}
-          aria-label="Platform"
-        >
-          <ToggleButton value="Any UG Qualifications">Any UG Qualifications</ToggleButton>
-          <ToggleButton value="Specific UG Qualifications">Specific UG Qualifications</ToggleButton>
-          <ToggleButton value="UG not necessary">UG not necessary</ToggleButton>
-        </ToggleButtonGroup>
-        <MDInput
-          type="text"
-          label="Institute Name"
-          fullWidth
-          placeholder="Institue name"
-          margin="normal"
-        />
-        <div className="input">
-          <MDInput
-            type="integer"
-            label="Year of graduation (From)"
-            halfWidth
-            placeholder="From"
-            margin="normal"
-          /> */}
-      {/* <span>To</span> */}
-      {/* <MDInput type="integer" label="To" halfWidth placeholder="To" margin="normal" />
-        </div>
-        <MDInput
-          type="text"
-          label="Education type"
-          fullWidth
-          placeholder="Type here or select"
-          margin="normal"
-        /> */}
-      {/* <h3>PG Qualifications</h3>
-        <ToggleButtonGroup
-          color="info"
-          value={alignment}
-          exclusive
-          onChange={handleChange}
-          aria-label="Platform"
-        >
-          <ToggleButton value="Any PG Qualifications">Any PG Qualifications</ToggleButton>
-          <ToggleButton value="Specific PG Qualifications">Specific PG Qualifications</ToggleButton>
-          <ToggleButton value="PG not necessary">PG not necessary</ToggleButton>
-        </ToggleButtonGroup>
 
-        <MDInput
-          type="text"
-          label="Institute Name"
-          fullWidth
-          placeholder="Institue name"
-          margin="normal"
-        />
-        <div className="input">
-          <MDInput
-            type="integer"
-            label="Year of graduation (From)"
-            halfWidth
-            placeholder="From"
-            margin="normal"
-          /> */}
-      {/* <span>To</span> */}
-      {/* <MDInput type="integer" label="To" halfWidth placeholder="To" margin="normal" />
-        </div>
-        <MDInput
-          type="text"
-          label="Education type"
-          fullWidth
-          placeholder="Type here or select"
-          margin="normal"
-        /> */}
       <Accordion
         expanded={expanded === "panel1"}
         onChange={handleChangeAccordion("panel1")}
@@ -373,30 +303,37 @@ const From = () => {
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
           <Typography>Educational Details</Typography>
         </AccordionSummary>
-        <h3>UG Qualifications</h3>
-        <ToggleButtonGroup
-          color="info"
-          value={alignment}
-          exclusive
-          onChange={handleChange}
-          aria-label="Platform"
-        >
-          <ToggleButton value="Any UG Qualifications">Any UG Qualifications</ToggleButton>
-          <ToggleButton value="Specific UG Qualifications">Specific UG Qualifications</ToggleButton>
-          <ToggleButton value="UG not necessary">UG not necessary</ToggleButton>
-        </ToggleButtonGroup>
-        <MDInput
-          type="text"
-          label="Institute Name"
-          fullWidth
-          placeholder="Institue name"
-          margin="normal"
-        />
-        <div className="input">
+        <MDBox sx={{ marginLeft: "40px" }}>UG Qualifications</MDBox>
+        <MDBox sx={{ marginLeft: "300px" }}>
+          <ToggleButtonGroup
+            color="info"
+            value={alignment}
+            exclusive
+            onChange={handleChange}
+            aria-label="Platform"
+          >
+            <ToggleButton value="Any UG Qualifications">Any UG Qualifications</ToggleButton>
+            <ToggleButton value="Specific UG Qualifications">
+              Specific UG Qualifications
+            </ToggleButton>
+            <ToggleButton value="UG not necessary">UG not necessary</ToggleButton>
+          </ToggleButtonGroup>
+        </MDBox>
+        <MDBox sx={{ marginLeft: "40px", marginRight: "40px" }}>
+          <MDInput
+            type="text"
+            label="Institute Name"
+            fullWidth
+            placeholder="Institue name"
+            margin="normal"
+          />
+        </MDBox>
+
+        <MDBox display="flex" className="input" sx={{ margin: "20px" }}>
           <p>Year of Graduation</p>
           <Autocomplete
             defaultValue="From"
-            sx={{ width: 300 }}
+            sx={{ width: 300, marginLeft: "20px", marginRight: "20px" }}
             options={[
               "2010",
               "2011",
@@ -414,7 +351,7 @@ const From = () => {
             ]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
-          {/* <span>To</span> */}
+
           <Autocomplete
             defaultValue="To"
             sx={{ width: 300 }}
@@ -435,22 +372,23 @@ const From = () => {
             ]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
-        </div>
-        <div className="location">
+        </MDBox>
+        <MDBox className="location" sx={{ display: "flex", margin: "20px" }}>
           <p>Education Type</p>
           <Autocomplete
             defaultValue="Any"
-            sx={{ width: 300 }}
+            sx={{ width: 300, marginLeft: "20px" }}
             options={["Any", "Full Time", "Part Time", "Correspondence"]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
-        </div>
-        <h3>PG Qualifications</h3>
+        </MDBox>
+        <MDBox sx={{ marginLeft: "20px", marginRight: "20px" }}>PG Qualifications</MDBox>
         <ToggleButtonGroup
           color="info"
           value={alignment}
           exclusive
           onChange={handleChange}
+          sx={{ marginLeft: "300px" }}
           aria-label="Platform"
         >
           <ToggleButton value="Any PG Qualifications">Any PG Qualifications</ToggleButton>
@@ -459,17 +397,18 @@ const From = () => {
         </ToggleButtonGroup>
 
         <MDInput
+          sx={{ marginLeft: "20px", marginRight: "20px" }}
           type="text"
           label="Institute Name"
           fullWidth
           placeholder="Institue name"
           margin="normal"
         />
-        <div className="input">
+        <MDBox display="flex" className="input" sx={{ margin: "20px" }}>
           <p>Year of Graduation</p>
           <Autocomplete
             defaultValue="From"
-            sx={{ width: 300 }}
+            sx={{ width: 300, marginLeft: "20px", marginRight: "20px" }}
             options={[
               "2010",
               "2011",
@@ -487,7 +426,7 @@ const From = () => {
             ]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
-          {/* <span>To</span> */}
+
           <Autocomplete
             defaultValue="To"
             sx={{ width: 300 }}
@@ -508,16 +447,16 @@ const From = () => {
             ]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
-        </div>
-        <div className="location">
+        </MDBox>
+        <MDBox className="location" sx={{ display: "flex", margin: "20px" }}>
           <p>Education Type</p>
           <Autocomplete
             defaultValue="Any"
-            sx={{ width: 300 }}
+            sx={{ width: 300, marginLeft: "20px" }}
             options={["Any", "Full Time", "Part Time", "Correspondence"]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
-        </div>
+        </MDBox>
         <AccordionDetails>
           <Typography></Typography>
         </AccordionDetails>
@@ -529,13 +468,6 @@ const From = () => {
         <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
           <Typography>Employment Details</Typography>
         </AccordionSummary>
-        {/* <MDInput
-            type="text"
-            label="Functional Area"
-            placeholder="Select Functional Area/Role(s) or start trying"
-            fullWidth
-            margin="normal"
-          /> */}
 
         <MDBox sx={{ paddingRight: "20px", paddingLeft: "20px", paddingTop: "20px" }}>
           <p>Functional Area</p>
@@ -622,10 +554,6 @@ const From = () => {
             />
           </MDBox>
         </MDBox>
-
-        {/* <AccordionDetails>
-            <Typography></Typography>
-          </AccordionDetails> */}
       </Accordion>
       <Accordion expanded={expanded === "panel3"} onChange={handleChangeAccordion("panel3")}>
         <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
@@ -724,13 +652,7 @@ const From = () => {
             options={["yes eligible", "not eligible"]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
-          {/* <MDInput
-            type="text"
-            label="Work Permit for"
-            placeholder="Enter Country"
-            fullWidth
-            margin="normal"
-          /> */}
+
           <MDBox sx={{ paddingTop: "20px", paddingBottom: "20px" }}>
             <p>Work Permit For</p>
             <Autocomplete
@@ -781,19 +703,7 @@ const From = () => {
               </FormGroup>
             </MDBox>
           </MDBox>
-          {/* <Grid item xs={12} lg={5}>
-            <MDBox mb={1.5} lineHeight={0} display="inline-block">
-              <MDTypography component="label" variant="button" color="text" fontWeight="regular">
-                Resume per page
-              </MDTypography>
-            </MDBox>
-            <Autocomplete
-              sx={{ width: 300 }}
-              defaultValue="SELECT"
-              options={["1", "2", "3", "3", "4", "5"]}
-              renderInput={(params) => <MDInput {...params} variant="standard" />}
-            />
-          </Grid> */}
+
           <p>Resume per page</p>
           <Autocomplete
             defaultValue="SELECT"
