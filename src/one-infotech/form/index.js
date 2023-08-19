@@ -525,13 +525,11 @@ const From = () => {
       <AccordionDetails>
         <Typography></Typography>
       </AccordionDetails>
-
-      <MDBox>
-        <Accordion expanded={expanded === "panel2"} onChange={handleChangeAccordion("panel2")}>
-          <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-            <Typography>Employment Details</Typography>
-          </AccordionSummary>
-          {/* <MDInput
+      <Accordion expanded={expanded === "panel2"} onChange={handleChangeAccordion("panel2")}>
+        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
+          <Typography>Employment Details</Typography>
+        </AccordionSummary>
+        {/* <MDInput
             type="text"
             label="Functional Area"
             placeholder="Select Functional Area/Role(s) or start trying"
@@ -539,22 +537,23 @@ const From = () => {
             margin="normal"
           /> */}
 
-          <MDBox sx={{ paddingRight: "20px", paddingLeft: "20px" }}>
-            <p>Functional Area</p>
-            <Autocomplete
-              defaultValue="Select Functional Area/Role(s) or Start typing"
-              sx={{ width: 300 }}
-              options={[
-                "Any",
-                "Accounting / Tax / Company Secretary / Audit",
-                "Agent",
-                "Airline / Reservations / Ticketing / Travel",
-                "Analytics & Business Intelligence",
-                "Anchoring / TV / Films / Production",
-              ]}
-              renderInput={(params) => <MDInput {...params} variant="standard" />}
-            />
-            {/* <MDInput type="text" label="Industry" fullWidth margin="normal" /> */}
+        <MDBox sx={{ paddingRight: "20px", paddingLeft: "20px", paddingTop: "20px" }}>
+          <p>Functional Area</p>
+          <Autocomplete
+            defaultValue="Select Functional Area/Role(s) or Start typing"
+            sx={{ width: 300 }}
+            options={[
+              "Any",
+              "Accounting / Tax / Company Secretary / Audit",
+              "Agent",
+              "Airline / Reservations / Ticketing / Travel",
+              "Analytics & Business Intelligence",
+              "Anchoring / TV / Films / Production",
+            ]}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
+          />
+          {/* <MDInput type="text" label="Industry" fullWidth margin="normal" /> */}
+          <MDBox sx={{ paddingTop: "20px" }}>
             <p>Industry</p>
             <Autocomplete
               defaultValue="Select Industry(s) or start typing"
@@ -576,27 +575,30 @@ const From = () => {
               ]}
               renderInput={(params) => <MDInput {...params} variant="standard" />}
             />
-            <MDInput
-              type="text"
-              label="Employers"
-              placeholder="Type company name"
-              fullWidth
-              margin="normal"
-            />
-            <MDInput
-              type="text"
-              label="Exclude Employers"
-              placeholder="Type company name"
-              fullWidth
-              margin="normal"
-            />
-            <MDInput
-              type="text"
-              label="Designation"
-              placeholder="Type designation"
-              fullWidth
-              margin="normal"
-            />
+          </MDBox>
+
+          <MDInput
+            type="text"
+            label="Employers"
+            placeholder="Type company name"
+            fullWidth
+            margin="normal"
+          />
+          <MDInput
+            type="text"
+            label="Exclude Employers"
+            placeholder="Type company name"
+            fullWidth
+            margin="normal"
+          />
+          <MDInput
+            type="text"
+            label="Designation"
+            placeholder="Type designation"
+            fullWidth
+            margin="normal"
+          />
+          <MDBox sx={{ paddingBottom: "20px", paddingTop: "20px" }}>
             <p>Notice Period</p>
             <Autocomplete
               defaultValue="Type here or select"
@@ -619,17 +621,17 @@ const From = () => {
               renderInput={(params) => <MDInput {...params} variant="standard" />}
             />
           </MDBox>
+        </MDBox>
 
-          {/* <AccordionDetails>
+        {/* <AccordionDetails>
             <Typography></Typography>
           </AccordionDetails> */}
-        </Accordion>
-      </MDBox>
+      </Accordion>
       <Accordion expanded={expanded === "panel3"} onChange={handleChangeAccordion("panel3")}>
         <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
           <Typography>Additional Details</Typography>
         </AccordionSummary>
-        <MDBox sx={{ paddingRight: "20px", paddingLeft: "20px" }}>
+        <MDBox sx={{ paddingRight: "20px", paddingLeft: "20px", paddingTop: "20px" }}>
           <p>Candidate Category</p>
           <Autocomplete
             defaultValue="Select Category"
@@ -637,16 +639,19 @@ const From = () => {
             options={["1", "2", "3", "4"]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
-          <FormGroup>
-            <FormControlLabel control={<Switch />} label="Search Women Candidates Only" />
-            <FormControlLabel
-              control={<Switch />}
-              label="Search Candidates with Special Abilities Only"
-            />
-          </FormGroup>
+          <MDBox sx={{ paddingTop: "20px" }}>
+            <FormGroup>
+              <FormControlLabel control={<Switch />} label="Search Women Candidates Only" />
+              <FormControlLabel
+                control={<Switch />}
+                label="Search Candidates with Special Abilities Only"
+              />
+            </FormGroup>
+          </MDBox>
+
           {/* <MDInput type="text" label="Candidate Age (Min)" placeholder="Min" margin="normal" />
         <MDInput type="text" label="Candidate Age (Max)" placeholder="max" margin="normal" /> */}
-          <MDBox sx={{ display: "flex", marginTop: "20px", marginBottom: "20px" }}>
+          <MDBox sx={{ display: "flex", marginBottom: "20px" }}>
             <Grid item xs={12} lg={5}>
               <MDBox mb={1.5} lineHeight={0}>
                 <MDTypography
@@ -661,19 +666,19 @@ const From = () => {
                 sx={{ width: 300 }}
                 defaultValue="MIN"
                 options={[
-                  "18years",
-                  "19years",
-                  "20years",
-                  "21years",
-                  "22years",
-                  "23years",
-                  "24years",
-                  "25years",
-                  "26years",
-                  "27years",
-                  "28years",
-                  "29years",
-                  "30years",
+                  "18 years",
+                  "19 years",
+                  "20 years",
+                  "21 years",
+                  "22 years",
+                  "23 years",
+                  "24 years",
+                  "25 years",
+                  "26 years",
+                  "27 years",
+                  "28 years",
+                  "29 years",
+                  "30 years",
                 ]}
                 renderInput={(params) => <MDInput {...params} variant="standard" />}
               />
@@ -693,19 +698,19 @@ const From = () => {
                 defaultValue="MAX"
                 sx={{ width: 300, marginLeft: "15px" }}
                 options={[
-                  "18years",
-                  "19years",
-                  "20years",
-                  "21years",
-                  "22years",
-                  "23years",
-                  "24years",
-                  "25years",
-                  "26years",
-                  "27years",
-                  "28years",
-                  "29years",
-                  "30years",
+                  "18 years",
+                  "19 years",
+                  "20 years",
+                  "21 years",
+                  "22 years",
+                  "23 years",
+                  "24 years",
+                  "25 years",
+                  "26 years",
+                  "27 years",
+                  "28 years",
+                  "29 years",
+                  "30 years",
                 ]}
                 renderInput={(params) => <MDInput {...params} variant="standard" />}
               />
@@ -726,13 +731,15 @@ const From = () => {
             fullWidth
             margin="normal"
           /> */}
-          <p>Work Permit For</p>
-          <Autocomplete
-            defaultValue="Select Country"
-            sx={{ width: 300 }}
-            options={["India", "Italy", "Japan", "Indonesia", "Jordan"]}
-            renderInput={(params) => <MDInput {...params} variant="standard" />}
-          />
+          <MDBox sx={{ paddingTop: "20px", paddingBottom: "20px" }}>
+            <p>Work Permit For</p>
+            <Autocomplete
+              defaultValue="Select Country"
+              sx={{ width: 300 }}
+              options={["India", "Italy", "Japan", "Indonesia", "Jordan"]}
+              renderInput={(params) => <MDInput {...params} variant="standard" />}
+            />
+          </MDBox>
         </MDBox>
       </Accordion>
       <Accordion expanded={expanded === "panel4"} onChange={handleChangeAccordion("panel4")}>
