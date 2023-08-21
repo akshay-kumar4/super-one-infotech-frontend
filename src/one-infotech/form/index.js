@@ -303,8 +303,10 @@ const From = () => {
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
           <Typography>Educational Details</Typography>
         </AccordionSummary>
-        <MDBox sx={{ marginLeft: "40px" }}>UG Qualifications</MDBox>
-        <MDBox sx={{ marginLeft: "300px" }}>
+        <MDBox sx={{ marginTop: "20px", marginLeft: "20px", marginBottom: "10px" }}>
+          UG Qualifications
+        </MDBox>
+        <MDBox sx={{ marginLeft: "20px" }}>
           <ToggleButtonGroup
             color="info"
             value={alignment}
@@ -319,7 +321,7 @@ const From = () => {
             <ToggleButton value="UG not necessary">UG not necessary</ToggleButton>
           </ToggleButtonGroup>
         </MDBox>
-        <MDBox sx={{ marginLeft: "40px", marginRight: "40px" }}>
+        <MDBox sx={{ marginLeft: "20px", marginRight: "20px" }}>
           <MDInput
             type="text"
             label="Institute Name"
@@ -382,28 +384,30 @@ const From = () => {
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
         </MDBox>
-        <MDBox sx={{ marginLeft: "20px", marginRight: "20px" }}>PG Qualifications</MDBox>
+        <MDBox sx={{ marginLeft: "20px", marginBottom: "10px" }}>PG Qualifications</MDBox>
         <ToggleButtonGroup
           color="info"
           value={alignment}
           exclusive
           onChange={handleChange}
-          sx={{ marginLeft: "300px" }}
+          sx={{ marginLeft: "20px" }}
           aria-label="Platform"
         >
           <ToggleButton value="Any PG Qualifications">Any PG Qualifications</ToggleButton>
           <ToggleButton value="Specific PG Qualifications">Specific PG Qualifications</ToggleButton>
           <ToggleButton value="PG not necessary">PG not necessary</ToggleButton>
         </ToggleButtonGroup>
+        <MDBox>
+          <MDInput
+            sx={{ marginLeft: "10px" }}
+            type="text"
+            label="Institute Name"
+            fullWidth
+            placeholder="Institue name"
+            margin="normal"
+          />
+        </MDBox>
 
-        <MDInput
-          sx={{ marginLeft: "20px", marginRight: "20px" }}
-          type="text"
-          label="Institute Name"
-          fullWidth
-          placeholder="Institue name"
-          margin="normal"
-        />
         <MDBox display="flex" className="input" sx={{ margin: "20px" }}>
           <p>Year of Graduation</p>
           <Autocomplete
@@ -457,14 +461,18 @@ const From = () => {
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
         </MDBox>
-        <AccordionDetails>
+        {/* <AccordionDetails>
           <Typography></Typography>
-        </AccordionDetails>
+        </AccordionDetails> */}
       </Accordion>
-      <AccordionDetails>
+      {/* <AccordionDetails>
         <Typography></Typography>
-      </AccordionDetails>
-      <Accordion expanded={expanded === "panel2"} onChange={handleChangeAccordion("panel2")}>
+      </AccordionDetails> */}
+      <Accordion
+        expanded={expanded === "panel2"}
+        onChange={handleChangeAccordion("panel2")}
+        sx={{ borderRadius: "10px", marginTop: "20px" }}
+      >
         <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
           <Typography>Employment Details</Typography>
         </AccordionSummary>
@@ -555,7 +563,11 @@ const From = () => {
           </MDBox>
         </MDBox>
       </Accordion>
-      <Accordion expanded={expanded === "panel3"} onChange={handleChangeAccordion("panel3")}>
+      <Accordion
+        expanded={expanded === "panel3"}
+        onChange={handleChangeAccordion("panel3")}
+        sx={{ borderRadius: "10px", marginTop: "20px" }}
+      >
         <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
           <Typography>Additional Details</Typography>
         </AccordionSummary>
@@ -664,7 +676,11 @@ const From = () => {
           </MDBox>
         </MDBox>
       </Accordion>
-      <Accordion expanded={expanded === "panel4"} onChange={handleChangeAccordion("panel4")}>
+      <Accordion
+        expanded={expanded === "panel4"}
+        onChange={handleChangeAccordion("panel4")}
+        sx={{ borderRadius: "10px", marginTop: "20px" }}
+      >
         <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
           <Typography>Display Details</Typography>
         </AccordionSummary>
@@ -703,22 +719,27 @@ const From = () => {
               </FormGroup>
             </MDBox>
           </MDBox>
+          <MDBox sx={{ marginBottom: "20px" }}>
+            <p>Resume per page</p>
+            <Autocomplete
+              defaultValue="SELECT"
+              sx={{ width: 300 }}
+              options={["1", "2", "3", "3", "4", "5"]}
+              renderInput={(params) => <MDInput {...params} variant="standard" />}
+            />
+          </MDBox>
 
-          <p>Resume per page</p>
-          <Autocomplete
-            defaultValue="SELECT"
-            sx={{ width: 300 }}
-            options={["1", "2", "3", "3", "4", "5"]}
-            renderInput={(params) => <MDInput {...params} variant="standard" />}
-          />
           {/* <MDInput type="text" label="Sort By" placeholder="Relevance" fullWidth margin="normal" /> */}
-          <p>Sort By</p>
-          <Autocomplete
-            defaultValue="Relevance"
-            sx={{ width: 300 }}
-            options={["1", "2", "3", "3", "4", "5"]}
-            renderInput={(params) => <MDInput {...params} variant="standard" />}
-          />
+          <MDBox sx={{ marginBottom: "20px" }}>
+            <p>Sort By</p>
+            <Autocomplete
+              defaultValue="Relevance"
+              sx={{ width: 300 }}
+              options={["1", "2", "3", "3", "4", "5"]}
+              renderInput={(params) => <MDInput {...params} variant="standard" />}
+            />
+          </MDBox>
+
           <p>Semantic Search</p>
           <FormGroup>
             <FormControlLabel control={<Switch />} label="ON" />
