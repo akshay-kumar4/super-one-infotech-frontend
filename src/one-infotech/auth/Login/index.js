@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // react-router-dom components
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 // @mui material components
@@ -28,6 +28,7 @@ const Login = () => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
@@ -35,8 +36,9 @@ const Login = () => {
     axios
       .post("https://resume-api-6u3t4.ondigitalocean.app/login/", { username, password })
       .then((response) => {
-        dispatch(login(response.data.token));
+        dispatch(login(response.data));
         console.log(response);
+        navigate("/dashboards/form");
       });
   };
 

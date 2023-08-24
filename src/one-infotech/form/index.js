@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // @mui material components
 // import Grid from "@mui/material/Grid";
@@ -38,6 +38,8 @@ import MDTypography from "components/MDTypography";
 import Chip from "@mui/material/Chip";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
+import { useState } from "react";
+import axios from "axios";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -85,10 +87,54 @@ const From = () => {
     setExpanded(newExpanded ? panel : false);
   };
 
+  const [anyKeys, setAnyKeys] = useState("");
+  const [allKeys, setAllKeys] = useState("");
+  const [excludingKeys, setExcludingKeys] = useState("");
+  const [totalExperience, setTotalExperience] = useState(null);
+  const [salary, setSalary] = useState(0);
+  const [location, setLocation] = useState("");
+  const [educationQualification, setEducationQualification] = useState({});
+  const [employmentDetails, setEmploymentDetails] = useState({});
+  const [additionalDetails, setAdditionalDetails] = useState({});
+  const [displayDetails, setDisplayDetails] = useState({});
+  const [file, setFile] = useState(null);
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+
+  const handleUpload = () => {
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const headers = {
+        Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+      };
+
+      axios
+        .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading/", formData, { headers })
+        .then((response) => {
+          // Handle success
+          console.log("File uploaded successfully", response.data);
+        })
+        .catch((error) => {
+          // Handle error
+          console.error("Error uploading file", error);
+        });
+    } else {
+      // Handle no file selected error
+      console.error("No file selected");
+    }
+  };
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <h1>Advanced Search</h1>
+      <MDBox>
+        <input type="file" onChange={handleFileChange} />
+        <button onClick={handleUpload}>Upload Resume</button>
+      </MDBox>
       <Stack spacing={3} sx={{ width: 1000 }}>
         <Autocomplete
           multiple
@@ -164,7 +210,7 @@ const From = () => {
           className="experience"
           sx={{ width: 50, marginRight: "20px", marginLeft: "20px" }}
           defaultValue="₹"
-          options={["$", "€", "£", "¥", "₣"]}
+          options={["$", "€", "£", "¥", "₣", "₹"]}
           renderInput={(params) => <MDInput {...params} variant="standard" />}
         />
         <MDBox sx={{ display: "flex" }}>
@@ -687,9 +733,43 @@ const From = () => {
         <MDBox sx={{ paddingRight: "20px", paddingLeft: "20px" }}>
           <p>Show only candidate with</p>
           <FormGroup>
-            <FormControlLabel control={<Switch />} label="Verified mobile number" />
-            <FormControlLabel control={<Switch />} label="Verified email ID" />
-            <FormControlLabel control={<Switch />} label="Attached Resume" />
+            <FormControlLabel
+              control={
+                <Switch
+                  onChange={(e) => {
+                    console.log(e.target.checked);
+                    let newDetails = { ...displayDetails };
+                    newDetails.verifiedMobile = e.target.checked;
+                    setDisplayDetails(newDetails);
+                  }}
+                />
+              }
+              label="Verified mobile number"
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  onChange={(e) => {
+                    let newDetails = { ...displayDetails };
+                    newDetails.verifiedEmail = e.target.checked;
+                    setDisplayDetails(newDetails);
+                  }}
+                />
+              }
+              label="Verified email ID"
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  onChange={(e) => {
+                    let newDetails = { ...displayDetails };
+                    newDetails.attachedResume = e.target.checked;
+                    setDisplayDetails(newDetails);
+                  }}
+                />
+              }
+              label="Attached Resume"
+            />
           </FormGroup>
           <MDBox sx={{ display: "flex", flexDirection: "column" }}>
             <MDBox sx={{ display: "flex", alignItems: "center" }}>
@@ -710,10 +790,40 @@ const From = () => {
             </MDBox>
             <MDBox>
               <FormGroup>
-                <FormControlLabel control={<Switch />} label="Search only Premium Resumes" />
-                <FormControlLabel control={<Switch />} label="Search only Featured Candidates" />
                 <FormControlLabel
-                  control={<Switch />}
+                  control={
+                    <Switch
+                      onChange={(e) => {
+                        let newDetails = { ...displayDetails };
+                        newDetails.premiumResume = e.target.checked;
+                        setDisplayDetails(newDetails);
+                      }}
+                    />
+                  }
+                  label="Search only Premium Resumes"
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      onChange={(e) => {
+                        let newDetails = { ...displayDetails };
+                        newDetails.featuredCandidates = e.target.checked;
+                        setDisplayDetails(newDetails);
+                      }}
+                    />
+                  }
+                  label="Search only Featured Candidates"
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      onChange={(e) => {
+                        let newDetails = { ...displayDetails };
+                        newDetails.candidatesContactedBySMS = e.target.checked;
+                        setDisplayDetails(newDetails);
+                      }}
+                    />
+                  }
                   label="Search Only those candidates that can be contacted by SMS"
                 />
               </FormGroup>
@@ -725,7 +835,17 @@ const From = () => {
               defaultValue="SELECT"
               sx={{ width: 300 }}
               options={["1", "2", "3", "3", "4", "5"]}
-              renderInput={(params) => <MDInput {...params} variant="standard" />}
+              renderInput={(params) => (
+                <MDInput
+                  {...params}
+                  variant="standard"
+                  onChange={(e) => {
+                    let newDetails = { ...displayDetails };
+                    newDetails.resumePerPage = e.target.checked;
+                    setDisplayDetails(newDetails);
+                  }}
+                />
+              )}
             />
           </MDBox>
 
@@ -736,13 +856,35 @@ const From = () => {
               defaultValue="Relevance"
               sx={{ width: 300 }}
               options={["1", "2", "3", "3", "4", "5"]}
-              renderInput={(params) => <MDInput {...params} variant="standard" />}
+              renderInput={(params) => (
+                <MDInput
+                  {...params}
+                  variant="standard"
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    let newDetails = { ...displayDetails };
+                    newDetails.relevance = e.target.checked;
+                    setDisplayDetails(newDetails);
+                  }}
+                />
+              )}
             />
           </MDBox>
 
           <p>Semantic Search</p>
           <FormGroup>
-            <FormControlLabel control={<Switch />} label="ON" />
+            <FormControlLabel
+              control={
+                <Switch
+                  onChange={(e) => {
+                    let newDetails = { ...displayDetails };
+                    newDetails.semanticSearch = e.target.checked;
+                    setDisplayDetails(newDetails);
+                  }}
+                />
+              }
+              label="ON"
+            />
           </FormGroup>
         </MDBox>
       </Accordion>
