@@ -99,19 +99,6 @@ const From = () => {
   const [displayDetails, setDisplayDetails] = useState({});
   const [file, setFile] = useState(null);
 
-<<<<<<< HEAD
-  const [anyKeys, setAnyKeys] = useState("");
-  const [allKeys, setAllKeys] = useState("");
-  const [excludingKeys, setExcludingKeys] = useState("");
-  const [totalExperience, setTotalExperience] = useState(null);
-  const [salary, setSalary] = useState(0);
-  const [location, setLocation] = useState("");
-  const [educationQualification, setEducationQualification] = useState({});
-  const [employmentDetails, setEmploymentDetails] = useState({});
-  const [additionalDetails, setAdditionalDetails] = useState({});
-  const [displayDetails, setDisplayDetails] = useState({});
-
-=======
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
@@ -140,7 +127,6 @@ const From = () => {
       console.error("No file selected");
     }
   };
->>>>>>> 911d0e9b1e85b0d76eee208f31878b8d18634f19
   return (
     <DashboardLayout>
       <DashboardNavbar />
