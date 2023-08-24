@@ -20,10 +20,14 @@ import CoverLayout from "../CoverLayout/index";
 // Images
 import bgImage from "assets/images/bg-sign-in-cover.jpeg";
 
+import { login } from "one-infotech/redux/features/userSlice";
+import { useDispatch } from "react-redux";
+
 const Login = () => {
   const [rememberMe, setRememberMe] = useState(true);
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
@@ -31,6 +35,7 @@ const Login = () => {
     axios
       .post("https://resume-api-6u3t4.ondigitalocean.app/login/", { username, password })
       .then((response) => {
+        dispatch(login(response.data.token));
         console.log(response);
       });
   };
