@@ -294,8 +294,8 @@ function Configurator() {
           <Switch checked={darkMode} onChange={handleDarkMode} />
         </MDBox>
         <Divider />
-        <MDBox mt={3} mb={2}>
-          <MDBox mb={2}>
+        {/* <MDBox mt={3} mb={2}> */}
+        {/* <MDBox mb={2}>
             <MDButton
               component={Link}
               href="https://www.creative-tim.com/product/material-dashboard-pro-react"
@@ -307,8 +307,8 @@ function Configurator() {
             >
               buy now
             </MDButton>
-          </MDBox>
-          <MDBox mb={2}>
+          </MDBox> */}
+        {/* <MDBox mb={2}>
             <MDButton
               component={Link}
               href="https://www.creative-tim.com/product/material-dashboard-2-pro-react-ts"
@@ -320,8 +320,8 @@ function Configurator() {
             >
               buy typescript version
             </MDButton>
-          </MDBox>
-          <MDButton
+          </MDBox> */}
+        {/* <MDButton
             component={Link}
             href="https://www.creative-tim.com/learning-lab/react/quick-start/material-dashboard/"
             target="_blank"
@@ -331,9 +331,9 @@ function Configurator() {
             fullWidth
           >
             view documentation
-          </MDButton>
-        </MDBox>
-        <MDBox display="flex" justifyContent="center">
+          </MDButton> */}
+        {/* </MDBox> */}
+        {/* <MDBox display="flex" justifyContent="center">
           <GitHubButton
             href="https://github.com/creativetimofficial/ct-material-dashboard-pro-react"
             data-icon="octicon-star"
@@ -343,8 +343,8 @@ function Configurator() {
           >
             Star
           </GitHubButton>
-        </MDBox>
-        <MDBox mt={2} textAlign="center">
+        </MDBox> */}
+        {/* <MDBox mt={2} textAlign="center">
           <MDBox mb={0.5}>
             <MDTypography variant="h6">Thank you for sharing!</MDTypography>
           </MDBox>
@@ -373,7 +373,7 @@ function Configurator() {
               &nbsp; Share
             </MDButton>
           </MDBox>
-        </MDBox>
+        </MDBox> */}
       </MDBox>
     </ConfiguratorRoot>
   );

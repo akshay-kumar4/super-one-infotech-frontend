@@ -99,8 +99,8 @@ const routes = [
       {
         name: "Logout",
         key: "logout",
-        route: "/authentication/sign-in/basic",
-        component: <SignInBasic />,
+        route: "/auth/sign-in",
+        component: <Login />,
       },
     ],
   },
