@@ -74,6 +74,8 @@ import Icon from "@mui/material/Icon";
 
 // Images
 import profilePicture from "assets/images/team-3.jpg";
+import Login from "one-infotech/auth/Login";
+import Register from "one-infotech/auth/Register";
 
 const routes = [
   {
@@ -329,6 +331,12 @@ const routes = [
             route: "/authentication/sign-in/illustration",
             component: <SignInIllustration />,
           },
+          {
+            name: "Sign In",
+            key: "sign-in",
+            route: "/auth/sign-in",
+            component: <Login />,
+          },
         ],
       },
       {
@@ -340,6 +348,12 @@ const routes = [
             key: "cover",
             route: "/authentication/sign-up/cover",
             component: <SignUpCover />,
+          },
+          {
+            name: "Sign Up",
+            key: "sign-up",
+            route: "/auth/sign-up",
+            component: <Register />,
           },
         ],
       },
