@@ -38,6 +38,8 @@ import MDTypography from "components/MDTypography";
 import Chip from "@mui/material/Chip";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
+import { useState } from "react";
+import axios from "axios";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -84,11 +86,44 @@ const From = () => {
   const handleChangeAccordion = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
+  const [file, setFile] = useState(null);
 
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+
+  const handleUpload = () => {
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const headers = {
+        Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+      };
+
+      axios
+        .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading/", formData, { headers })
+        .then((response) => {
+          // Handle success
+          console.log("File uploaded successfully", response.data);
+        })
+        .catch((error) => {
+          // Handle error
+          console.error("Error uploading file", error);
+        });
+    } else {
+      // Handle no file selected error
+      console.error("No file selected");
+    }
+  };
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <h1>Advanced Search</h1>
+      <MDBox>
+        <input type="file" onChange={handleFileChange} />
+        <button onClick={handleUpload}>Upload Resume</button>
+      </MDBox>
       <Stack spacing={3} sx={{ width: 1000 }}>
         <Autocomplete
           multiple
