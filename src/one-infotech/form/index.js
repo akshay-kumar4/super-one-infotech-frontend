@@ -746,6 +746,9 @@ const From = () => {
           </FormGroup>
         </MDBox>
       </Accordion>
+      <MDButton type="submit" sx={{ width: 300, margin: "20px" }}>
+        Submit
+      </MDButton>
     </DashboardLayout>
   );
 };
