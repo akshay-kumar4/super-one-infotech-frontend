@@ -2,6 +2,7 @@ import { useState } from "react";
 
 // react-router-dom components
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -21,8 +22,18 @@ import bgImage from "assets/images/bg-sign-in-cover.jpeg";
 
 const Login = () => {
   const [rememberMe, setRememberMe] = useState(true);
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
+
+  const onSubmit = () => {
+    axios
+      .post("https://resume-api-6u3t4.ondigitalocean.app/login/", { username, password })
+      .then((response) => {
+        console.log(response);
+      });
+  };
 
   return (
     <CoverLayout image={bgImage}>
@@ -39,21 +50,23 @@ const Login = () => {
           textAlign="center"
         >
           <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-            Sign in
+            Sign In
           </MDTypography>
           <MDTypography display="block" variant="button" color="white" my={1}>
-            Enter your email and password to Sign In
+            Enter your Email and Password to Sign In
           </MDTypography>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
               <MDInput
-                type="email"
-                label="Email"
+                type="text"
+                label="Username"
                 variant="standard"
+                value={username}
+                onChange={(e) => setUserName(e.target.value)}
                 fullWidth
-                placeholder="john@example.com"
+                placeholder="john"
                 InputLabelProps={{ shrink: true }}
               />
             </MDBox>
@@ -62,6 +75,8 @@ const Login = () => {
                 type="password"
                 label="Password"
                 variant="standard"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 fullWidth
                 placeholder="************"
                 InputLabelProps={{ shrink: true }}
@@ -80,7 +95,7 @@ const Login = () => {
               </MDTypography>
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
+              <MDButton variant="gradient" color="info" fullWidth onClick={onSubmit}>
                 sign in
               </MDButton>
             </MDBox>
