@@ -87,12 +87,24 @@ const From = () => {
     setExpanded(newExpanded ? panel : false);
   };
 
-  const [anyKeys, setAnyKeys] = useState("");
-  const [allKeys, setAllKeys] = useState("");
-  const [excludingKeys, setExcludingKeys] = useState("");
-  const [totalExperience, setTotalExperience] = useState(null);
-  const [salary, setSalary] = useState(0);
-  const [location, setLocation] = useState("");
+  const [advancedSearchData, setAdvancedSearchData] = useState({
+    anyKeys: "",
+    allKeys: "",
+    excludingKeys: "",
+    expMin: "",
+    expMax: "",
+    salMinLac: "",
+    salMinTh: "",
+    salMaxLac: "",
+    salMaxTh: "",
+    location: "",
+  });
+  // const [anyKeys, setAnyKeys] = useState("");
+  // const [allKeys, setAllKeys] = useState("");
+  // const [excludingKeys, setExcludingKeys] = useState("");
+  // const [totalExperience, setTotalExperience] = useState(null);
+  // const [salary, setSalary] = useState(0);
+  // const [location, setLocation] = useState("");
   const [educationQualification, setEducationQualification] = useState({});
   const [employmentDetails, setEmploymentDetails] = useState({});
   const [additionalDetails, setAdditionalDetails] = useState({});
@@ -127,6 +139,21 @@ const From = () => {
       console.error("No file selected");
     }
   };
+  function handleChangeData(event) {
+    setAdvancedSearchData((prevAdvancedSearchData) => {
+      return {
+        ...prevAdvancedSearchData,
+        [event.target.name]: event.target.value,
+      };
+    });
+  }
+  console.log(advancedSearchData);
+  // const handleChangeData = (e) => {
+  //   const name = e.target.name;
+  //   const value = e.target.value;
+  //   setAdvancedSearchData({ ...advancedSearchData, [name]: value });
+  // };
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -148,6 +175,9 @@ const From = () => {
               variant="standard"
               label="Any Keywords"
               placeholder="Skills, Designation, Role"
+              onChange={handleChangeData}
+              value={advancedSearchData.anyKeys}
+              name="anyKeys"
             />
           )}
         />
@@ -163,6 +193,9 @@ const From = () => {
               variant="standard"
               label="All Keywords"
               placeholder="Skills, Designation, Role"
+              onChange={handleChangeData}
+              value={advancedSearchData.allKeys}
+              name="allKeys"
             />
           )}
         />
@@ -178,6 +211,9 @@ const From = () => {
               variant="standard"
               label="Excluding Keywords"
               placeholder="Skills, Designation, Role"
+              onChange={handleChangeData}
+              value={advancedSearchData.excludingKeys}
+              name="excludingKeys"
             />
           )}
         />
@@ -192,6 +228,9 @@ const From = () => {
             defaultValue="min"
             options={["0", "1", "2", "3", "4", "5"]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
+            onChange={handleChangeData}
+            value={advancedSearchData.expMin}
+            name="expMin"
           />
           <p>To</p>
           <Autocomplete
@@ -200,6 +239,9 @@ const From = () => {
             defaultValue="max"
             options={["1", "2", "3", "4", "5", "6", "7", "8", "9"]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
+            onChange={handleChangeData}
+            value={advancedSearchData.expMax}
+            name="expMax"
           />
           <p>in years</p>
         </MDBox>
@@ -242,6 +284,9 @@ const From = () => {
               "20",
             ]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
+            onChange={handleChangeData}
+            value={advancedSearchData.salMinLac}
+            name="salMinLac"
           />
           <Autocomplete
             className="experience"
@@ -270,6 +315,9 @@ const From = () => {
               "95",
             ]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
+            onChange={handleChangeData}
+            value={advancedSearchData.salMinTh}
+            name="salMinTh"
           />
           <span>To</span>
           <Autocomplete
@@ -300,6 +348,9 @@ const From = () => {
               "20",
             ]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
+            onChange={handleChangeData}
+            value={advancedSearchData.salMaxLac}
+            name="salMaxLac"
           />
           <Autocomplete
             className="experience"
@@ -328,6 +379,9 @@ const From = () => {
               "95",
             ]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
+            onChange={handleChangeData}
+            value={advancedSearchData.salMaxTh}
+            name="salMaxTh"
           />
         </MDBox>
       </MDBox>
@@ -338,6 +392,9 @@ const From = () => {
           options={["New Delhi", "NCR", "Bangalore", "Mumbai", "Chennai", "Pune"]}
           renderInput={(params) => <MDInput {...params} variant="standard" />}
           sx={{ width: 500, marginLeft: "20px" }}
+          onChange={handleChangeData}
+          value={advancedSearchData.location}
+          name="location"
         />
       </MDBox>
 
