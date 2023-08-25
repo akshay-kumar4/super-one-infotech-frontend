@@ -157,11 +157,14 @@ const From = () => {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <h1>Advanced Search</h1>
-      <MDBox>
-        <input type="file" onChange={handleFileChange} />
-        <button onClick={handleUpload}>Upload Resume</button>
+      <MDBox sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <h1>Advanced Search</h1>
+        <MDBox>
+          <input type="file" onChange={handleFileChange} />
+          <button onClick={handleUpload}>Upload Resume</button>
+        </MDBox>
       </MDBox>
+
       <Stack spacing={3} sx={{ width: 1000 }}>
         <Autocomplete
           multiple
