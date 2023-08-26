@@ -172,13 +172,13 @@ const From = () => {
           options={top100Keywords}
           getOptionLabel={(option) => option.title}
           defaultValue={[top100Keywords[13]]}
+          onChange={handleChangeData}
           renderInput={(params) => (
             <TextField
               {...params}
               variant="standard"
               label="Any Keywords"
               placeholder="Skills, Designation, Role"
-              onChange={handleChangeData}
               value={advancedSearchData.anyKeys}
               name="anyKeys"
             />
