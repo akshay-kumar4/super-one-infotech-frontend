@@ -444,6 +444,12 @@ const From = () => {
             fullWidth
             placeholder="Institue name"
             margin="normal"
+            onChange={(e) => {
+              setEducationQualification({
+                ...educationQualification,
+                UGInstituteName: e.target.value,
+              });
+            }}
           />
         </MDBox>
 
@@ -467,6 +473,12 @@ const From = () => {
               "2022",
               "2023",
             ]}
+            onChange={(e, val) => {
+              setEducationQualification({
+                ...educationQualification,
+                UGFromYearOfGraduation: val,
+              });
+            }}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
 
@@ -488,6 +500,12 @@ const From = () => {
               "2022",
               "2023",
             ]}
+            onChange={(e, val) => {
+              setEducationQualification({
+                ...educationQualification,
+                UGToYearOfGraduation: val,
+              });
+            }}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
         </MDBox>
@@ -497,6 +515,12 @@ const From = () => {
             defaultValue="Any"
             sx={{ width: 300, marginLeft: "20px" }}
             options={["Any", "Full Time", "Part Time", "Correspondence"]}
+            onChange={(e, val) => {
+              setEducationQualification({
+                ...educationQualification,
+                educationType: val,
+              });
+            }}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
         </MDBox>
@@ -521,6 +545,12 @@ const From = () => {
             fullWidth
             placeholder="Institue name"
             margin="normal"
+            onChange={(e) => {
+              setEducationQualification({
+                ...educationQualification,
+                PGInstituteName: e.target.value,
+              });
+            }}
           />
         </MDBox>
 
@@ -544,6 +574,12 @@ const From = () => {
               "2022",
               "2023",
             ]}
+            onChange={(e, val) => {
+              setEducationQualification({
+                ...educationQualification,
+                PGFromYearOfGraduation: val,
+              });
+            }}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
 
@@ -565,6 +601,12 @@ const From = () => {
               "2022",
               "2023",
             ]}
+            onChange={(e, val) => {
+              setEducationQualification({
+                ...educationQualification,
+                PGToYearOfGraduation: val,
+              });
+            }}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
         </MDBox>
@@ -574,6 +616,12 @@ const From = () => {
             defaultValue="Any"
             sx={{ width: 300, marginLeft: "20px" }}
             options={["Any", "Full Time", "Part Time", "Correspondence"]}
+            onChange={(e, val) => {
+              setEducationQualification({
+                ...educationQualification,
+                PGEducationType: val,
+              });
+            }}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
         </MDBox>
