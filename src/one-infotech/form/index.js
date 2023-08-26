@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 // @mui material components
 // import Grid from "@mui/material/Grid";
@@ -38,7 +38,7 @@ import MDTypography from "components/MDTypography";
 import Chip from "@mui/material/Chip";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
-// import { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 const Accordion = styled((props) => (
@@ -75,6 +75,23 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 
+const buttonStyles = {
+  backgroundColor: "#007BFF",
+  color: "white",
+  padding: "10px 20px",
+  borderRadius: "4px",
+  border: "none",
+  cursor: "pointer",
+  fontSize: "16px",
+};
+
+const inputStyles = {
+  border: "1px solid #ccc",
+  borderRadius: "4px",
+  padding: "10px",
+  fontSize: "16px",
+};
+
 const From = () => {
   const [alignment, setAlignment] = React.useState("web");
 
@@ -86,34 +103,14 @@ const From = () => {
   const handleChangeAccordion = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
-
-  const [advancedSearchData, setAdvancedSearchData] = useState({
-    anyKeys: "",
-    allKeys: "",
-    excludingKeys: "",
-    expMin: "",
-    expMax: "",
-    salMinLac: "",
-    salMinTh: "",
-    salMaxLac: "",
-    salMaxTh: "",
-    location: "",
-  });
-  // const [anyKeys, setAnyKeys] = useState("");
-  // const [allKeys, setAllKeys] = useState("");
-  // const [excludingKeys, setExcludingKeys] = useState("");
-  // const [totalExperience, setTotalExperience] = useState(null);
-  // const [salary, setSalary] = useState(0);
-  // const [location, setLocation] = useState("");
-  const [educationQualification, setEducationQualification] = useState({});
-  const [employmentDetails, setEmploymentDetails] = useState({});
-  const [additionalDetails, setAdditionalDetails] = useState({});
-  const [displayDetails, setDisplayDetails] = useState({});
   const [file, setFile] = useState(null);
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
+
+  // State for display details, variables will be stored within the display details object.
+  const [displayDetails, setDisplayDetails] = useState({});
 
   const handleUpload = () => {
     if (file) {
@@ -139,32 +136,16 @@ const From = () => {
       console.error("No file selected");
     }
   };
-  function handleChangeData(event) {
-    setAdvancedSearchData((prevAdvancedSearchData) => {
-      return {
-        ...prevAdvancedSearchData,
-        [event.target.name]: event.target.value,
-      };
-    });
-  }
-  console.log(advancedSearchData);
-  // const handleChangeData = (e) => {
-  //   const name = e.target.name;
-  //   const value = e.target.value;
-  //   setAdvancedSearchData({ ...advancedSearchData, [name]: value });
-  // };
-
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h1>Advanced Search</h1>
-        <MDBox>
-          <input type="file" onChange={handleFileChange} />
-          <button onClick={handleUpload}>Upload Resume</button>
-        </MDBox>
+      <h1>Advanced Search</h1>
+      <MDBox>
+        <input style={inputStyles} type="file" onChange={handleFileChange} />
+        <button style={buttonStyles} onClick={handleUpload}>
+          Upload Resume
+        </button>
       </MDBox>
-
       <Stack spacing={3} sx={{ width: 1000 }}>
         <Autocomplete
           multiple
@@ -179,6 +160,7 @@ const From = () => {
               variant="standard"
               label="Any Keywords"
               placeholder="Skills, Designation, Role"
+              onChange={handleChangeData}
               value={advancedSearchData.anyKeys}
               name="anyKeys"
             />
@@ -196,9 +178,6 @@ const From = () => {
               variant="standard"
               label="All Keywords"
               placeholder="Skills, Designation, Role"
-              onChange={handleChangeData}
-              value={advancedSearchData.allKeys}
-              name="allKeys"
             />
           )}
         />
@@ -214,9 +193,6 @@ const From = () => {
               variant="standard"
               label="Excluding Keywords"
               placeholder="Skills, Designation, Role"
-              onChange={handleChangeData}
-              value={advancedSearchData.excludingKeys}
-              name="excludingKeys"
             />
           )}
         />
@@ -231,9 +207,6 @@ const From = () => {
             defaultValue="min"
             options={["0", "1", "2", "3", "4", "5"]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
-            onChange={handleChangeData}
-            value={advancedSearchData.expMin}
-            name="expMin"
           />
           <p>To</p>
           <Autocomplete
@@ -242,9 +215,6 @@ const From = () => {
             defaultValue="max"
             options={["1", "2", "3", "4", "5", "6", "7", "8", "9"]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
-            onChange={handleChangeData}
-            value={advancedSearchData.expMax}
-            name="expMax"
           />
           <p>in years</p>
         </MDBox>
@@ -255,7 +225,7 @@ const From = () => {
           className="experience"
           sx={{ width: 50, marginRight: "20px", marginLeft: "20px" }}
           defaultValue="₹"
-          options={["$", "€", "£", "¥", "₣", "₹"]}
+          options={["$", "€", "£", "¥", "₣"]}
           renderInput={(params) => <MDInput {...params} variant="standard" />}
         />
         <MDBox sx={{ display: "flex" }}>
@@ -287,9 +257,6 @@ const From = () => {
               "20",
             ]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
-            onChange={handleChangeData}
-            value={advancedSearchData.salMinLac}
-            name="salMinLac"
           />
           <Autocomplete
             className="experience"
@@ -318,9 +285,6 @@ const From = () => {
               "95",
             ]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
-            onChange={handleChangeData}
-            value={advancedSearchData.salMinTh}
-            name="salMinTh"
           />
           <span>To</span>
           <Autocomplete
@@ -351,9 +315,6 @@ const From = () => {
               "20",
             ]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
-            onChange={handleChangeData}
-            value={advancedSearchData.salMaxLac}
-            name="salMaxLac"
           />
           <Autocomplete
             className="experience"
@@ -382,9 +343,6 @@ const From = () => {
               "95",
             ]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
-            onChange={handleChangeData}
-            value={advancedSearchData.salMaxTh}
-            name="salMaxTh"
           />
         </MDBox>
       </MDBox>
@@ -395,9 +353,6 @@ const From = () => {
           options={["New Delhi", "NCR", "Bangalore", "Mumbai", "Chennai", "Pune"]}
           renderInput={(params) => <MDInput {...params} variant="standard" />}
           sx={{ width: 500, marginLeft: "20px" }}
-          onChange={handleChangeData}
-          value={advancedSearchData.location}
-          name="location"
         />
       </MDBox>
 
@@ -796,11 +751,11 @@ const From = () => {
             <FormControlLabel
               control={
                 <Switch
-                  onChange={(e) => {
-                    console.log(e.target.checked);
-                    let newDetails = { ...displayDetails };
-                    newDetails.verifiedMobile = e.target.checked;
-                    setDisplayDetails(newDetails);
+                  onChange={(e, val) => {
+                    setDisplayDetails({
+                      ...displayDetails,
+                      verifiedMobile: val,
+                    });
                   }}
                 />
               }
@@ -809,10 +764,11 @@ const From = () => {
             <FormControlLabel
               control={
                 <Switch
-                  onChange={(e) => {
-                    let newDetails = { ...displayDetails };
-                    newDetails.verifiedEmail = e.target.checked;
-                    setDisplayDetails(newDetails);
+                  onChange={(e, val) => {
+                    setDisplayDetails({
+                      ...displayDetails,
+                      verifiedEmail: val,
+                    });
                   }}
                 />
               }
@@ -821,10 +777,11 @@ const From = () => {
             <FormControlLabel
               control={
                 <Switch
-                  onChange={(e) => {
-                    let newDetails = { ...displayDetails };
-                    newDetails.attachedResume = e.target.checked;
-                    setDisplayDetails(newDetails);
+                  onChange={(e, val) => {
+                    setDisplayDetails({
+                      ...displayDetails,
+                      attachedResume: val,
+                    });
                   }}
                 />
               }
@@ -838,13 +795,25 @@ const From = () => {
               <Autocomplete
                 defaultValue="Job Type"
                 sx={{ width: 300, marginLeft: "15px" }}
-                options={["1", "2", "3", "3", "4", "5"]}
+                options={["1", "2", "3", "4", "5"]}
+                onChange={(e, val) => {
+                  setDisplayDetails({
+                    ...displayDetails,
+                    jobType: val,
+                  });
+                }}
                 renderInput={(params) => <MDInput {...params} variant="standard" />}
               />
               <Autocomplete
-                defaultValue="Emplyement Type"
+                defaultValue="Employement Type"
                 sx={{ width: 300, marginLeft: "15px" }}
-                options={["1", "2", "3", "3", "4", "5"]}
+                options={["1", "2", "3", "4", "5"]}
+                onChange={(e, val) => {
+                  setDisplayDetails({
+                    ...displayDetails,
+                    employmentType: val,
+                  });
+                }}
                 renderInput={(params) => <MDInput {...params} variant="standard" />}
               />
             </MDBox>
@@ -853,10 +822,11 @@ const From = () => {
                 <FormControlLabel
                   control={
                     <Switch
-                      onChange={(e) => {
-                        let newDetails = { ...displayDetails };
-                        newDetails.premiumResume = e.target.checked;
-                        setDisplayDetails(newDetails);
+                      onChange={(e, val) => {
+                        setDisplayDetails({
+                          ...displayDetails,
+                          searchPremiumResume: val,
+                        });
                       }}
                     />
                   }
@@ -865,10 +835,11 @@ const From = () => {
                 <FormControlLabel
                   control={
                     <Switch
-                      onChange={(e) => {
-                        let newDetails = { ...displayDetails };
-                        newDetails.featuredCandidates = e.target.checked;
-                        setDisplayDetails(newDetails);
+                      onChange={(e, val) => {
+                        setDisplayDetails({
+                          ...displayDetails,
+                          searchFeaturedCandidates: val,
+                        });
                       }}
                     />
                   }
@@ -877,10 +848,11 @@ const From = () => {
                 <FormControlLabel
                   control={
                     <Switch
-                      onChange={(e) => {
-                        let newDetails = { ...displayDetails };
-                        newDetails.candidatesContactedBySMS = e.target.checked;
-                        setDisplayDetails(newDetails);
+                      onChange={(e, val) => {
+                        setDisplayDetails({
+                          ...displayDetails,
+                          searchCandidatesBySMS: val,
+                        });
                       }}
                     />
                   }
@@ -894,18 +866,14 @@ const From = () => {
             <Autocomplete
               defaultValue="SELECT"
               sx={{ width: 300 }}
-              options={["1", "2", "3", "3", "4", "5"]}
-              renderInput={(params) => (
-                <MDInput
-                  {...params}
-                  variant="standard"
-                  onChange={(e) => {
-                    let newDetails = { ...displayDetails };
-                    newDetails.resumePerPage = e.target.checked;
-                    setDisplayDetails(newDetails);
-                  }}
-                />
-              )}
+              options={["1", "2", "3", "4", "5"]}
+              onChange={(e, val) => {
+                setDisplayDetails({
+                  ...displayDetails,
+                  resumePerPage: val,
+                });
+              }}
+              renderInput={(params) => <MDInput {...params} variant="standard" />}
             />
           </MDBox>
 
@@ -915,19 +883,14 @@ const From = () => {
             <Autocomplete
               defaultValue="Relevance"
               sx={{ width: 300 }}
-              options={["1", "2", "3", "3", "4", "5"]}
-              renderInput={(params) => (
-                <MDInput
-                  {...params}
-                  variant="standard"
-                  onChange={(e) => {
-                    console.log(e.target.value);
-                    let newDetails = { ...displayDetails };
-                    newDetails.relevance = e.target.checked;
-                    setDisplayDetails(newDetails);
-                  }}
-                />
-              )}
+              options={["1", "2", "3", "4", "5"]}
+              onChange={(e, val) => {
+                setDisplayDetails({
+                  ...displayDetails,
+                  relevance: val,
+                });
+              }}
+              renderInput={(params) => <MDInput {...params} variant="standard" />}
             />
           </MDBox>
 
@@ -936,10 +899,11 @@ const From = () => {
             <FormControlLabel
               control={
                 <Switch
-                  onChange={(e) => {
-                    let newDetails = { ...displayDetails };
-                    newDetails.semanticSearch = e.target.checked;
-                    setDisplayDetails(newDetails);
+                  onChange={(e, val) => {
+                    setDisplayDetails({
+                      ...displayDetails,
+                      semanticSearch: val,
+                    });
                   }}
                 />
               }
@@ -948,9 +912,6 @@ const From = () => {
           </FormGroup>
         </MDBox>
       </Accordion>
-      <MDButton type="submit" sx={{ width: 300, margin: "20px" }}>
-        Submit
-      </MDButton>
     </DashboardLayout>
   );
 };
