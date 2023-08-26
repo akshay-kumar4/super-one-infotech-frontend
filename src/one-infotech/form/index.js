@@ -109,6 +109,9 @@ const From = () => {
     setFile(event.target.files[0]);
   };
 
+  // State for display details, variables will be stored within the display details object.
+  const [displayDetails, setDisplayDetails] = useState({});
+
   const handleUpload = () => {
     if (file) {
       const formData = new FormData();
@@ -741,9 +744,45 @@ const From = () => {
         <MDBox sx={{ paddingRight: "20px", paddingLeft: "20px" }}>
           <p>Show only candidate with</p>
           <FormGroup>
-            <FormControlLabel control={<Switch />} label="Verified mobile number" />
-            <FormControlLabel control={<Switch />} label="Verified email ID" />
-            <FormControlLabel control={<Switch />} label="Attached Resume" />
+            <FormControlLabel
+              control={
+                <Switch
+                  onChange={(e, val) => {
+                    setDisplayDetails({
+                      ...displayDetails,
+                      verifiedMobile: val,
+                    });
+                  }}
+                />
+              }
+              label="Verified mobile number"
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  onChange={(e, val) => {
+                    setDisplayDetails({
+                      ...displayDetails,
+                      verifiedEmail: val,
+                    });
+                  }}
+                />
+              }
+              label="Verified email ID"
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  onChange={(e, val) => {
+                    setDisplayDetails({
+                      ...displayDetails,
+                      attachedResume: val,
+                    });
+                  }}
+                />
+              }
+              label="Attached Resume"
+            />
           </FormGroup>
           <MDBox sx={{ display: "flex", flexDirection: "column" }}>
             <MDBox sx={{ display: "flex", alignItems: "center" }}>
@@ -752,22 +791,67 @@ const From = () => {
               <Autocomplete
                 defaultValue="Job Type"
                 sx={{ width: 300, marginLeft: "15px" }}
-                options={["1", "2", "3", "3", "4", "5"]}
+                options={["1", "2", "3", "4", "5"]}
+                onChange={(e, val) => {
+                  setDisplayDetails({
+                    ...displayDetails,
+                    jobType: val,
+                  });
+                }}
                 renderInput={(params) => <MDInput {...params} variant="standard" />}
               />
               <Autocomplete
-                defaultValue="Emplyement Type"
+                defaultValue="Employement Type"
                 sx={{ width: 300, marginLeft: "15px" }}
-                options={["1", "2", "3", "3", "4", "5"]}
+                options={["1", "2", "3", "4", "5"]}
+                onChange={(e, val) => {
+                  setDisplayDetails({
+                    ...displayDetails,
+                    employmentType: val,
+                  });
+                }}
                 renderInput={(params) => <MDInput {...params} variant="standard" />}
               />
             </MDBox>
             <MDBox>
               <FormGroup>
-                <FormControlLabel control={<Switch />} label="Search only Premium Resumes" />
-                <FormControlLabel control={<Switch />} label="Search only Featured Candidates" />
                 <FormControlLabel
-                  control={<Switch />}
+                  control={
+                    <Switch
+                      onChange={(e, val) => {
+                        setDisplayDetails({
+                          ...displayDetails,
+                          searchPremiumResume: val,
+                        });
+                      }}
+                    />
+                  }
+                  label="Search only Premium Resumes"
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      onChange={(e, val) => {
+                        setDisplayDetails({
+                          ...displayDetails,
+                          searchFeaturedCandidates: val,
+                        });
+                      }}
+                    />
+                  }
+                  label="Search only Featured Candidates"
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      onChange={(e, val) => {
+                        setDisplayDetails({
+                          ...displayDetails,
+                          searchCandidatesBySMS: val,
+                        });
+                      }}
+                    />
+                  }
                   label="Search Only those candidates that can be contacted by SMS"
                 />
               </FormGroup>
@@ -778,7 +862,13 @@ const From = () => {
             <Autocomplete
               defaultValue="SELECT"
               sx={{ width: 300 }}
-              options={["1", "2", "3", "3", "4", "5"]}
+              options={["1", "2", "3", "4", "5"]}
+              onChange={(e, val) => {
+                setDisplayDetails({
+                  ...displayDetails,
+                  resumePerPage: val,
+                });
+              }}
               renderInput={(params) => <MDInput {...params} variant="standard" />}
             />
           </MDBox>
@@ -789,14 +879,32 @@ const From = () => {
             <Autocomplete
               defaultValue="Relevance"
               sx={{ width: 300 }}
-              options={["1", "2", "3", "3", "4", "5"]}
+              options={["1", "2", "3", "4", "5"]}
+              onChange={(e, val) => {
+                setDisplayDetails({
+                  ...displayDetails,
+                  relevance: val,
+                });
+              }}
               renderInput={(params) => <MDInput {...params} variant="standard" />}
             />
           </MDBox>
 
           <p>Semantic Search</p>
           <FormGroup>
-            <FormControlLabel control={<Switch />} label="ON" />
+            <FormControlLabel
+              control={
+                <Switch
+                  onChange={(e, val) => {
+                    setDisplayDetails({
+                      ...displayDetails,
+                      semanticSearch: val,
+                    });
+                  }}
+                />
+              }
+              label="ON"
+            />
           </FormGroup>
         </MDBox>
       </Accordion>
