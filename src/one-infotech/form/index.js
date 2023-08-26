@@ -104,24 +104,25 @@ const From = () => {
     setExpanded(newExpanded ? panel : false);
   };
 
-  const [advancedSearchData, setAdvancedSearchData] = useState({
-    anyKeys: "",
-    allKeys: "",
-    excludingKeys: "",
-    expMin: "",
-    expMax: "",
-    salMinLac: "",
-    salMinTh: "",
-    salMaxLac: "",
-    salMaxTh: "",
-    location: "",
-  });
+  // const [advancedSearchData, setAdvancedSearchData] = useState({
+  //   anyKeys: "",
+  //   allKeys: "",
+  //   excludingKeys: "",
+  //   expMin: "",
+  //   expMax: "",
+  //   salMinLac: "",
+  //   salMinTh: "",
+  //   salMaxLac: "",
+  //   salMaxTh: "",
+  //   location: "",
+  // });
   // const [anyKeys, setAnyKeys] = useState("");
   // const [allKeys, setAllKeys] = useState("");
   // const [excludingKeys, setExcludingKeys] = useState("");
   // const [totalExperience, setTotalExperience] = useState(null);
   // const [salary, setSalary] = useState(0);
   // const [location, setLocation] = useState("");
+  const [advancedSearchData, setAdvancedSearchData] = useState({});
   const [educationQualification, setEducationQualification] = useState({});
   const [employmentDetails, setEmploymentDetails] = useState({});
   const [additionalDetails, setAdditionalDetails] = useState({});
@@ -164,7 +165,7 @@ const From = () => {
       };
     });
   }
-  console.log(advancedSearchData);
+  // console.log(advancedSearchData);
   // const handleChangeData = (e) => {
   //   const name = e.target.name;
   //   const value = e.target.value;
@@ -188,15 +189,18 @@ const From = () => {
           options={top100Keywords}
           getOptionLabel={(option) => option.title}
           defaultValue={[top100Keywords[13]]}
+          onChange={(e, val) => {
+            setAdvancedSearchData({
+              ...advancedSearchData,
+              anyKeys: val,
+            });
+          }}
           renderInput={(params) => (
             <TextField
               {...params}
               variant="standard"
               label="Any Keywords"
               placeholder="Skills, Designation, Role"
-              onChange={handleChangeData}
-              value={advancedSearchData.anyKeys}
-              name="anyKeys"
             />
           )}
         />
@@ -206,6 +210,12 @@ const From = () => {
           options={top100Keywords}
           getOptionLabel={(option) => option.title}
           defaultValue={[top100Keywords[13]]}
+          onChange={(e, val) => {
+            setAdvancedSearchData({
+              ...advancedSearchData,
+              allKeys: val,
+            });
+          }}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -221,6 +231,12 @@ const From = () => {
           options={top100Keywords}
           getOptionLabel={(option) => option.title}
           defaultValue={[top100Keywords[13]]}
+          onChange={(e, val) => {
+            setAdvancedSearchData({
+              ...advancedSearchData,
+              excludingKeys: val,
+            });
+          }}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -241,7 +257,12 @@ const From = () => {
             defaultValue="min"
             options={["0", "1", "2", "3", "4", "5"]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
-            onChange={handleChangeData}
+            onChange={(e, val) => {
+              setAdvancedSearchData({
+                ...advancedSearchData,
+                expMin: val,
+              });
+            }}
             value={advancedSearchData.expMin}
             name="expMin"
           />
@@ -252,7 +273,12 @@ const From = () => {
             defaultValue="max"
             options={["1", "2", "3", "4", "5", "6", "7", "8", "9"]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
-            onChange={handleChangeData}
+            onChange={(e, val) => {
+              setAdvancedSearchData({
+                ...advancedSearchData,
+                expMax: val,
+              });
+            }}
             value={advancedSearchData.expMax}
             name="expMax"
           />
@@ -266,6 +292,12 @@ const From = () => {
           sx={{ width: 50, marginRight: "20px", marginLeft: "20px" }}
           defaultValue="₹"
           options={["$", "€", "£", "¥", "₣", "₹"]}
+          onChange={(e, val) => {
+            setAdvancedSearchData({
+              ...advancedSearchData,
+              currency: val,
+            });
+          }}
           renderInput={(params) => <MDInput {...params} variant="standard" />}
         />
         <MDBox sx={{ display: "flex" }}>
@@ -297,7 +329,12 @@ const From = () => {
               "20",
             ]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
-            onChange={handleChangeData}
+            onChange={(e, val) => {
+              setAdvancedSearchData({
+                ...advancedSearchData,
+                salMinLac: val,
+              });
+            }}
             value={advancedSearchData.salMinLac}
             name="salMinLac"
           />
@@ -328,7 +365,12 @@ const From = () => {
               "95",
             ]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
-            onChange={handleChangeData}
+            onChange={(e, val) => {
+              setAdvancedSearchData({
+                ...advancedSearchData,
+                salMinTh: val,
+              });
+            }}
             value={advancedSearchData.salMinTh}
             name="salMinTh"
           />
@@ -361,7 +403,12 @@ const From = () => {
               "20",
             ]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
-            onChange={handleChangeData}
+            onChange={(e, val) => {
+              setAdvancedSearchData({
+                ...advancedSearchData,
+                salMaxLac: val,
+              });
+            }}
             value={advancedSearchData.salMaxLac}
             name="salMaxLac"
           />
@@ -392,7 +439,12 @@ const From = () => {
               "95",
             ]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
-            onChange={handleChangeData}
+            onChange={(e, val) => {
+              setAdvancedSearchData({
+                ...advancedSearchData,
+                salMaxTh: val,
+              });
+            }}
             value={advancedSearchData.salMaxTh}
             name="salMaxTh"
           />
@@ -405,7 +457,12 @@ const From = () => {
           options={["New Delhi", "NCR", "Bangalore", "Mumbai", "Chennai", "Pune"]}
           renderInput={(params) => <MDInput {...params} variant="standard" />}
           sx={{ width: 500, marginLeft: "20px" }}
-          onChange={handleChangeData}
+          onChange={(e, val) => {
+            setAdvancedSearchData({
+              ...advancedSearchData,
+              location: val,
+            });
+          }}
           value={advancedSearchData.location}
           name="location"
         />
@@ -654,6 +711,12 @@ const From = () => {
               "Analytics & Business Intelligence",
               "Anchoring / TV / Films / Production",
             ]}
+            onChange={(e, val) => {
+              setEmploymentDetails({
+                ...employmentDetails,
+                funcArea: val,
+              });
+            }}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
           {/* <MDInput type="text" label="Industry" fullWidth margin="normal" /> */}
@@ -677,6 +740,12 @@ const From = () => {
                 "2022",
                 "2023",
               ]}
+              onChange={(e, val) => {
+                setEmploymentDetails({
+                  ...employmentDetails,
+                  industry: val,
+                });
+              }}
               renderInput={(params) => <MDInput {...params} variant="standard" />}
             />
           </MDBox>
@@ -687,6 +756,12 @@ const From = () => {
             placeholder="Type company name"
             fullWidth
             margin="normal"
+            onChange={(e) => {
+              setEmploymentDetails({
+                ...employmentDetails,
+                employers: e.target.value,
+              });
+            }}
           />
           <MDInput
             type="text"
@@ -694,6 +769,12 @@ const From = () => {
             placeholder="Type company name"
             fullWidth
             margin="normal"
+            onChange={(e) => {
+              setEmploymentDetails({
+                ...employmentDetails,
+                excludeEmployers: e.target.value,
+              });
+            }}
           />
           <MDInput
             type="text"
@@ -701,6 +782,12 @@ const From = () => {
             placeholder="Type designation"
             fullWidth
             margin="normal"
+            onChange={(e) => {
+              setEmploymentDetails({
+                ...employmentDetails,
+                designation: e.target.value,
+              });
+            }}
           />
           <MDBox sx={{ paddingBottom: "20px", paddingTop: "20px" }}>
             <p>Notice Period</p>
@@ -722,6 +809,12 @@ const From = () => {
                 "2022",
                 "2023",
               ]}
+              onChange={(e, val) => {
+                setEmploymentDetails({
+                  ...employmentDetails,
+                  noticePeriod: val,
+                });
+              }}
               renderInput={(params) => <MDInput {...params} variant="standard" />}
             />
           </MDBox>
@@ -742,12 +835,37 @@ const From = () => {
             sx={{ width: 300 }}
             options={["1", "2", "3", "4"]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
+            onChange={(e, val) => {
+              setAdditionalDetails({
+                ...additionalDetails,
+                candidateCategory: val,
+              });
+            }}
           />
           <MDBox sx={{ paddingTop: "20px" }}>
             <FormGroup>
-              <FormControlLabel control={<Switch />} label="Search Women Candidates Only" />
               <FormControlLabel
-                control={<Switch />}
+                control={
+                  <Switch
+                    onChange={(e) => {
+                      let newDetails = { ...displayDetails };
+                      newDetails.searchWmanOnly = e.target.checked;
+                      setAdditionalDetails(newDetails);
+                    }}
+                  />
+                }
+                label="Search Women Candidates Only"
+              />
+              <FormControlLabel
+                control={
+                  <Switch
+                    onChange={(e) => {
+                      let newDetails = { ...displayDetails };
+                      newDetails.searchSpecialOnly = e.target.checked;
+                      setAdditionalDetails(newDetails);
+                    }}
+                  />
+                }
                 label="Search Candidates with Special Abilities Only"
               />
             </FormGroup>
@@ -784,6 +902,12 @@ const From = () => {
                   "29 years",
                   "30 years",
                 ]}
+                onChange={(e, val) => {
+                  setAdditionalDetails({
+                    ...additionalDetails,
+                    candidateAgeMin: val,
+                  });
+                }}
                 renderInput={(params) => <MDInput {...params} variant="standard" />}
               />
             </Grid>
@@ -816,6 +940,12 @@ const From = () => {
                   "29 years",
                   "30 years",
                 ]}
+                onChange={(e, val) => {
+                  setAdditionalDetails({
+                    ...additionalDetails,
+                    candidateAgeMax: val,
+                  });
+                }}
                 renderInput={(params) => <MDInput {...params} variant="standard" />}
               />
             </Grid>
@@ -826,6 +956,12 @@ const From = () => {
             defaultValue="Select"
             sx={{ width: 300 }}
             options={["yes eligible", "not eligible"]}
+            onChange={(e, val) => {
+              setAdditionalDetails({
+                ...additionalDetails,
+                workStatus: val,
+              });
+            }}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
 
@@ -836,6 +972,12 @@ const From = () => {
               sx={{ width: 300 }}
               options={["India", "Italy", "Japan", "Indonesia", "Jordan"]}
               renderInput={(params) => <MDInput {...params} variant="standard" />}
+              onChange={(e, val) => {
+                setAdditionalDetails({
+                  ...additionalDetails,
+                  workPermit: val,
+                });
+              }}
             />
           </MDBox>
         </MDBox>
