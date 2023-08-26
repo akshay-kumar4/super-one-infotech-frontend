@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // @mui material components
 // import Grid from "@mui/material/Grid";
@@ -38,7 +38,7 @@ import MDTypography from "components/MDTypography";
 import Chip from "@mui/material/Chip";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
-import { useState } from "react";
+// import { useState } from "react";
 import axios from "axios";
 
 const Accordion = styled((props) => (
@@ -103,14 +103,34 @@ const From = () => {
   const handleChangeAccordion = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
+
+  const [advancedSearchData, setAdvancedSearchData] = useState({
+    anyKeys: "",
+    allKeys: "",
+    excludingKeys: "",
+    expMin: "",
+    expMax: "",
+    salMinLac: "",
+    salMinTh: "",
+    salMaxLac: "",
+    salMaxTh: "",
+    location: "",
+  });
+  // const [anyKeys, setAnyKeys] = useState("");
+  // const [allKeys, setAllKeys] = useState("");
+  // const [excludingKeys, setExcludingKeys] = useState("");
+  // const [totalExperience, setTotalExperience] = useState(null);
+  // const [salary, setSalary] = useState(0);
+  // const [location, setLocation] = useState("");
+  const [educationQualification, setEducationQualification] = useState({});
+  const [employmentDetails, setEmploymentDetails] = useState({});
+  const [additionalDetails, setAdditionalDetails] = useState({});
+  const [displayDetails, setDisplayDetails] = useState({});
   const [file, setFile] = useState(null);
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
-
-  // State for display details, variables will be stored within the display details object.
-  const [displayDetails, setDisplayDetails] = useState({});
 
   const handleUpload = () => {
     if (file) {
@@ -136,6 +156,21 @@ const From = () => {
       console.error("No file selected");
     }
   };
+  function handleChangeData(event) {
+    setAdvancedSearchData((prevAdvancedSearchData) => {
+      return {
+        ...prevAdvancedSearchData,
+        [event.target.name]: event.target.value,
+      };
+    });
+  }
+  console.log(advancedSearchData);
+  // const handleChangeData = (e) => {
+  //   const name = e.target.name;
+  //   const value = e.target.value;
+  //   setAdvancedSearchData({ ...advancedSearchData, [name]: value });
+  // };
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -153,7 +188,6 @@ const From = () => {
           options={top100Keywords}
           getOptionLabel={(option) => option.title}
           defaultValue={[top100Keywords[13]]}
-          onChange={handleChangeData}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -207,6 +241,9 @@ const From = () => {
             defaultValue="min"
             options={["0", "1", "2", "3", "4", "5"]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
+            onChange={handleChangeData}
+            value={advancedSearchData.expMin}
+            name="expMin"
           />
           <p>To</p>
           <Autocomplete
@@ -215,6 +252,9 @@ const From = () => {
             defaultValue="max"
             options={["1", "2", "3", "4", "5", "6", "7", "8", "9"]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
+            onChange={handleChangeData}
+            value={advancedSearchData.expMax}
+            name="expMax"
           />
           <p>in years</p>
         </MDBox>
@@ -225,7 +265,7 @@ const From = () => {
           className="experience"
           sx={{ width: 50, marginRight: "20px", marginLeft: "20px" }}
           defaultValue="₹"
-          options={["$", "€", "£", "¥", "₣"]}
+          options={["$", "€", "£", "¥", "₣", "₹"]}
           renderInput={(params) => <MDInput {...params} variant="standard" />}
         />
         <MDBox sx={{ display: "flex" }}>
@@ -257,6 +297,9 @@ const From = () => {
               "20",
             ]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
+            onChange={handleChangeData}
+            value={advancedSearchData.salMinLac}
+            name="salMinLac"
           />
           <Autocomplete
             className="experience"
@@ -285,6 +328,9 @@ const From = () => {
               "95",
             ]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
+            onChange={handleChangeData}
+            value={advancedSearchData.salMinTh}
+            name="salMinTh"
           />
           <span>To</span>
           <Autocomplete
@@ -315,6 +361,9 @@ const From = () => {
               "20",
             ]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
+            onChange={handleChangeData}
+            value={advancedSearchData.salMaxLac}
+            name="salMaxLac"
           />
           <Autocomplete
             className="experience"
@@ -343,6 +392,9 @@ const From = () => {
               "95",
             ]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
+            onChange={handleChangeData}
+            value={advancedSearchData.salMaxTh}
+            name="salMaxTh"
           />
         </MDBox>
       </MDBox>
@@ -353,6 +405,9 @@ const From = () => {
           options={["New Delhi", "NCR", "Bangalore", "Mumbai", "Chennai", "Pune"]}
           renderInput={(params) => <MDInput {...params} variant="standard" />}
           sx={{ width: 500, marginLeft: "20px" }}
+          onChange={handleChangeData}
+          value={advancedSearchData.location}
+          name="location"
         />
       </MDBox>
 
@@ -389,6 +444,12 @@ const From = () => {
             fullWidth
             placeholder="Institue name"
             margin="normal"
+            onChange={(e) => {
+              setEducationQualification({
+                ...educationQualification,
+                UGInstituteName: e.target.value,
+              });
+            }}
           />
         </MDBox>
 
@@ -412,6 +473,12 @@ const From = () => {
               "2022",
               "2023",
             ]}
+            onChange={(e, val) => {
+              setEducationQualification({
+                ...educationQualification,
+                UGFromYearOfGraduation: val,
+              });
+            }}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
 
@@ -433,6 +500,12 @@ const From = () => {
               "2022",
               "2023",
             ]}
+            onChange={(e, val) => {
+              setEducationQualification({
+                ...educationQualification,
+                UGToYearOfGraduation: val,
+              });
+            }}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
         </MDBox>
@@ -442,6 +515,12 @@ const From = () => {
             defaultValue="Any"
             sx={{ width: 300, marginLeft: "20px" }}
             options={["Any", "Full Time", "Part Time", "Correspondence"]}
+            onChange={(e, val) => {
+              setEducationQualification({
+                ...educationQualification,
+                educationType: val,
+              });
+            }}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
         </MDBox>
@@ -466,6 +545,12 @@ const From = () => {
             fullWidth
             placeholder="Institue name"
             margin="normal"
+            onChange={(e) => {
+              setEducationQualification({
+                ...educationQualification,
+                PGInstituteName: e.target.value,
+              });
+            }}
           />
         </MDBox>
 
@@ -489,6 +574,12 @@ const From = () => {
               "2022",
               "2023",
             ]}
+            onChange={(e, val) => {
+              setEducationQualification({
+                ...educationQualification,
+                PGFromYearOfGraduation: val,
+              });
+            }}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
 
@@ -510,6 +601,12 @@ const From = () => {
               "2022",
               "2023",
             ]}
+            onChange={(e, val) => {
+              setEducationQualification({
+                ...educationQualification,
+                PGToYearOfGraduation: val,
+              });
+            }}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
         </MDBox>
@@ -519,6 +616,12 @@ const From = () => {
             defaultValue="Any"
             sx={{ width: 300, marginLeft: "20px" }}
             options={["Any", "Full Time", "Part Time", "Correspondence"]}
+            onChange={(e, val) => {
+              setEducationQualification({
+                ...educationQualification,
+                PGEducationType: val,
+              });
+            }}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
         </MDBox>
@@ -751,11 +854,11 @@ const From = () => {
             <FormControlLabel
               control={
                 <Switch
-                  onChange={(e, val) => {
-                    setDisplayDetails({
-                      ...displayDetails,
-                      verifiedMobile: val,
-                    });
+                  onChange={(e) => {
+                    console.log(e.target.checked);
+                    let newDetails = { ...displayDetails };
+                    newDetails.verifiedMobile = e.target.checked;
+                    setDisplayDetails(newDetails);
                   }}
                 />
               }
@@ -764,11 +867,10 @@ const From = () => {
             <FormControlLabel
               control={
                 <Switch
-                  onChange={(e, val) => {
-                    setDisplayDetails({
-                      ...displayDetails,
-                      verifiedEmail: val,
-                    });
+                  onChange={(e) => {
+                    let newDetails = { ...displayDetails };
+                    newDetails.verifiedEmail = e.target.checked;
+                    setDisplayDetails(newDetails);
                   }}
                 />
               }
@@ -777,11 +879,10 @@ const From = () => {
             <FormControlLabel
               control={
                 <Switch
-                  onChange={(e, val) => {
-                    setDisplayDetails({
-                      ...displayDetails,
-                      attachedResume: val,
-                    });
+                  onChange={(e) => {
+                    let newDetails = { ...displayDetails };
+                    newDetails.attachedResume = e.target.checked;
+                    setDisplayDetails(newDetails);
                   }}
                 />
               }
@@ -805,7 +906,7 @@ const From = () => {
                 renderInput={(params) => <MDInput {...params} variant="standard" />}
               />
               <Autocomplete
-                defaultValue="Employement Type"
+                defaultValue="Employment Type"
                 sx={{ width: 300, marginLeft: "15px" }}
                 options={["1", "2", "3", "4", "5"]}
                 onChange={(e, val) => {
@@ -822,11 +923,10 @@ const From = () => {
                 <FormControlLabel
                   control={
                     <Switch
-                      onChange={(e, val) => {
-                        setDisplayDetails({
-                          ...displayDetails,
-                          searchPremiumResume: val,
-                        });
+                      onChange={(e) => {
+                        let newDetails = { ...displayDetails };
+                        newDetails.premiumResume = e.target.checked;
+                        setDisplayDetails(newDetails);
                       }}
                     />
                   }
@@ -835,11 +935,10 @@ const From = () => {
                 <FormControlLabel
                   control={
                     <Switch
-                      onChange={(e, val) => {
-                        setDisplayDetails({
-                          ...displayDetails,
-                          searchFeaturedCandidates: val,
-                        });
+                      onChange={(e) => {
+                        let newDetails = { ...displayDetails };
+                        newDetails.featuredCandidates = e.target.checked;
+                        setDisplayDetails(newDetails);
                       }}
                     />
                   }
@@ -848,11 +947,10 @@ const From = () => {
                 <FormControlLabel
                   control={
                     <Switch
-                      onChange={(e, val) => {
-                        setDisplayDetails({
-                          ...displayDetails,
-                          searchCandidatesBySMS: val,
-                        });
+                      onChange={(e) => {
+                        let newDetails = { ...displayDetails };
+                        newDetails.candidatesContactedBySMS = e.target.checked;
+                        setDisplayDetails(newDetails);
                       }}
                     />
                   }
@@ -899,11 +997,10 @@ const From = () => {
             <FormControlLabel
               control={
                 <Switch
-                  onChange={(e, val) => {
-                    setDisplayDetails({
-                      ...displayDetails,
-                      semanticSearch: val,
-                    });
+                  onChange={(e) => {
+                    let newDetails = { ...displayDetails };
+                    newDetails.semanticSearch = e.target.checked;
+                    setDisplayDetails(newDetails);
                   }}
                 />
               }
@@ -912,6 +1009,9 @@ const From = () => {
           </FormGroup>
         </MDBox>
       </Accordion>
+      <MDButton type="submit" sx={{ width: 300, margin: "20px" }}>
+        Submit
+      </MDButton>
     </DashboardLayout>
   );
 };
