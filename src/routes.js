@@ -65,6 +65,7 @@ import SignInIllustration from "layouts/authentication/sign-in/illustration";
 import SignUpCover from "layouts/authentication/sign-up/cover";
 import ResetCover from "layouts/authentication/reset-password/cover";
 import Form from "./one-infotech/form/index";
+import ResumeDetails from "one-infotech/form/ResumeDetails";
 
 // Material Dashboard 2 PRO React components
 import MDAvatar from "components/MDAvatar";
@@ -128,6 +129,12 @@ const routes = [
         key: "form",
         route: "/dashboards/form",
         component: <Form />,
+      },
+      {
+        name: "Details",
+        key: "Details",
+        route: "/resume-details",
+        component: <ResumeDetails />,
       },
     ],
   },

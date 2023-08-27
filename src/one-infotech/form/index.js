@@ -40,6 +40,7 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 // import { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -1151,9 +1152,11 @@ const From = () => {
           </FormGroup>
         </MDBox>
       </Accordion>
-      <MDButton type="submit" sx={{ width: 300, margin: "20px" }}>
-        Submit
-      </MDButton>
+      <Link to="/resume-details">
+        <MDButton type="submit" sx={{ width: 300, margin: "20px" }}>
+          Submit
+        </MDButton>
+      </Link>
     </DashboardLayout>
   );
 };
