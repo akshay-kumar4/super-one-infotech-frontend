@@ -79,19 +79,19 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 const buttonStyles = {
   backgroundColor: "#007BFF",
   color: "white",
-  padding: "10px 20px",
+  padding: "10px 15px",
   borderRadius: "4px",
   border: "none",
   cursor: "pointer",
   fontSize: "16px",
 };
 
-const inputStyles = {
-  border: "1px solid #ccc",
-  borderRadius: "4px",
-  padding: "10px",
-  fontSize: "16px",
-};
+// const inputStyles = {
+//   border: "1px solid #ccc",
+//   borderRadius: "4px",
+//   padding: "10px",
+//   fontSize: "16px",
+// };
 
 const From = () => {
   const [alignment, setAlignment] = React.useState("web");
@@ -227,13 +227,23 @@ const From = () => {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <h1>Advanced Search</h1>
-      <MDBox>
-        <input style={inputStyles} type="file" onChange={handleFileChange} />
-        <button style={buttonStyles} onClick={handleUpload}>
-          Upload Resume
-        </button>
+      <MDBox
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: "10px",
+        }}
+      >
+        <h1>Advanced Search</h1>
+        <MDBox>
+          <input type="file" onChange={handleFileChange} />
+          <button style={buttonStyles} onClick={handleUpload}>
+            Upload Resume
+          </button>
+        </MDBox>
       </MDBox>
+
       <Stack spacing={3} sx={{ width: 1000 }}>
         <Autocomplete
           multiple
