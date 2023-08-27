@@ -122,6 +122,7 @@ const From = () => {
   // const [totalExperience, setTotalExperience] = useState(null);
   // const [salary, setSalary] = useState(0);
   // const [location, setLocation] = useState("");
+  const [missingDetails, setMissingDetails] = useState("");
   const [advancedSearchData, setAdvancedSearchData] = useState({});
   const [educationQualification, setEducationQualification] = useState({});
   const [employmentDetails, setEmploymentDetails] = useState({});
@@ -171,6 +172,47 @@ const From = () => {
   //   const value = e.target.value;
   //   setAdvancedSearchData({ ...advancedSearchData, [name]: value });
   // };
+  const handleDataUpload = () => {
+    const formData = new FormData();
+    formData.append("name", missingDetails.name);
+    formData.append("email", missingDetails.email);
+    formData.append("phone", missingDetails.phone);
+    formData.append("keywords", advancedSearchData.anyKeys);
+    formData.append("education", educationQualification);
+    formData.append("experience_level", {"from":advancedSearchData.expMin,"to":advancedSearchData.expMax});
+    formData.append("skills", advancedSearchData.allKeys);
+    formData.append("industry_experience", employmentDetails.industry);
+    formData.append("accomplishment", missingDetails.accomplishment);
+    formData.append("job_tenure", {"from":advancedSearchData.expMin,"to":advancedSearchData.expMax});
+    formData.append("job_titles", employmentDetails.designation);
+    formData.append("salary_level", {"from":advancedSearchData.salMinLac,"to":advancedSearchData.salMaxLac});
+    formData.append("company_names", employmentDetails.employers);
+    formData.append("referrals", missingDetails.referral);
+    formData.append("avaialability");
+    formData.append("relevance_of_role", displayDetails.relevance);
+    formData.append("cultural_fit");
+    formData.append("keywords_in_coverletter");
+    formData.append("remote_work");
+    formData.append("qualifications");
+    formData.append("location", advancedSearchData.location);
+    formData.append("applicant_sources");
+    formData.append("job_hopping");
+
+    const headers = {
+      Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+    };
+
+    axios
+      .post("https://resume-api-6u3t4.ondigitalocean.app/resume-data/", formData, { headers })
+      .then((response) => {
+        // Handle success
+        console.log("File uploaded successfully", response.data);
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Error uploading file", error);
+      });
+  };
 
   return (
     <DashboardLayout>
@@ -245,6 +287,72 @@ const From = () => {
               placeholder="Skills, Designation, Role"
             />
           )}
+        />
+        <TextField
+          variant="standard"
+          label="Name"
+          placeholder="Enter you name"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              name: e.target.value,
+            })
+          }
+        />
+        <TextField
+          variant="standard"
+          label="email"
+          placeholder="Enter you email"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              email: e.target.value,
+            })
+          }
+        />
+        <TextField
+          variant="standard"
+          label="phone"
+          placeholder="Enter you phone"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              phone: e.target.value,
+            })
+          }
+        />
+        <TextField
+          variant="standard"
+          label="accomplishment"
+          placeholder="Enter you accomplishment"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              accomplishment: e.target.value,
+            })
+          }
+        />
+        <TextField
+          variant="standard"
+          label="referral"
+          placeholder="Referrals"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              referral: e.target.value,
+            })
+          }
+        />
+        <TextField
+          variant="standard"
+          label="availability"
+          placeholder="availability"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              availability: e.target.value,
+            })
+          }
         />
       </Stack>
 
@@ -1151,7 +1259,7 @@ const From = () => {
           </FormGroup>
         </MDBox>
       </Accordion>
-      <MDButton type="submit" sx={{ width: 300, margin: "20px" }}>
+      <MDButton type="submit" sx={{ width: 300, margin: "20px" }} onClick={handleDataUpload}>
         Submit
       </MDButton>
     </DashboardLayout>
