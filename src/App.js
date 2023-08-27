@@ -38,6 +38,7 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 import { useSelector } from "react-redux";
+import ResumeDetails from "one-infotech/form/ResumeDetails";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
