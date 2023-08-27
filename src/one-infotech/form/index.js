@@ -180,24 +180,33 @@ const From = () => {
     formData.append("phone", missingDetails.phone);
     formData.append("keywords", advancedSearchData.anyKeys);
     formData.append("education", educationQualification);
-    formData.append("experience_level", {"from":advancedSearchData.expMin,"to":advancedSearchData.expMax});
+    formData.append("experience_level", {
+      from: advancedSearchData.expMin,
+      to: advancedSearchData.expMax,
+    });
     formData.append("skills", advancedSearchData.allKeys);
     formData.append("industry_experience", employmentDetails.industry);
     formData.append("accomplishment", missingDetails.accomplishment);
-    formData.append("job_tenure", {"from":advancedSearchData.expMin,"to":advancedSearchData.expMax});
+    formData.append("job_tenure", {
+      from: advancedSearchData.expMin,
+      to: advancedSearchData.expMax,
+    });
     formData.append("job_titles", employmentDetails.designation);
-    formData.append("salary_level", {"from":advancedSearchData.salMinLac,"to":advancedSearchData.salMaxLac});
+    formData.append("salary_level", {
+      from: advancedSearchData.salMinLac,
+      to: advancedSearchData.salMaxLac,
+    });
     formData.append("company_names", employmentDetails.employers);
     formData.append("referrals", missingDetails.referral);
-    formData.append("avaialability");
+    formData.append("avaialability", missingDetails.availability);
     formData.append("relevance_of_role", displayDetails.relevance);
-    formData.append("cultural_fit");
-    formData.append("keywords_in_coverletter");
-    formData.append("remote_work");
-    formData.append("qualifications");
+    formData.append("cultural_fit", missingDetails.culturalFit);
+    formData.append("keywords_in_coverletter", advancedSearchData.allKeys);
+    formData.append("remote_work", missingDetails.remoteWork);
+    formData.append("qualifications", missingDetails.qualification);
     formData.append("location", advancedSearchData.location);
-    formData.append("applicant_sources");
-    formData.append("job_hopping");
+    formData.append("applicant_sources", missingDetails.applicantSources);
+    formData.append("job_hopping", missingDetails.jobHopping);
 
     const headers = {
       Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
@@ -354,6 +363,65 @@ const From = () => {
               availability: e.target.value,
             })
           }
+        />
+        <TextField
+          variant="standard"
+          label="culturalFit"
+          placeholder="Cultural Fit"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              culturalFit: e.target.value,
+            })
+          }
+        />
+        <TextField
+          variant="standard"
+          label="applicantSources"
+          placeholder="Applicant Source"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              applicantSources: e.target.value,
+            })
+          }
+        />
+        <TextField
+          variant="standard"
+          label="qualification"
+          placeholder="Qualification"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              qualification: e.target.value,
+            })
+          }
+        />
+        <FormControlLabel
+          control={
+            <Switch
+              onChange={(e) => {
+                setMissingDetails({
+                  ...missingDetails,
+                  remoteWork: e.target.checked,
+                });
+              }}
+            />
+          }
+          label="Remote Work"
+        />
+        <FormControlLabel
+          control={
+            <Switch
+              onChange={(e) => {
+                setMissingDetails({
+                  ...missingDetails,
+                  jobHopping: e.target.checked,
+                });
+              }}
+            />
+          }
+          label="Job Hopping"
         />
       </Stack>
 
@@ -1261,7 +1329,7 @@ const From = () => {
         </MDBox>
       </Accordion>
       <Link to="/resume-details">
-        <MDButton type="submit" sx={{ width: 300, margin: "20px" }}>
+        <MDButton type="submit" sx={{ width: 300, margin: "20px" }} onClick={handleDataUpload}>
           Submit
         </MDButton>
       </Link>
