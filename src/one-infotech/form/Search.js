@@ -1084,14 +1084,14 @@ const Search = () => {
         <MDInput type="text" label="Candidate Age (Max)" placeholder="max" margin="normal" /> */}
           <MDBox sx={{ display: "flex", marginBottom: "20px" }}>
             <Grid item xs={12} lg={5}>
-              <MDBox mb={1.5} lineHeight={0}>
+              {/* <MDBox mb={1.5} lineHeight={0}>
                 <MDTypography
                   component="label"
                   variant="button"
                   color="text"
                   fontWeight="regular"
                 ></MDTypography>
-              </MDBox>
+              </MDBox> */}
               <p>Candidate Age</p>
               <Autocomplete
                 sx={{ width: 300 }}
@@ -1122,7 +1122,7 @@ const Search = () => {
               />
             </Grid>
             <Grid item xs={12} lg={5}>
-              <MDBox mb={1.5} lineHeight={0}>
+              {/* <MDBox mb={1.5} lineHeight={0}>
                 <MDTypography
                   component="label"
                   variant="button"
@@ -1130,7 +1130,7 @@ const Search = () => {
                   halfwidth="true"
                   fontWeight="regular"
                 ></MDTypography>
-              </MDBox>
+              </MDBox> */}
               <p>Candidate Age</p>
               <Autocomplete
                 sx={{ width: 300, marginLeft: "15px" }}
