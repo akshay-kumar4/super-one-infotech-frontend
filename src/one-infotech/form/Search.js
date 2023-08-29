@@ -94,12 +94,12 @@ const buttonStyles = {
 // };
 
 const Search = () => {
-  const [alignment, setAlignment] = React.useState("web");
+  const [alignment, setAlignment] = useState("web");
 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
-  const [expanded, setExpanded] = React.useState("panel1");
+  const [expanded, setExpanded] = useState("panel1");
 
   const handleChangeAccordion = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -441,7 +441,8 @@ const Search = () => {
           <Autocomplete
             className="experience"
             sx={{ width: 300, marginRight: "20px", marginLeft: "20px" }}
-            defaultValue="min"
+            // defaultValue="min"
+            placeholder="Min"
             options={["0", "1", "2", "3", "4", "5"]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
             onChange={(e, val) => {
@@ -457,7 +458,8 @@ const Search = () => {
           <Autocomplete
             className="experience"
             sx={{ width: 300, marginRight: "20px", marginLeft: "20px" }}
-            defaultValue="max"
+            // defaultValue="max"
+            placeholder="Max"
             options={["1", "2", "3", "4", "5", "6", "7", "8", "9"]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
             onChange={(e, val) => {
@@ -491,7 +493,8 @@ const Search = () => {
           <Autocomplete
             className="experience"
             sx={{ width: 100, marginRight: "20px", marginLeft: "20px" }}
-            defaultValue="Lacs"
+            // defaultValue="0"
+
             options={[
               "0",
               "1",
@@ -515,7 +518,7 @@ const Search = () => {
               "19",
               "20",
             ]}
-            renderInput={(params) => <MDInput {...params} variant="standard" />}
+            renderInput={(params) => <MDInput {...params} variant="standard" placeholder="Lacs" />}
             onChange={(e, val) => {
               setAdvancedSearchData({
                 ...advancedSearchData,
@@ -528,7 +531,8 @@ const Search = () => {
           <Autocomplete
             className="experience"
             sx={{ width: 200, marginRight: "20px" }}
-            defaultValue="Thousand"
+            // defaultValue="Thousand"
+
             options={[
               "0",
               "5",
@@ -551,7 +555,9 @@ const Search = () => {
               "90",
               "95",
             ]}
-            renderInput={(params) => <MDInput {...params} variant="standard" />}
+            renderInput={(params) => (
+              <MDInput {...params} variant="standard" placeholder="Thousand" />
+            )}
             onChange={(e, val) => {
               setAdvancedSearchData({
                 ...advancedSearchData,
@@ -565,7 +571,8 @@ const Search = () => {
           <Autocomplete
             className="experience"
             sx={{ width: 100, marginRight: "20px", marginLeft: "20px" }}
-            defaultValue="Lacs"
+            // defaultValue="Lacs"
+
             options={[
               "0",
               "1",
@@ -589,7 +596,7 @@ const Search = () => {
               "19",
               "20",
             ]}
-            renderInput={(params) => <MDInput {...params} variant="standard" />}
+            renderInput={(params) => <MDInput {...params} variant="standard" placeholder="Lacs" />}
             onChange={(e, val) => {
               setAdvancedSearchData({
                 ...advancedSearchData,
@@ -602,7 +609,8 @@ const Search = () => {
           <Autocomplete
             className="experience"
             sx={{ width: 200 }}
-            defaultValue="Thousand"
+            // defaultValue="Thousand"
+
             options={[
               "0",
               "5",
@@ -625,7 +633,9 @@ const Search = () => {
               "90",
               "95",
             ]}
-            renderInput={(params) => <MDInput {...params} variant="standard" />}
+            renderInput={(params) => (
+              <MDInput {...params} variant="standard" placeholder="Thousand" />
+            )}
             onChange={(e, val) => {
               setAdvancedSearchData({
                 ...advancedSearchData,
@@ -640,9 +650,14 @@ const Search = () => {
       <MDBox className="location" sx={{ marginBottom: "20px" }} display="flex">
         <p>Current Location</p>
         <Autocomplete
-          defaultValue="Type or select a location from the list"
           options={["New Delhi", "NCR", "Bangalore", "Mumbai", "Chennai", "Pune"]}
-          renderInput={(params) => <MDInput {...params} variant="standard" />}
+          renderInput={(params) => (
+            <MDInput
+              {...params}
+              variant="standard"
+              placeholder="Type or select a location from the list"
+            />
+          )}
           sx={{ width: 500, marginLeft: "20px" }}
           onChange={(e, val) => {
             setAdvancedSearchData({
@@ -700,7 +715,6 @@ const Search = () => {
         <MDBox display="flex" className="input" sx={{ margin: "20px" }}>
           <p>Year of Graduation</p>
           <Autocomplete
-            defaultValue="From"
             sx={{ width: 300, marginLeft: "20px", marginRight: "20px" }}
             options={[
               "2010",
@@ -723,11 +737,10 @@ const Search = () => {
                 UGFromYearOfGraduation: val,
               });
             }}
-            renderInput={(params) => <MDInput {...params} variant="standard" />}
+            renderInput={(params) => <MDInput {...params} variant="standard" placeholder="From" />}
           />
 
           <Autocomplete
-            defaultValue="To"
             sx={{ width: 300 }}
             options={[
               "2010",
@@ -750,13 +763,12 @@ const Search = () => {
                 UGToYearOfGraduation: val,
               });
             }}
-            renderInput={(params) => <MDInput {...params} variant="standard" />}
+            renderInput={(params) => <MDInput {...params} variant="standard" placeholder="To" />}
           />
         </MDBox>
         <MDBox className="location" sx={{ display: "flex", margin: "20px" }}>
           <p>Education Type</p>
           <Autocomplete
-            defaultValue="Any"
             sx={{ width: 300, marginLeft: "20px" }}
             options={["Any", "Full Time", "Part Time", "Correspondence"]}
             onChange={(e, val) => {
@@ -765,7 +777,7 @@ const Search = () => {
                 educationType: val,
               });
             }}
-            renderInput={(params) => <MDInput {...params} variant="standard" />}
+            renderInput={(params) => <MDInput {...params} variant="standard" placeholder="Any" />}
           />
         </MDBox>
         <MDBox sx={{ marginLeft: "20px", marginBottom: "10px" }}>PG Qualifications</MDBox>
@@ -801,7 +813,6 @@ const Search = () => {
         <MDBox display="flex" className="input" sx={{ margin: "20px" }}>
           <p>Year of Graduation</p>
           <Autocomplete
-            defaultValue="From"
             sx={{ width: 300, marginLeft: "20px", marginRight: "20px" }}
             options={[
               "2010",
@@ -824,11 +835,10 @@ const Search = () => {
                 PGFromYearOfGraduation: val,
               });
             }}
-            renderInput={(params) => <MDInput {...params} variant="standard" />}
+            renderInput={(params) => <MDInput {...params} variant="standard" placeholder="From" />}
           />
 
           <Autocomplete
-            defaultValue="To"
             sx={{ width: 300 }}
             options={[
               "2010",
@@ -851,7 +861,7 @@ const Search = () => {
                 PGToYearOfGraduation: val,
               });
             }}
-            renderInput={(params) => <MDInput {...params} variant="standard" />}
+            renderInput={(params) => <MDInput {...params} variant="standard" placeholder="To" />}
           />
         </MDBox>
         <MDBox className="location" sx={{ display: "flex", margin: "20px" }}>
@@ -888,7 +898,6 @@ const Search = () => {
         <MDBox sx={{ paddingRight: "20px", paddingLeft: "20px", paddingTop: "20px" }}>
           <p>Functional Area</p>
           <Autocomplete
-            defaultValue="Select Functional Area/Role(s) or Start typing"
             sx={{ width: 300 }}
             options={[
               "Any",
@@ -904,13 +913,18 @@ const Search = () => {
                 funcArea: val,
               });
             }}
-            renderInput={(params) => <MDInput {...params} variant="standard" />}
+            renderInput={(params) => (
+              <MDInput
+                {...params}
+                variant="standard"
+                placeholder="Select Functional Area/Role(s) or Start typing"
+              />
+            )}
           />
           {/* <MDInput type="text" label="Industry" fullWidth margin="normal" /> */}
           <MDBox sx={{ paddingTop: "20px" }}>
             <p>Industry</p>
             <Autocomplete
-              defaultValue="Select Industry(s) or start typing"
               sx={{ width: 300 }}
               options={[
                 "2010",
@@ -933,7 +947,13 @@ const Search = () => {
                   industry: val,
                 });
               }}
-              renderInput={(params) => <MDInput {...params} variant="standard" />}
+              renderInput={(params) => (
+                <MDInput
+                  {...params}
+                  variant="standard"
+                  placeholder="Select Industry(s) or start typing"
+                />
+              )}
             />
           </MDBox>
 
@@ -979,7 +999,6 @@ const Search = () => {
           <MDBox sx={{ paddingBottom: "20px", paddingTop: "20px" }}>
             <p>Notice Period</p>
             <Autocomplete
-              defaultValue="Type here or select"
               sx={{ width: 300 }}
               options={[
                 "2010",
@@ -1002,7 +1021,9 @@ const Search = () => {
                   noticePeriod: val,
                 });
               }}
-              renderInput={(params) => <MDInput {...params} variant="standard" />}
+              renderInput={(params) => (
+                <MDInput {...params} variant="standard" placeholder="Type here or select" />
+              )}
             />
           </MDBox>
         </MDBox>
@@ -1018,10 +1039,11 @@ const Search = () => {
         <MDBox sx={{ paddingRight: "20px", paddingLeft: "20px", paddingTop: "20px" }}>
           <p>Candidate Category</p>
           <Autocomplete
-            defaultValue="Select Category"
             sx={{ width: 300 }}
             options={["1", "2", "3", "4"]}
-            renderInput={(params) => <MDInput {...params} variant="standard" />}
+            renderInput={(params) => (
+              <MDInput {...params} variant="standard" placeholder="Select Category" />
+            )}
             onChange={(e, val) => {
               setAdditionalDetails({
                 ...additionalDetails,
@@ -1062,18 +1084,17 @@ const Search = () => {
         <MDInput type="text" label="Candidate Age (Max)" placeholder="max" margin="normal" /> */}
           <MDBox sx={{ display: "flex", marginBottom: "20px" }}>
             <Grid item xs={12} lg={5}>
-              <MDBox mb={1.5} lineHeight={0}>
+              {/* <MDBox mb={1.5} lineHeight={0}>
                 <MDTypography
                   component="label"
                   variant="button"
                   color="text"
                   fontWeight="regular"
                 ></MDTypography>
-              </MDBox>
+              </MDBox> */}
               <p>Candidate Age</p>
               <Autocomplete
                 sx={{ width: 300 }}
-                defaultValue="MIN"
                 options={[
                   "18 years",
                   "19 years",
@@ -1095,22 +1116,23 @@ const Search = () => {
                     candidateAgeMin: val,
                   });
                 }}
-                renderInput={(params) => <MDInput {...params} variant="standard" />}
+                renderInput={(params) => (
+                  <MDInput {...params} variant="standard" placeholder="MIN" />
+                )}
               />
             </Grid>
             <Grid item xs={12} lg={5}>
-              <MDBox mb={1.5} lineHeight={0}>
+              {/* <MDBox mb={1.5} lineHeight={0}>
                 <MDTypography
                   component="label"
                   variant="button"
                   color="text"
-                  halfWidth
+                  halfwidth="true"
                   fontWeight="regular"
                 ></MDTypography>
-              </MDBox>
+              </MDBox> */}
               <p>Candidate Age</p>
               <Autocomplete
-                defaultValue="MAX"
                 sx={{ width: 300, marginLeft: "15px" }}
                 options={[
                   "18 years",
@@ -1133,14 +1155,15 @@ const Search = () => {
                     candidateAgeMax: val,
                   });
                 }}
-                renderInput={(params) => <MDInput {...params} variant="standard" />}
+                renderInput={(params) => (
+                  <MDInput {...params} variant="standard" placeholder="MAX" />
+                )}
               />
             </Grid>
           </MDBox>
           {/* <MDInput type="text" label="Work Status for USA" fullWidth margin="normal" /> */}
           <p>Work status for USA</p>
           <Autocomplete
-            defaultValue="Select"
             sx={{ width: 300 }}
             options={["yes eligible", "not eligible"]}
             onChange={(e, val) => {
@@ -1149,16 +1172,19 @@ const Search = () => {
                 workStatus: val,
               });
             }}
-            renderInput={(params) => <MDInput {...params} variant="standard" />}
+            renderInput={(params) => (
+              <MDInput {...params} variant="standard" placeholder="Select" />
+            )}
           />
 
           <MDBox sx={{ paddingTop: "20px", paddingBottom: "20px" }}>
             <p>Work Permit For</p>
             <Autocomplete
-              defaultValue="Select Country"
               sx={{ width: 300 }}
               options={["India", "Italy", "Japan", "Indonesia", "Jordan"]}
-              renderInput={(params) => <MDInput {...params} variant="standard" />}
+              renderInput={(params) => (
+                <MDInput {...params} variant="standard" placeholder="Select Country" />
+              )}
               onChange={(e, val) => {
                 setAdditionalDetails({
                   ...additionalDetails,
@@ -1221,9 +1247,8 @@ const Search = () => {
           <MDBox sx={{ display: "flex", flexDirection: "column" }}>
             <MDBox sx={{ display: "flex", alignItems: "center" }}>
               Show Candidate Seeking
-              <break />
+              <br />
               <Autocomplete
-                defaultValue="Job Type"
                 sx={{ width: 300, marginLeft: "15px" }}
                 options={["1", "2", "3", "4", "5"]}
                 onChange={(e, val) => {
@@ -1232,10 +1257,11 @@ const Search = () => {
                     jobType: val,
                   });
                 }}
-                renderInput={(params) => <MDInput {...params} variant="standard" />}
+                renderInput={(params) => (
+                  <MDInput {...params} variant="standard" placeholder="Job Type" />
+                )}
               />
               <Autocomplete
-                defaultValue="Employment Type"
                 sx={{ width: 300, marginLeft: "15px" }}
                 options={["1", "2", "3", "4", "5"]}
                 onChange={(e, val) => {
@@ -1244,7 +1270,9 @@ const Search = () => {
                     employmentType: val,
                   });
                 }}
-                renderInput={(params) => <MDInput {...params} variant="standard" />}
+                renderInput={(params) => (
+                  <MDInput {...params} variant="standard" placeholder="Employment Type" />
+                )}
               />
             </MDBox>
             <MDBox>
@@ -1291,7 +1319,6 @@ const Search = () => {
           <MDBox sx={{ marginBottom: "20px" }}>
             <p>Resume per page</p>
             <Autocomplete
-              defaultValue="SELECT"
               sx={{ width: 300 }}
               options={["1", "2", "3", "4", "5"]}
               onChange={(e, val) => {
@@ -1300,7 +1327,9 @@ const Search = () => {
                   resumePerPage: val,
                 });
               }}
-              renderInput={(params) => <MDInput {...params} variant="standard" />}
+              renderInput={(params) => (
+                <MDInput {...params} variant="standard" placeholder="SELECT" />
+              )}
             />
           </MDBox>
 
@@ -1308,7 +1337,6 @@ const Search = () => {
           <MDBox sx={{ marginBottom: "20px" }}>
             <p>Sort By</p>
             <Autocomplete
-              defaultValue="Relevance"
               sx={{ width: 300 }}
               options={["1", "2", "3", "4", "5"]}
               onChange={(e, val) => {
@@ -1317,7 +1345,9 @@ const Search = () => {
                   relevance: val,
                 });
               }}
-              renderInput={(params) => <MDInput {...params} variant="standard" />}
+              renderInput={(params) => (
+                <MDInput {...params} variant="standard" placeholder="Relevance" />
+              )}
             />
           </MDBox>
 
@@ -1364,28 +1394,6 @@ const top100Keywords = [
   { title: "Part Time" },
   { title: "Contract Based" },
   { title: "Internship" },
-  { title: "Frontend Development" },
-  { title: "Backend Development" },
-  { title: "Fullstack Development" },
-  { title: "Data Analytics" },
-  { title: "Data Science" },
-  { title: "Frontend Development" },
-  { title: "Backend Development" },
-  { title: "Fullstack Development" },
-  { title: "Data Analytics" },
-  { title: "Data Science" },
-  { title: "Frontend Development" },
-  { title: "Backend Development" },
-  { title: "Fullstack Development" },
-  { title: "Data Analytics" },
-  { title: "Data Science" },
-  { title: "Frontend Development" },
-  { title: "Backend Development" },
-  { title: "Fullstack Development" },
-  { title: "Data Analytics" },
-  { title: "Data Science" },
-  { title: "Frontend Development" },
-  { title: "Backend Development" },
   { title: "AI/ML" },
 ];
 
