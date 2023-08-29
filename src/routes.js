@@ -64,7 +64,8 @@ import SignInCover from "layouts/authentication/sign-in/cover";
 import SignInIllustration from "layouts/authentication/sign-in/illustration";
 import SignUpCover from "layouts/authentication/sign-up/cover";
 import ResetCover from "layouts/authentication/reset-password/cover";
-import Form from "./one-infotech/form/index";
+import Search from "one-infotech/form/Search";
+import Form from "./one-infotech/form/Form";
 import ResumeDetails from "one-infotech/form/ResumeDetails";
 
 // Material Dashboard 2 PRO React components
@@ -124,6 +125,12 @@ const routes = [
       //   route: "/dashboards/sales",
       //   component: <Sales />,
       // },
+      {
+        name: "Search",
+        key: "search",
+        route: "/dashboards/search",
+        component: <Search />,
+      },
       {
         name: "Form",
         key: "form",
