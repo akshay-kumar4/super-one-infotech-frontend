@@ -93,7 +93,7 @@ const buttonStyles = {
 //   fontSize: "16px",
 // };
 
-const Search = () => {
+const From = () => {
   const [alignment, setAlignment] = React.useState("web");
 
   const handleChange = (event, newAlignment) => {
@@ -159,6 +159,7 @@ const Search = () => {
       console.error("No file selected");
     }
   };
+
   function handleChangeData(event) {
     setAdvancedSearchData((prevAdvancedSearchData) => {
       return {
@@ -1389,4 +1390,4 @@ const top100Keywords = [
   { title: "AI/ML" },
 ];
 
-export default Search;
+export default From;
