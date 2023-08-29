@@ -93,7 +93,7 @@ const buttonStyles = {
 //   fontSize: "16px",
 // };
 
-const From = () => {
+const Search = () => {
   const [alignment, setAlignment] = React.useState("web");
 
   const handleChange = (event, newAlignment) => {
@@ -1389,4 +1389,4 @@ const top100Keywords = [
   { title: "AI/ML" },
 ];
 
-export default From;
+export default Search;
