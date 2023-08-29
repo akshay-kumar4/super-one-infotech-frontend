@@ -70,8 +70,8 @@ const From = () => {
           getOptionLabel={(option) => option.title}
           defaultValue={[top100Keywords[13]]}
           onChange={(e, val) => {
-            setAdvancedSearchData({
-              ...advancedSearchData,
+            setMissingDetails({
+              ...missingDetails,
               anyKeys: val,
             });
           }}
