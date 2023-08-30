@@ -43,7 +43,7 @@ const From = () => {
         />
         <TextField
           variant="standard"
-          label="email"
+          label="Email"
           placeholder="Enter you email"
           onChange={(e) =>
             setMissingDetails({
@@ -54,7 +54,7 @@ const From = () => {
         />
         <TextField
           variant="standard"
-          label="phone"
+          label="Phone"
           placeholder="Enter you phone"
           onChange={(e) =>
             setMissingDetails({
@@ -130,7 +130,7 @@ const From = () => {
         />
         <TextField
           variant="standard"
-          label="accomplishment"
+          label="Accomplishment"
           placeholder="Enter you accomplishment"
           onChange={(e) =>
             setMissingDetails({
@@ -185,7 +185,7 @@ const From = () => {
         />
         <TextField
           variant="standard"
-          label="referrals"
+          label="Referrals"
           placeholder="Referrals"
           onChange={(e) =>
             setMissingDetails({
@@ -196,7 +196,7 @@ const From = () => {
         />
         <TextField
           variant="standard"
-          label="availability"
+          label="Availability"
           placeholder="availability"
           onChange={(e) =>
             setMissingDetails({
@@ -207,7 +207,7 @@ const From = () => {
         />
         <TextField
           variant="standard"
-          label="culturalFit"
+          label="Cultural Fit"
           placeholder="Cultural Fit"
           onChange={(e) =>
             setMissingDetails({
@@ -229,7 +229,7 @@ const From = () => {
         />
         <TextField
           variant="standard"
-          label="applicantSources"
+          label="Applicant Sources"
           placeholder="Applicant Source"
           onChange={(e) =>
             setMissingDetails({
@@ -240,7 +240,7 @@ const From = () => {
         />
         <TextField
           variant="standard"
-          label="qualification"
+          label="Qualification"
           placeholder="Qualification"
           onChange={(e) =>
             setMissingDetails({
