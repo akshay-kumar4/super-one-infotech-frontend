@@ -78,6 +78,7 @@ import Icon from "@mui/material/Icon";
 import profilePicture from "assets/images/team-3.jpg";
 import Login from "one-infotech/auth/Login";
 import Register from "one-infotech/auth/Register";
+import FilterResume from "one-infotech/form/FilterResumes";
 
 const routes = [
   {
@@ -142,6 +143,12 @@ const routes = [
         key: "Details",
         route: "/resume-details",
         component: <ResumeDetails />,
+      },
+      {
+        name: "Filter Resumes",
+        key: "FilterResumes",
+        route: "/filter-resume-details",
+        component: <FilterResume />,
       },
     ],
   },
