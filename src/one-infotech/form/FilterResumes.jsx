@@ -4,6 +4,7 @@ import { Accordion } from "@mui/material";
 import React from "react";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { KeyboardOptionKey } from "@mui/icons-material";
 
 const FilterResume = () => {
   const [data, setData] = useState([]);
@@ -24,19 +25,27 @@ const FilterResume = () => {
 
   useEffect(() => {
     console.log(data);
-    console.log(searchParams.get("keyword"));
+    // console.log(searchParams.getAll("keyword"));
     // Now filtering from the received array.
     if (searchParams.has("keyword")) {
       console.log("keyword given");
       console.log(
-        data.filter((x) =>
-          JSON.stringify(x).toLowerCase().includes(searchParams.get("keyword").toLowerCase())
-        )
+        data.filter((x) => {
+          let test = true;
+          searchParams.getAll("keyword").forEach((k) => {
+            test = test && JSON.stringify(x).toLowerCase().includes(k.toLowerCase());
+          });
+          return test;
+        })
       );
       setFilteredData(
-        data.filter((x) =>
-          JSON.stringify(x).toLowerCase().includes(searchParams.get("keyword").toLowerCase())
-        )
+        data.filter((x) => {
+          let test = true;
+          searchParams.getAll("keyword").forEach((k) => {
+            test = test && JSON.stringify(x).toLowerCase().includes(k.toLowerCase());
+          });
+          return test;
+        })
       );
     } else {
       console.log("keyword not given");
