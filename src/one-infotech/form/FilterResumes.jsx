@@ -42,15 +42,16 @@ const FilterResume = () => {
       console.log("keyword not given");
       setFilteredData(data);
     }
+
+    if (searchParams.has("location")) {
+      console.log("Location passed = " + searchParams.get("location"));
+      setFilteredData(
+        data.filter((x) =>
+          x.location.toLowerCase().includes(searchParams.get("location").toLowerCase())
+        )
+      );
+    }
   }, [data]);
-
-  // useEffect(() => {
-  //   console.log("Data changed");
-  // }, [data]);
-
-  // useEffect(() => {
-  //   console.log("Filtered Data changed");
-  // }, [filteredData]);
 
   return (
     <div>

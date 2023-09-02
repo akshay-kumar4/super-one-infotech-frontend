@@ -39,7 +39,7 @@ import Chip from "@mui/material/Chip";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, createSearchParams, useNavigate } from "react-router-dom";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -103,25 +103,7 @@ const Search = () => {
   const handleChangeAccordion = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
-  // minor change
-  // const [advancedSearchData, setAdvancedSearchData] = useState({
-  //   anyKeys: "",
-  //   allKeys: "",
-  //   excludingKeys: "",
-  //   expMin: "",
-  //   expMax: "",
-  //   salMinLac: "",
-  //   salMinTh: "",
-  //   salMaxLac: "",
-  //   salMaxTh: "",
-  //   location: "",
-  // });
-  // const [anyKeys, setAnyKeys] = useState("");
-  // const [allKeys, setAllKeys] = useState("");
-  // const [excludingKeys, setExcludingKeys] = useState("");
-  // const [totalExperience, setTotalExperience] = useState(null);
-  // const [salary, setSalary] = useState(0);
-  // const [location, setLocation] = useState("");
+
   const [missingDetails, setMissingDetails] = useState("");
   const [advancedSearchData, setAdvancedSearchData] = useState({});
   const [educationQualification, setEducationQualification] = useState({});
@@ -172,55 +154,69 @@ const Search = () => {
   //   const value = e.target.value;
   //   setAdvancedSearchData({ ...advancedSearchData, [name]: value });
   // };
-  const handleDataUpload = () => {
-    const formData = new FormData();
-    formData.append("name", missingDetails.name);
-    formData.append("email", missingDetails.email);
-    formData.append("phone", missingDetails.phone);
-    formData.append("keywords", advancedSearchData.anyKeys);
-    formData.append("education", educationQualification);
-    formData.append("experience_level", {
-      from: advancedSearchData.expMin,
-      to: advancedSearchData.expMax,
-    });
-    formData.append("skills", advancedSearchData.allKeys);
-    formData.append("industry_experience", employmentDetails.industry);
-    formData.append("accomplishment", missingDetails.accomplishment);
-    formData.append("job_tenure", {
-      from: advancedSearchData.expMin,
-      to: advancedSearchData.expMax,
-    });
-    formData.append("job_titles", employmentDetails.designation);
-    formData.append("salary_level", {
-      from: advancedSearchData.salMinLac,
-      to: advancedSearchData.salMaxLac,
-    });
-    formData.append("company_names", employmentDetails.employers);
-    formData.append("referrals", missingDetails.referral);
-    formData.append("avaialability", missingDetails.availability);
-    formData.append("relevance_of_role", displayDetails.relevance);
-    formData.append("cultural_fit", missingDetails.culturalFit);
-    formData.append("keywords_in_coverletter", advancedSearchData.allKeys);
-    formData.append("remote_work", missingDetails.remoteWork);
-    formData.append("qualifications", missingDetails.qualification);
-    formData.append("location", advancedSearchData.location);
-    formData.append("applicant_sources", missingDetails.applicantSources);
-    formData.append("job_hopping", missingDetails.jobHopping);
+  // const handleDataUpload = () => {
+  //   const formData = new FormData();
+  //   formData.append("name", missingDetails.name);
+  //   formData.append("email", missingDetails.email);
+  //   formData.append("phone", missingDetails.phone);
+  //   formData.append("keywords", advancedSearchData.anyKeys);
+  //   formData.append("education", educationQualification);
+  //   formData.append("experience_level", {
+  //     from: advancedSearchData.expMin,
+  //     to: advancedSearchData.expMax,
+  //   });
+  //   formData.append("skills", advancedSearchData.allKeys);
+  //   formData.append("industry_experience", employmentDetails.industry);
+  //   formData.append("accomplishment", missingDetails.accomplishment);
+  //   formData.append("job_tenure", {
+  //     from: advancedSearchData.expMin,
+  //     to: advancedSearchData.expMax,
+  //   });
+  //   formData.append("job_titles", employmentDetails.designation);
+  //   formData.append("salary_level", {
+  //     from: advancedSearchData.salMinLac,
+  //     to: advancedSearchData.salMaxLac,
+  //   });
+  //   formData.append("company_names", employmentDetails.employers);
+  //   formData.append("referrals", missingDetails.referral);
+  //   formData.append("avaialability", missingDetails.availability);
+  //   formData.append("relevance_of_role", displayDetails.relevance);
+  //   formData.append("cultural_fit", missingDetails.culturalFit);
+  //   formData.append("keywords_in_coverletter", advancedSearchData.allKeys);
+  //   formData.append("remote_work", missingDetails.remoteWork);
+  //   formData.append("qualifications", missingDetails.qualification);
+  //   formData.append("location", advancedSearchData.location);
+  //   formData.append("applicant_sources", missingDetails.applicantSources);
+  //   formData.append("job_hopping", missingDetails.jobHopping);
 
-    const headers = {
-      Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
-    };
+  //   const headers = {
+  //     Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+  //   };
 
-    axios
-      .post("https://resume-api-6u3t4.ondigitalocean.app/resume-data/", formData, { headers })
-      .then((response) => {
-        // Handle success
-        console.log("File uploaded successfully", response.data);
-      })
-      .catch((error) => {
-        // Handle error
-        console.error("Error uploading file", error);
-      });
+  //   axios
+  //     .post("https://resume-api-6u3t4.ondigitalocean.app/resume-data/", formData, { headers })
+  //     .then((response) => {
+  //       // Handle success
+  //       console.log("File uploaded successfully", response.data);
+  //     })
+  //     .catch((error) => {
+  //       // Handle error
+  //       console.error("Error uploading file", error);
+  //     });
+  // };
+
+  const navigate = useNavigate();
+  const goToFilteredResumePage = () => {
+    let params = {};
+    if (advancedSearchData.location) {
+      params.location = advancedSearchData.location;
+      console.log(params);
+    }
+
+    navigate({
+      pathname: "/filter-resume-details",
+      search: createSearchParams(params).toString(),
+    });
   };
 
   return (
@@ -247,9 +243,9 @@ const Search = () => {
         <Autocomplete
           multiple
           id="tags-standard"
-          options={top100Keywords}
+          options={top18Keywords}
           getOptionLabel={(option) => option.title}
-          defaultValue={[top100Keywords[13]]}
+          // defaultValue={[top18Keywords[13]]}
           onChange={(e, val) => {
             setAdvancedSearchData({
               ...advancedSearchData,
@@ -268,9 +264,9 @@ const Search = () => {
         <Autocomplete
           multiple
           id="tags-standard"
-          options={top100Keywords}
+          options={top18Keywords}
           getOptionLabel={(option) => option.title}
-          defaultValue={[top100Keywords[13]]}
+          // defaultValue={[top18Keywords[13]]}
           onChange={(e, val) => {
             setAdvancedSearchData({
               ...advancedSearchData,
@@ -289,9 +285,9 @@ const Search = () => {
         <Autocomplete
           multiple
           id="tags-standard"
-          options={top100Keywords}
+          options={top18Keywords}
           getOptionLabel={(option) => option.title}
-          defaultValue={[top100Keywords[13]]}
+          // defaultValue={[top18Keywords[13]]}
           onChange={(e, val) => {
             setAdvancedSearchData({
               ...advancedSearchData,
@@ -316,9 +312,8 @@ const Search = () => {
             className="experience"
             sx={{ width: 300, marginRight: "20px", marginLeft: "20px" }}
             // defaultValue="min"
-            placeholder="Min"
             options={["0", "1", "2", "3", "4", "5"]}
-            renderInput={(params) => <MDInput {...params} variant="standard" />}
+            renderInput={(params) => <MDInput {...params} variant="standard" placeholder="From" />}
             onChange={(e, val) => {
               setAdvancedSearchData({
                 ...advancedSearchData,
@@ -353,7 +348,7 @@ const Search = () => {
         <Autocomplete
           className="experience"
           sx={{ width: 50, marginRight: "20px", marginLeft: "20px" }}
-          defaultValue="₹"
+          // defaultValue="₹"
           options={["$", "€", "£", "¥", "₣", "₹"]}
           onChange={(e, val) => {
             setAdvancedSearchData({
@@ -399,7 +394,7 @@ const Search = () => {
                 salMinLac: val,
               });
             }}
-            value={advancedSearchData.salMinLac}
+            // value={advancedSearchData.salMinLac}
             name="salMinLac"
           />
           <Autocomplete
@@ -438,7 +433,7 @@ const Search = () => {
                 salMinTh: val,
               });
             }}
-            value={advancedSearchData.salMinTh}
+            // value={advancedSearchData.salMinTh}
             name="salMinTh"
           />
           <span>To</span>
@@ -477,7 +472,7 @@ const Search = () => {
                 salMaxLac: val,
               });
             }}
-            value={advancedSearchData.salMaxLac}
+            // value={advancedSearchData.salMaxLac}
             name="salMaxLac"
           />
           <Autocomplete
@@ -516,7 +511,7 @@ const Search = () => {
                 salMaxTh: val,
               });
             }}
-            value={advancedSearchData.salMaxTh}
+            // value={advancedSearchData.salMaxTh}
             name="salMaxTh"
           />
         </MDBox>
@@ -539,7 +534,7 @@ const Search = () => {
               location: val,
             });
           }}
-          value={advancedSearchData.location}
+          // value={advancedSearchData.location}
           name="location"
         />
       </MDBox>
@@ -741,7 +736,7 @@ const Search = () => {
         <MDBox className="location" sx={{ display: "flex", margin: "20px" }}>
           <p>Education Type</p>
           <Autocomplete
-            defaultValue="Any"
+            // defaultValue="Any"
             sx={{ width: 300, marginLeft: "20px" }}
             options={["Any", "Full Time", "Part Time", "Correspondence"]}
             onChange={(e, val) => {
@@ -1242,15 +1237,15 @@ const Search = () => {
           </FormGroup>
         </MDBox>
       </Accordion>
-      <Link to="/resume-details">
-        <MDButton type="submit" sx={{ width: 300, margin: "20px" }} onClick={handleDataUpload}>
-          Submit
-        </MDButton>
-      </Link>
+      {/* <Link to=""> */}
+      <MDButton type="submit" sx={{ width: 300, margin: "20px" }} onClick={goToFilteredResumePage}>
+        Submit
+      </MDButton>
+      {/* </Link> */}
     </DashboardLayout>
   );
 };
-const top100Keywords = [
+const top18Keywords = [
   { title: "Data Analytics" },
   { title: "Data Science" },
   { title: "Frontend Development" },
