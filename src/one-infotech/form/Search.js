@@ -38,7 +38,6 @@ import MDTypography from "components/MDTypography";
 import Chip from "@mui/material/Chip";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
-// import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -307,131 +306,6 @@ const Search = () => {
               placeholder="Skills, Designation, Role"
             />
           )}
-        />
-        <TextField
-          variant="standard"
-          label="Name"
-          placeholder="Enter you name"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              name: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="email"
-          placeholder="Enter you email"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              email: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="phone"
-          placeholder="Enter you phone"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              phone: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="accomplishment"
-          placeholder="Enter you accomplishment"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              accomplishment: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="referral"
-          placeholder="Referrals"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              referral: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="availability"
-          placeholder="availability"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              availability: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="culturalFit"
-          placeholder="Cultural Fit"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              culturalFit: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="applicantSources"
-          placeholder="Applicant Source"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              applicantSources: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="qualification"
-          placeholder="Qualification"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              qualification: e.target.value,
-            })
-          }
-        />
-        <FormControlLabel
-          control={
-            <Switch
-              onChange={(e) => {
-                setMissingDetails({
-                  ...missingDetails,
-                  remoteWork: e.target.checked,
-                });
-              }}
-            />
-          }
-          label="Remote Work"
-        />
-        <FormControlLabel
-          control={
-            <Switch
-              onChange={(e) => {
-                setMissingDetails({
-                  ...missingDetails,
-                  jobHopping: e.target.checked,
-                });
-              }}
-            />
-          }
-          label="Job Hopping"
         />
       </Stack>
 
