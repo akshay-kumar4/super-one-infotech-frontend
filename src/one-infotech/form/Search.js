@@ -148,70 +148,19 @@ const Search = () => {
       };
     });
   }
-  // console.log(advancedSearchData);
-  // const handleChangeData = (e) => {
-  //   const name = e.target.name;
-  //   const value = e.target.value;
-  //   setAdvancedSearchData({ ...advancedSearchData, [name]: value });
-  // };
-  // const handleDataUpload = () => {
-  //   const formData = new FormData();
-  //   formData.append("name", missingDetails.name);
-  //   formData.append("email", missingDetails.email);
-  //   formData.append("phone", missingDetails.phone);
-  //   formData.append("keywords", advancedSearchData.anyKeys);
-  //   formData.append("education", educationQualification);
-  //   formData.append("experience_level", {
-  //     from: advancedSearchData.expMin,
-  //     to: advancedSearchData.expMax,
-  //   });
-  //   formData.append("skills", advancedSearchData.allKeys);
-  //   formData.append("industry_experience", employmentDetails.industry);
-  //   formData.append("accomplishment", missingDetails.accomplishment);
-  //   formData.append("job_tenure", {
-  //     from: advancedSearchData.expMin,
-  //     to: advancedSearchData.expMax,
-  //   });
-  //   formData.append("job_titles", employmentDetails.designation);
-  //   formData.append("salary_level", {
-  //     from: advancedSearchData.salMinLac,
-  //     to: advancedSearchData.salMaxLac,
-  //   });
-  //   formData.append("company_names", employmentDetails.employers);
-  //   formData.append("referrals", missingDetails.referral);
-  //   formData.append("avaialability", missingDetails.availability);
-  //   formData.append("relevance_of_role", displayDetails.relevance);
-  //   formData.append("cultural_fit", missingDetails.culturalFit);
-  //   formData.append("keywords_in_coverletter", advancedSearchData.allKeys);
-  //   formData.append("remote_work", missingDetails.remoteWork);
-  //   formData.append("qualifications", missingDetails.qualification);
-  //   formData.append("location", advancedSearchData.location);
-  //   formData.append("applicant_sources", missingDetails.applicantSources);
-  //   formData.append("job_hopping", missingDetails.jobHopping);
-
-  //   const headers = {
-  //     Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
-  //   };
-
-  //   axios
-  //     .post("https://resume-api-6u3t4.ondigitalocean.app/resume-data/", formData, { headers })
-  //     .then((response) => {
-  //       // Handle success
-  //       console.log("File uploaded successfully", response.data);
-  //     })
-  //     .catch((error) => {
-  //       // Handle error
-  //       console.error("Error uploading file", error);
-  //     });
-  // };
 
   const navigate = useNavigate();
   const goToFilteredResumePage = () => {
     let params = {};
+
+    if (advancedSearchData.anyKeys) {
+      params.keyword = advancedSearchData.anyKeys;
+    }
+
     if (advancedSearchData.location) {
       params.location = advancedSearchData.location;
-      console.log(params);
     }
+    console.log(params);
 
     navigate({
       pathname: "/filter-resume-details",
@@ -242,9 +191,10 @@ const Search = () => {
       <Stack spacing={3} sx={{ width: 1000 }}>
         <Autocomplete
           multiple
+          freeSolo
           id="tags-standard"
-          options={top18Keywords}
-          getOptionLabel={(option) => option.title}
+          options={top18Keywords.map((x) => x.title)}
+          // getOptionLabel={(option) => option.title}
           // defaultValue={[top18Keywords[13]]}
           onChange={(e, val) => {
             setAdvancedSearchData({
