@@ -16,7 +16,7 @@ import React, { useState } from "react";
 
 // Material Dashboard 2 PRO React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import DashboardNavbar from "../components/DashboardNavbar/index";
 import Footer from "examples/Footer";
 import MDBadge from "components/MDBadge";
 import MDButton from "components/MDButton";
