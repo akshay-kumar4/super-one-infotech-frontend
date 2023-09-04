@@ -179,7 +179,7 @@ const Search = () => {
           marginBottom: "10px",
         }}
       >
-        <h1>Advanced Search</h1>
+        <h2>Advanced Search</h2>
         <MDBox>
           <input type="file" onChange={handleFileChange} />
           <button style={buttonStyles} onClick={handleUpload}>
