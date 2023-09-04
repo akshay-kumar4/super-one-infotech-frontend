@@ -370,12 +370,12 @@ const routes = [
   //           route: "/authentication/sign-up/cover",
   //           component: <SignUpCover />,
   //         },
-  //         {
-  //           name: "Sign Up",
-  //           key: "sign-up",
-  //           route: "/auth/sign-up",
-  //           component: <Register />,
-  //         },
+  {
+    name: "Sign Up",
+    key: "sign-up",
+    route: "/auth/sign-up",
+    component: <Register />,
+  },
   //       ],
   //     },
   //     {
