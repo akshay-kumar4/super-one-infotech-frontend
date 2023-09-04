@@ -27,8 +27,6 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 const From = () => {
   const [missingDetails, setMissingDetails] = useState("");
-  const [apiData, setApiData] = useState([]);
-  const [filteredData, setFilteredData] = useState();
 
   const handleDataUpload = () => {
     const formData = new FormData();
@@ -70,64 +68,6 @@ const From = () => {
         // Handle error
         console.error("Error uploading file", error);
       });
-  };
-
-  useEffect(() => {
-    // Make a GET request when the component mounts
-    axios
-      .get("https://resume-api-6u3t4.ondigitalocean.app/resume-data/", {
-        headers: {
-          Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
-        },
-      })
-      .then((response) => {
-        // Process the data and split keywords into an array
-        const processedData = response.data.map((item) => {
-          if (typeof item.keywords === "string") {
-            item.keywords = item.keywords.split(",");
-          } else if (!Array.isArray(item.keywords)) {
-            item.keywords = [];
-          }
-          return item;
-        });
-
-        // Set the processed data into apiData state
-        setApiData(processedData);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
-
-  let keysToSearch = [];
-
-  if (missingDetails) {
-    missingDetails.keywords.map((keyword) => {
-      keysToSearch.push(keyword.title);
-    });
-  } else {
-    console.log("data not defined");
-  }
-
-  const showFilterdData = () => {
-    console.log("missingDetails.keywords:", missingDetails.keywords);
-
-    if (missingDetails.keywords && missingDetails.keywords.length > 0) {
-      const filtered = apiData.filter((item) =>
-        missingDetails.keywords.some((keyword) => item.keywords.includes(keyword.title))
-      );
-
-      console.log("Filtered Data:", filtered);
-      console.log(apiData);
-
-      setFilteredData(filtered);
-    } else {
-      console.log("missingDetails.keywords is not defined or empty");
-    }
-  };
-
-  const showFilterddata = () => {
-    // console.log(keysToSearch);
   };
 
   return (
@@ -405,10 +345,6 @@ const From = () => {
         {/* </MDBox> */}
         <MDButton type="submit" sx={{ width: 300, margin: "20px" }} onClick={handleDataUpload}>
           Submit
-        </MDButton>
-
-        <MDButton type="submit" sx={{ width: 300, margin: "20px" }} onClick={showFilterdData}>
-          Search
         </MDButton>
       </Stack>
     </DashboardLayout>

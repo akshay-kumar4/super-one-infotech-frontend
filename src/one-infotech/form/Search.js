@@ -40,6 +40,8 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import axios from "axios";
 import { Link, createSearchParams, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -116,6 +118,7 @@ const Search = () => {
     setFile(event.target.files[0]);
   };
 
+  // const notify = () => toast("Wow so easy!");
   const handleUpload = () => {
     if (file) {
       const formData = new FormData();
@@ -129,6 +132,7 @@ const Search = () => {
         .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading/", formData, { headers })
         .then((response) => {
           // Handle success
+          // notify;
           console.log("File uploaded successfully", response.data);
         })
         .catch((error) => {
