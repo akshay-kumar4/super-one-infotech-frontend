@@ -118,7 +118,10 @@ const Search = () => {
     setFile(event.target.files[0]);
   };
 
-  // const notify = () => toast("Wow so easy!");
+  const notifyOnResolve = () => toast.success("file upload successful");
+  const notifyOnReject = () => toast.error("Failed to upload");
+  const notifyOnPending = () => toast.info("File uploading");
+
   const handleUpload = () => {
     if (file) {
       const formData = new FormData();
@@ -128,15 +131,19 @@ const Search = () => {
         Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
       };
 
+      // Display the 'File uploading' message
+      notifyOnPending();
+
       axios
         .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading/", formData, { headers })
         .then((response) => {
           // Handle success
-          // notify;
+          notifyOnResolve();
           console.log("File uploaded successfully", response.data);
         })
         .catch((error) => {
           // Handle error
+          notifyOnReject();
           console.error("Error uploading file", error);
         });
     } else {
@@ -144,6 +151,7 @@ const Search = () => {
       console.error("No file selected");
     }
   };
+
   function handleChangeData(event) {
     setAdvancedSearchData((prevAdvancedSearchData) => {
       return {
@@ -188,7 +196,8 @@ const Search = () => {
           <input type="file" onChange={handleFileChange} />
           <button style={buttonStyles} onClick={handleUpload}>
             Upload Resume
-          </button>
+          </button>{" "}
+          <ToastContainer />
         </MDBox>
       </MDBox>
 
