@@ -73,9 +73,9 @@ const FilterResume = () => {
       );
     }
     if (searchParams.has("experience_level")) {
-      tempFilteredData = tempFilteredData.filter(x=>{
-        x["experience_level"] == searchParams.get("experience_level")
-      })
+      tempFilteredData = tempFilteredData.filter((x) => {
+        x["experience_level"] == searchParams.get("experience_level");
+      });
     }
 
     setFilteredData(tempFilteredData);
