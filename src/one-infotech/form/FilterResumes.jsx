@@ -24,20 +24,46 @@ const FilterResume = () => {
   }, []);
 
   useEffect(() => {
-    // console.log(data);
     let tempFilteredData = data;
+    console.log(tempFilteredData);
     console.log("Total docs : " + tempFilteredData.length);
     // console.log(searchParams.getAll("keyword"));
     // Now filtering from the received array.
-    if (searchParams.has("keyword")) {
+    if (searchParams.has("any_keywords")) {
       tempFilteredData = tempFilteredData.filter((x) => {
-        let test = true;
-        searchParams.getAll("keyword").forEach((k) => {
-          test = test && JSON.stringify(x).toLowerCase().includes(k.toLowerCase());
+        let test = false;
+        searchParams.getAll("any_keywords").forEach((k) => {
+          if (x.keywords.toLowerCase().includes(k.toLowerCase())) {
+            test = true;
+          }
         });
         return test;
       });
-      console.log("reduced to " + tempFilteredData.length + " by keyword");
+      console.log("reduced to " + tempFilteredData.length + " by any keyword");
+    }
+    if (searchParams.has("all_keywords")) {
+      tempFilteredData = tempFilteredData.filter((x) => {
+        let test = true;
+        searchParams.getAll("all_keywords").forEach((k) => {
+          if (!x.keywords.toLowerCase().includes(k.toLowerCase())) {
+            test = false;
+          }
+        });
+        return test;
+      });
+      console.log("reduced to " + tempFilteredData.length + " by all keyword");
+    }
+    if (searchParams.has("exclude_keywords")) {
+      tempFilteredData = tempFilteredData.filter((x) => {
+        let test = true;
+        searchParams.getAll("exclude_keywords").forEach((k) => {
+          if (x.keywords.toLowerCase().includes(k.toLowerCase())) {
+            test = false;
+          }
+        });
+        return test;
+      });
+      console.log("reduced to " + tempFilteredData.length + " by exclude keyword");
     }
     if (searchParams.has("location")) {
       tempFilteredData = tempFilteredData.filter((x) =>

@@ -166,9 +166,14 @@ const Search = () => {
     let params = {};
 
     if (advancedSearchData.anyKeys) {
-      params.keyword = advancedSearchData.anyKeys;
+      params.any_keywords = advancedSearchData.anyKeys;
     }
-
+    if (advancedSearchData.allKeys) {
+      params.all_keywords = advancedSearchData.allKeys;
+    }
+    if (advancedSearchData.excludingKeys) {
+      params.exclude_keywords = advancedSearchData.excludingKeys;
+    }
     if (advancedSearchData.location) {
       params.location = advancedSearchData.location;
     }
@@ -239,8 +244,8 @@ const Search = () => {
         <Autocomplete
           multiple
           id="tags-standard"
-          options={top18Keywords}
-          getOptionLabel={(option) => option.title}
+          options={top18Keywords.map((x) => x.title)}
+          // getOptionLabel={(option) => option.title}
           // defaultValue={[top18Keywords[13]]}
           onChange={(e, val) => {
             setAdvancedSearchData({
@@ -260,8 +265,8 @@ const Search = () => {
         <Autocomplete
           multiple
           id="tags-standard"
-          options={top18Keywords}
-          getOptionLabel={(option) => option.title}
+          options={top18Keywords.map((x) => x.title)}
+          // getOptionLabel={(option) => option.title}
           // defaultValue={[top18Keywords[13]]}
           onChange={(e, val) => {
             setAdvancedSearchData({
