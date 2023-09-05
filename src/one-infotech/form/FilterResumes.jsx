@@ -72,6 +72,11 @@ const FilterResume = () => {
         x["job_titles"].toLowerCase().includes(searchParams.get("designation").toLowerCase())
       );
     }
+    if (searchParams.has("experience_level")) {
+      tempFilteredData = tempFilteredData.filter(x=>{
+        x["experience_level"] == searchParams.get("experience_level")
+      })
+    }
 
     setFilteredData(tempFilteredData);
   }, [data]);

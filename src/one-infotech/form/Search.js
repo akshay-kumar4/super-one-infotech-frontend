@@ -172,6 +172,18 @@ const Search = () => {
     if (advancedSearchData.location) {
       params.location = advancedSearchData.location;
     }
+    if (employmentDetails.employers) {
+      params.employers = employmentDetails.employers;
+    }
+    if (employmentDetails.excludeEmployers) {
+      params.exclude_employers = employmentDetails.excludeEmployers;
+    }
+    if (employmentDetails.designation) {
+      params.designation = employmentDetails.designation;
+    }
+    if (advancedSearchData.expMin && advancedSearchData.expMax) {
+      params.experience_level = advancedSearchData.expMax - advancedSearchData.expMin;
+    }
     console.log(params);
 
     navigate({
