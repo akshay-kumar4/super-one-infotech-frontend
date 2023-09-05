@@ -67,6 +67,11 @@ const FilterResume = () => {
       );
       console.log("reduced to " + tempFilteredData.length + " by employers");
     }
+    if (searchParams.has("designation")) {
+      tempFilteredData = tempFilteredData.filter((x) =>
+        x["job_titles"].toLowerCase().includes(searchParams.get("designation").toLowerCase())
+      );
+    }
 
     setFilteredData(tempFilteredData);
   }, [data]);
