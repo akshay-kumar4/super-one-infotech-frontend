@@ -24,42 +24,51 @@ const FilterResume = () => {
   }, []);
 
   useEffect(() => {
-    console.log(data);
+    // console.log(data);
+    let tempFilteredData = data;
+    console.log("Total docs : " + tempFilteredData.length);
     // console.log(searchParams.getAll("keyword"));
     // Now filtering from the received array.
     if (searchParams.has("keyword")) {
-      console.log("keyword given");
-      console.log(
-        data.filter((x) => {
-          let test = true;
-          searchParams.getAll("keyword").forEach((k) => {
-            test = test && JSON.stringify(x).toLowerCase().includes(k.toLowerCase());
-          });
-          return test;
-        })
+      tempFilteredData = tempFilteredData.filter((x) => {
+        let test = true;
+        searchParams.getAll("keyword").forEach((k) => {
+          test = test && JSON.stringify(x).toLowerCase().includes(k.toLowerCase());
+        });
+        return test;
+      });
+      console.log("reduced to " + tempFilteredData.length + " by keyword");
+    }
+    if (searchParams.has("location")) {
+      tempFilteredData = tempFilteredData.filter((x) =>
+        x.location.toLowerCase().includes(searchParams.get("location").toLowerCase())
       );
-      setFilteredData(
-        data.filter((x) => {
-          let test = true;
-          searchParams.getAll("keyword").forEach((k) => {
-            test = test && JSON.stringify(x).toLowerCase().includes(k.toLowerCase());
-          });
-          return test;
-        })
+      console.log("reduced to " + tempFilteredData.length + " by location");
+    }
+    if (searchParams.has("jobHopping")) {
+      tempFilteredData = tempFilteredData.filter((x) => {
+        return x["job_hopping"] == (searchParams.get("jobHopping") === "yes");
+      });
+      console.log("reduced to " + tempFilteredData.length + " by jobHopping");
+    }
+    if (searchParams.has("employers")) {
+      tempFilteredData = tempFilteredData.filter((x) =>
+        x.company_names.toLowerCase().includes(searchParams.get("employers").toLowerCase())
       );
-    } else {
-      console.log("keyword not given");
-      setFilteredData(data);
+      console.log("reduced to " + tempFilteredData.length + " by employers");
+    }
+    if (searchParams.has("exclude_employers")) {
+      // tempFilteredData.forEach((x) => console.log(x.company_names));
+      tempFilteredData = tempFilteredData.filter(
+        (x) =>
+          !x.company_names
+            .toLowerCase()
+            .includes(searchParams.get("exclude_employers").toLowerCase())
+      );
+      console.log("reduced to " + tempFilteredData.length + " by employers");
     }
 
-    if (searchParams.has("location")) {
-      console.log("Location passed = " + searchParams.get("location"));
-      setFilteredData(
-        data.filter((x) =>
-          x.location.toLowerCase().includes(searchParams.get("location").toLowerCase())
-        )
-      );
-    }
+    setFilteredData(tempFilteredData);
   }, [data]);
 
   return (
