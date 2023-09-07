@@ -129,16 +129,47 @@ const From = () => {
   const [employmentDetails, setEmploymentDetails] = useState({});
   const [additionalDetails, setAdditionalDetails] = useState({});
   const [displayDetails, setDisplayDetails] = useState({});
-  const [file, setFile] = useState(null);
+  const [files, setFile] = useState([]);
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
+    console.log(event.target.files);
   };
 
+  // const handleUpload = () => {
+  //   if (file) {
+  //     const formData = new FormData();
+  //     formData.append("file", file);
+
+  //     const headers = {
+  //       Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+  //     };
+  //     console.log(formData.file);
+  //     axios
+  //       .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading/", formData.file, {
+  //         headers,
+  //       })
+  //       .then((response) => {
+  //         // Handle success
+  //         console.log("File uploaded successfully", response.data);
+  //       })
+  //       .catch((error) => {
+  //         // Handle error
+  //         console.error("Error uploading file", error);
+  //       });
+  //   } else {
+  //     // Handle no file selected error
+  //     console.error("No file selected");
+  //   }
+  // };
+
   const handleUpload = () => {
-    if (file) {
+    if (files && files.length > 0) {
       const formData = new FormData();
-      formData.append("file", file);
+
+      for (let i = 0; i < files.length; i++) {
+        formData.append("files", files[i]); // Use "files[]" if your server expects an array of files
+      }
 
       const headers = {
         Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
@@ -148,15 +179,15 @@ const From = () => {
         .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading/", formData, { headers })
         .then((response) => {
           // Handle success
-          console.log("File uploaded successfully", response.data);
+          console.log("Files uploaded successfully", response.data);
         })
         .catch((error) => {
           // Handle error
-          console.error("Error uploading file", error);
+          console.error("Error uploading files", error);
         });
     } else {
-      // Handle no file selected error
-      console.error("No file selected");
+      // Handle no files selected error
+      console.error("No files selected");
     }
   };
 
@@ -238,7 +269,7 @@ const From = () => {
       >
         <h1>Advanced Search</h1>
         <MDBox>
-          <input type="file" onChange={handleFileChange} />
+          <input type="file" multiple onChange={handleFileChange} />
           <button style={buttonStyles} onClick={handleUpload}>
             Upload Resume
           </button>
