@@ -24,6 +24,7 @@ const ResumeDetails = () => {
       });
   }, []);
 
+  console.log(data);
   return (
     <div>
       <Accordion

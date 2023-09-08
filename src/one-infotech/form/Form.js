@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
 // @mui material components
 // import Grid from "@mui/material/Grid";
@@ -11,12 +13,12 @@ import React, { useState } from "react";
 // Material Dashboard 2 PRO React components
 import MDBox from "components/MDBox";
 // import MDBadgeDot from "components/MDBadgeDot";
-// import MDButton from "components/MDButton";
+import MDButton from "components/MDButton";
 // import MDTypography from "components/MDTypography";
 
 // Material Dashboard 2 PRO React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import DashboardNavbar from "../components/DashboardNavbar/index";
 import TextField from "@mui/material/TextField";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -25,6 +27,49 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 const From = () => {
   const [missingDetails, setMissingDetails] = useState("");
+
+  const handleDataUpload = () => {
+    const formData = new FormData();
+    formData.append("name", missingDetails.name);
+    formData.append("email", missingDetails.email);
+    formData.append("phone", missingDetails.phone);
+    formData.append("keywords", missingDetails.keywords);
+    formData.append("education", missingDetails.education);
+    formData.append("experience_level", missingDetails.experienceLevel);
+    formData.append("skills", missingDetails.skills);
+    formData.append("industry_experience", missingDetails.industryExperience);
+    formData.append("accomplishment", missingDetails.accomplishment);
+    formData.append("job_tenure", missingDetails.jobTenure);
+    formData.append("job_titles", missingDetails.jobTitles);
+    formData.append("salary_level", missingDetails.salaryLevel);
+    formData.append("company_names", missingDetails.companyNames);
+    formData.append("referrals", missingDetails.referrals);
+    formData.append("avaialability", missingDetails.availability);
+    formData.append("relevance_of_role", missingDetails.relevanceOfRole);
+    formData.append("cultural_fit", missingDetails.culturalFit);
+    formData.append("keywords_in_coverletter", missingDetails.keywordsInCoverletter);
+    formData.append("remote_work", missingDetails.remoteWork);
+    formData.append("qualifications", missingDetails.qualification);
+    formData.append("location", missingDetails.location);
+    formData.append("applicant_sources", missingDetails.applicantSources);
+    formData.append("job_hopping", missingDetails.jobHopping);
+
+    const headers = {
+      Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+    };
+
+    axios
+      .post("https://resume-api-6u3t4.ondigitalocean.app/resume-data/", formData, { headers })
+      .then((response) => {
+        // Handle success
+        console.log("File uploaded successfully", response.data);
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Error uploading file", error);
+      });
+  };
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -43,7 +88,7 @@ const From = () => {
         />
         <TextField
           variant="standard"
-          label="email"
+          label="Email"
           placeholder="Enter you email"
           onChange={(e) =>
             setMissingDetails({
@@ -54,7 +99,7 @@ const From = () => {
         />
         <TextField
           variant="standard"
-          label="phone"
+          label="Phone"
           placeholder="Enter you phone"
           onChange={(e) =>
             setMissingDetails({
@@ -72,7 +117,7 @@ const From = () => {
           onChange={(e, val) => {
             setMissingDetails({
               ...missingDetails,
-              anyKeys: val,
+              keywords: val,
             });
           }}
           renderInput={(params) => (
@@ -91,7 +136,7 @@ const From = () => {
           onChange={(e) =>
             setMissingDetails({
               ...missingDetails,
-              accomplishment: e.target.value,
+              education: e.target.value,
             })
           }
         />
@@ -102,7 +147,7 @@ const From = () => {
           onChange={(e) =>
             setMissingDetails({
               ...missingDetails,
-              accomplishment: e.target.value,
+              experienceLevel: e.target.value,
             })
           }
         />
@@ -113,7 +158,7 @@ const From = () => {
           onChange={(e) =>
             setMissingDetails({
               ...missingDetails,
-              accomplishment: e.target.value,
+              skills: e.target.value,
             })
           }
         />
@@ -124,13 +169,13 @@ const From = () => {
           onChange={(e) =>
             setMissingDetails({
               ...missingDetails,
-              accomplishment: e.target.value,
+              industryExperience: e.target.value,
             })
           }
         />
         <TextField
           variant="standard"
-          label="accomplishment"
+          label="Accomplishment"
           placeholder="Enter you accomplishment"
           onChange={(e) =>
             setMissingDetails({
@@ -146,7 +191,7 @@ const From = () => {
           onChange={(e) =>
             setMissingDetails({
               ...missingDetails,
-              accomplishment: e.target.value,
+              jobTenure: e.target.value,
             })
           }
         />
@@ -157,7 +202,7 @@ const From = () => {
           onChange={(e) =>
             setMissingDetails({
               ...missingDetails,
-              accomplishment: e.target.value,
+              jobTitles: e.target.value,
             })
           }
         />
@@ -168,7 +213,7 @@ const From = () => {
           onChange={(e) =>
             setMissingDetails({
               ...missingDetails,
-              referral: e.target.value,
+              salaryLevel: e.target.value,
             })
           }
         />
@@ -179,24 +224,24 @@ const From = () => {
           onChange={(e) =>
             setMissingDetails({
               ...missingDetails,
-              accomplishment: e.target.value,
+              companyNames: e.target.value,
             })
           }
         />
         <TextField
           variant="standard"
-          label="referrals"
+          label="Referrals"
           placeholder="Referrals"
           onChange={(e) =>
             setMissingDetails({
               ...missingDetails,
-              accomplishment: e.target.value,
+              referrals: e.target.value,
             })
           }
         />
         <TextField
           variant="standard"
-          label="availability"
+          label="Availability"
           placeholder="availability"
           onChange={(e) =>
             setMissingDetails({
@@ -207,7 +252,18 @@ const From = () => {
         />
         <TextField
           variant="standard"
-          label="culturalFit"
+          label="Relevance of Role"
+          placeholder="Relevance Of Role"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              relevanceOfRole: e.target.value,
+            })
+          }
+        />
+        <TextField
+          variant="standard"
+          label="Cultural Fit"
           placeholder="Cultural Fit"
           onChange={(e) =>
             setMissingDetails({
@@ -223,40 +279,7 @@ const From = () => {
           onChange={(e) =>
             setMissingDetails({
               ...missingDetails,
-              accomplishment: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="applicantSources"
-          placeholder="Applicant Source"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              applicantSources: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="qualification"
-          placeholder="Qualification"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              qualification: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="Location"
-          placeholder="Enter your preferred location"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              accomplishment: e.target.value,
+              keywordsInCoverletter: e.target.value,
             })
           }
         />
@@ -273,6 +296,39 @@ const From = () => {
           }
           label="Remote Work"
         />
+        <TextField
+          variant="standard"
+          label="Qualifications"
+          placeholder="Qualifications"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              qualifications: e.target.value,
+            })
+          }
+        />
+        <TextField
+          variant="standard"
+          label="Location"
+          placeholder="Enter your preferred location"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              accomplishment: e.target.value,
+            })
+          }
+        />
+        <TextField
+          variant="standard"
+          label="Applicant Sources"
+          placeholder="Applicant Source"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              applicantSources: e.target.value,
+            })
+          }
+        />
         <FormControlLabel
           control={
             <Switch
@@ -286,6 +342,7 @@ const From = () => {
           }
           label="Job Hopping"
         />
+        {/* </MDBox> */}
       </Stack>
     </DashboardLayout>
   );
@@ -308,28 +365,6 @@ const top100Keywords = [
   { title: "Part Time" },
   { title: "Contract Based" },
   { title: "Internship" },
-  { title: "Frontend Development" },
-  { title: "Backend Development" },
-  { title: "Fullstack Development" },
-  { title: "Data Analytics" },
-  { title: "Data Science" },
-  { title: "Frontend Development" },
-  { title: "Backend Development" },
-  { title: "Fullstack Development" },
-  { title: "Data Analytics" },
-  { title: "Data Science" },
-  { title: "Frontend Development" },
-  { title: "Backend Development" },
-  { title: "Fullstack Development" },
-  { title: "Data Analytics" },
-  { title: "Data Science" },
-  { title: "Frontend Development" },
-  { title: "Backend Development" },
-  { title: "Fullstack Development" },
-  { title: "Data Analytics" },
-  { title: "Data Science" },
-  { title: "Frontend Development" },
-  { title: "Backend Development" },
   { title: "AI/ML" },
 ];
 export default From;

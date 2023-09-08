@@ -16,7 +16,7 @@ import React, { useState } from "react";
 
 // Material Dashboard 2 PRO React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "../components/DashboardNavbar/index";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import MDBadge from "components/MDBadge";
 import MDButton from "components/MDButton";
@@ -38,10 +38,9 @@ import MDTypography from "components/MDTypography";
 import Chip from "@mui/material/Chip";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
+// import { useState } from "react";
 import axios from "axios";
-import { Link, createSearchParams, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -94,61 +93,101 @@ const buttonStyles = {
 //   fontSize: "16px",
 // };
 
-const Search = () => {
-  const [alignment, setAlignment] = useState("web");
+const From = () => {
+  const [alignment, setAlignment] = React.useState("web");
 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
-  const [expanded, setExpanded] = useState("panel1");
+  const [expanded, setExpanded] = React.useState("panel1");
 
   const handleChangeAccordion = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
+  // const [advancedSearchData, setAdvancedSearchData] = useState({
+  //   anyKeys: "",
+  //   allKeys: "",
+  //   excludingKeys: "",
+  //   expMin: "",
+  //   expMax: "",
+  //   salMinLac: "",
+  //   salMinTh: "",
+  //   salMaxLac: "",
+  //   salMaxTh: "",
+  //   location: "",
+  // });
+  // const [anyKeys, setAnyKeys] = useState("");
+  // const [allKeys, setAllKeys] = useState("");
+  // const [excludingKeys, setExcludingKeys] = useState("");
+  // const [totalExperience, setTotalExperience] = useState(null);
+  // const [salary, setSalary] = useState(0);
+  // const [location, setLocation] = useState("");
   const [missingDetails, setMissingDetails] = useState("");
   const [advancedSearchData, setAdvancedSearchData] = useState({});
   const [educationQualification, setEducationQualification] = useState({});
   const [employmentDetails, setEmploymentDetails] = useState({});
   const [additionalDetails, setAdditionalDetails] = useState({});
   const [displayDetails, setDisplayDetails] = useState({});
-  const [file, setFile] = useState(null);
+  const [files, setFile] = useState([]);
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
+    console.log(event.target.files);
   };
 
-  const notifyOnResolve = () => toast.success("file upload successful");
-  const notifyOnReject = () => toast.error("Failed to upload");
-  const notifyOnPending = () => toast.info("File uploading");
+  // const handleUpload = () => {
+  //   if (file) {
+  //     const formData = new FormData();
+  //     formData.append("file", file);
+
+  //     const headers = {
+  //       Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+  //     };
+  //     console.log(formData.file);
+  //     axios
+  //       .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading/", formData.file, {
+  //         headers,
+  //       })
+  //       .then((response) => {
+  //         // Handle success
+  //         console.log("File uploaded successfully", response.data);
+  //       })
+  //       .catch((error) => {
+  //         // Handle error
+  //         console.error("Error uploading file", error);
+  //       });
+  //   } else {
+  //     // Handle no file selected error
+  //     console.error("No file selected");
+  //   }
+  // };
 
   const handleUpload = () => {
-    if (file) {
+    if (files && files.length > 0) {
       const formData = new FormData();
-      formData.append("file", file);
+
+      for (let i = 0; i < files.length; i++) {
+        formData.append("files", files[i]); // Use "files[]" if your server expects an array of files
+      }
 
       const headers = {
         Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
       };
 
-      // Display the 'File uploading' message
-      notifyOnPending();
-
       axios
         .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading/", formData, { headers })
         .then((response) => {
           // Handle success
-          notifyOnResolve();
-          console.log("File uploaded successfully", response.data);
+          console.log("Files uploaded successfully", response.data);
         })
         .catch((error) => {
           // Handle error
-          notifyOnReject();
-          console.error("Error uploading file", error);
+          console.error("Error uploading files", error);
         });
     } else {
-      // Handle no file selected error
-      console.error("No file selected");
+      // Handle no files selected error
+      console.error("No files selected");
     }
   };
 
@@ -160,41 +199,61 @@ const Search = () => {
       };
     });
   }
-
-  const navigate = useNavigate();
-  const goToFilteredResumePage = () => {
-    let params = {};
-
-    if (advancedSearchData.anyKeys) {
-      params.any_keywords = advancedSearchData.anyKeys;
-    }
-    if (advancedSearchData.allKeys) {
-      params.all_keywords = advancedSearchData.allKeys;
-    }
-    if (advancedSearchData.excludingKeys) {
-      params.exclude_keywords = advancedSearchData.excludingKeys;
-    }
-    if (advancedSearchData.location) {
-      params.location = advancedSearchData.location;
-    }
-    if (employmentDetails.employers) {
-      params.employers = employmentDetails.employers;
-    }
-    if (employmentDetails.excludeEmployers) {
-      params.exclude_employers = employmentDetails.excludeEmployers;
-    }
-    if (employmentDetails.designation) {
-      params.designation = employmentDetails.designation;
-    }
-    if (advancedSearchData.expMin && advancedSearchData.expMax) {
-      params.experience_level = advancedSearchData.expMax - advancedSearchData.expMin;
-    }
-    console.log(params);
-
-    navigate({
-      pathname: "/filter-resume-details",
-      search: createSearchParams(params).toString(),
+  // console.log(advancedSearchData);
+  // const handleChangeData = (e) => {
+  //   const name = e.target.name;
+  //   const value = e.target.value;
+  //   setAdvancedSearchData({ ...advancedSearchData, [name]: value });
+  // };
+  const handleDataUpload = () => {
+    const formData = new FormData();
+    formData.append("name", missingDetails.name);
+    formData.append("email", missingDetails.email);
+    formData.append("phone", missingDetails.phone);
+    formData.append("keywords", advancedSearchData.anyKeys);
+    formData.append("education", educationQualification);
+    formData.append("experience_level", {
+      from: advancedSearchData.expMin,
+      to: advancedSearchData.expMax,
     });
+    formData.append("skills", advancedSearchData.allKeys);
+    formData.append("industry_experience", employmentDetails.industry);
+    formData.append("accomplishment", missingDetails.accomplishment);
+    formData.append("job_tenure", {
+      from: advancedSearchData.expMin,
+      to: advancedSearchData.expMax,
+    });
+    formData.append("job_titles", employmentDetails.designation);
+    formData.append("salary_level", {
+      from: advancedSearchData.salMinLac,
+      to: advancedSearchData.salMaxLac,
+    });
+    formData.append("company_names", employmentDetails.employers);
+    formData.append("referrals", missingDetails.referral);
+    formData.append("avaialability", missingDetails.availability);
+    formData.append("relevance_of_role", displayDetails.relevance);
+    formData.append("cultural_fit", missingDetails.culturalFit);
+    formData.append("keywords_in_coverletter", advancedSearchData.allKeys);
+    formData.append("remote_work", missingDetails.remoteWork);
+    formData.append("qualifications", missingDetails.qualification);
+    formData.append("location", advancedSearchData.location);
+    formData.append("applicant_sources", missingDetails.applicantSources);
+    formData.append("job_hopping", missingDetails.jobHopping);
+
+    const headers = {
+      Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+    };
+
+    axios
+      .post("https://resume-api-6u3t4.ondigitalocean.app/resume-data/", formData, { headers })
+      .then((response) => {
+        // Handle success
+        console.log("File uploaded successfully", response.data);
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Error uploading file", error);
+      });
   };
 
   return (
@@ -208,24 +267,22 @@ const Search = () => {
           marginBottom: "10px",
         }}
       >
-        <h2>Advanced Search</h2>
+        <h1>Advanced Search</h1>
         <MDBox>
-          <input type="file" onChange={handleFileChange} />
+          <input type="file" multiple onChange={handleFileChange} />
           <button style={buttonStyles} onClick={handleUpload}>
             Upload Resume
-          </button>{" "}
-          <ToastContainer />
+          </button>
         </MDBox>
       </MDBox>
 
       <Stack spacing={3} sx={{ width: 1000 }}>
         <Autocomplete
           multiple
-          freeSolo
           id="tags-standard"
-          options={top18Keywords.map((x) => x.title)}
-          // getOptionLabel={(option) => option.title}
-          // defaultValue={[top18Keywords[13]]}
+          options={top100Keywords}
+          getOptionLabel={(option) => option.title}
+          defaultValue={[top100Keywords[13]]}
           onChange={(e, val) => {
             setAdvancedSearchData({
               ...advancedSearchData,
@@ -244,9 +301,9 @@ const Search = () => {
         <Autocomplete
           multiple
           id="tags-standard"
-          options={top18Keywords.map((x) => x.title)}
-          // getOptionLabel={(option) => option.title}
-          // defaultValue={[top18Keywords[13]]}
+          options={top100Keywords}
+          getOptionLabel={(option) => option.title}
+          defaultValue={[top100Keywords[13]]}
           onChange={(e, val) => {
             setAdvancedSearchData({
               ...advancedSearchData,
@@ -265,9 +322,9 @@ const Search = () => {
         <Autocomplete
           multiple
           id="tags-standard"
-          options={top18Keywords.map((x) => x.title)}
-          // getOptionLabel={(option) => option.title}
-          // defaultValue={[top18Keywords[13]]}
+          options={top100Keywords}
+          getOptionLabel={(option) => option.title}
+          defaultValue={[top100Keywords[13]]}
           onChange={(e, val) => {
             setAdvancedSearchData({
               ...advancedSearchData,
@@ -283,6 +340,131 @@ const Search = () => {
             />
           )}
         />
+        <TextField
+          variant="standard"
+          label="Name"
+          placeholder="Enter you name"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              name: e.target.value,
+            })
+          }
+        />
+        <TextField
+          variant="standard"
+          label="email"
+          placeholder="Enter you email"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              email: e.target.value,
+            })
+          }
+        />
+        <TextField
+          variant="standard"
+          label="phone"
+          placeholder="Enter you phone"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              phone: e.target.value,
+            })
+          }
+        />
+        <TextField
+          variant="standard"
+          label="accomplishment"
+          placeholder="Enter you accomplishment"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              accomplishment: e.target.value,
+            })
+          }
+        />
+        <TextField
+          variant="standard"
+          label="referral"
+          placeholder="Referrals"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              referral: e.target.value,
+            })
+          }
+        />
+        <TextField
+          variant="standard"
+          label="availability"
+          placeholder="availability"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              availability: e.target.value,
+            })
+          }
+        />
+        <TextField
+          variant="standard"
+          label="culturalFit"
+          placeholder="Cultural Fit"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              culturalFit: e.target.value,
+            })
+          }
+        />
+        <TextField
+          variant="standard"
+          label="applicantSources"
+          placeholder="Applicant Source"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              applicantSources: e.target.value,
+            })
+          }
+        />
+        <TextField
+          variant="standard"
+          label="qualification"
+          placeholder="Qualification"
+          onChange={(e) =>
+            setMissingDetails({
+              ...missingDetails,
+              qualification: e.target.value,
+            })
+          }
+        />
+        <FormControlLabel
+          control={
+            <Switch
+              onChange={(e) => {
+                setMissingDetails({
+                  ...missingDetails,
+                  remoteWork: e.target.checked,
+                });
+              }}
+            />
+          }
+          label="Remote Work"
+        />
+        <FormControlLabel
+          control={
+            <Switch
+              onChange={(e) => {
+                setMissingDetails({
+                  ...missingDetails,
+                  jobHopping: e.target.checked,
+                });
+              }}
+            />
+          }
+          label="Job Hopping"
+        />
       </Stack>
 
       <MDBox className="input" sx={{ display: "flex", marginTop: "20px" }}>
@@ -291,9 +473,9 @@ const Search = () => {
           <Autocomplete
             className="experience"
             sx={{ width: 300, marginRight: "20px", marginLeft: "20px" }}
-            // defaultValue="min"
+            defaultValue="min"
             options={["0", "1", "2", "3", "4", "5"]}
-            renderInput={(params) => <MDInput {...params} variant="standard" placeholder="From" />}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
             onChange={(e, val) => {
               setAdvancedSearchData({
                 ...advancedSearchData,
@@ -307,8 +489,7 @@ const Search = () => {
           <Autocomplete
             className="experience"
             sx={{ width: 300, marginRight: "20px", marginLeft: "20px" }}
-            // defaultValue="max"
-            placeholder="Max"
+            defaultValue="max"
             options={["1", "2", "3", "4", "5", "6", "7", "8", "9"]}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
             onChange={(e, val) => {
@@ -328,7 +509,7 @@ const Search = () => {
         <Autocomplete
           className="experience"
           sx={{ width: 50, marginRight: "20px", marginLeft: "20px" }}
-          // defaultValue="₹"
+          defaultValue="₹"
           options={["$", "€", "£", "¥", "₣", "₹"]}
           onChange={(e, val) => {
             setAdvancedSearchData({
@@ -342,8 +523,7 @@ const Search = () => {
           <Autocomplete
             className="experience"
             sx={{ width: 100, marginRight: "20px", marginLeft: "20px" }}
-            // defaultValue="0"
-
+            defaultValue="Lacs"
             options={[
               "0",
               "1",
@@ -367,21 +547,20 @@ const Search = () => {
               "19",
               "20",
             ]}
-            renderInput={(params) => <MDInput {...params} variant="standard" placeholder="Lacs" />}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
             onChange={(e, val) => {
               setAdvancedSearchData({
                 ...advancedSearchData,
                 salMinLac: val,
               });
             }}
-            // value={advancedSearchData.salMinLac}
+            value={advancedSearchData.salMinLac}
             name="salMinLac"
           />
           <Autocomplete
             className="experience"
             sx={{ width: 200, marginRight: "20px" }}
-            // defaultValue="Thousand"
-
+            defaultValue="Thousand"
             options={[
               "0",
               "5",
@@ -404,24 +583,21 @@ const Search = () => {
               "90",
               "95",
             ]}
-            renderInput={(params) => (
-              <MDInput {...params} variant="standard" placeholder="Thousand" />
-            )}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
             onChange={(e, val) => {
               setAdvancedSearchData({
                 ...advancedSearchData,
                 salMinTh: val,
               });
             }}
-            // value={advancedSearchData.salMinTh}
+            value={advancedSearchData.salMinTh}
             name="salMinTh"
           />
           <span>To</span>
           <Autocomplete
             className="experience"
             sx={{ width: 100, marginRight: "20px", marginLeft: "20px" }}
-            // defaultValue="Lacs"
-
+            defaultValue="Lacs"
             options={[
               "0",
               "1",
@@ -445,21 +621,20 @@ const Search = () => {
               "19",
               "20",
             ]}
-            renderInput={(params) => <MDInput {...params} variant="standard" placeholder="Lacs" />}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
             onChange={(e, val) => {
               setAdvancedSearchData({
                 ...advancedSearchData,
                 salMaxLac: val,
               });
             }}
-            // value={advancedSearchData.salMaxLac}
+            value={advancedSearchData.salMaxLac}
             name="salMaxLac"
           />
           <Autocomplete
             className="experience"
             sx={{ width: 200 }}
-            // defaultValue="Thousand"
-
+            defaultValue="Thousand"
             options={[
               "0",
               "5",
@@ -482,16 +657,14 @@ const Search = () => {
               "90",
               "95",
             ]}
-            renderInput={(params) => (
-              <MDInput {...params} variant="standard" placeholder="Thousand" />
-            )}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
             onChange={(e, val) => {
               setAdvancedSearchData({
                 ...advancedSearchData,
                 salMaxTh: val,
               });
             }}
-            // value={advancedSearchData.salMaxTh}
+            value={advancedSearchData.salMaxTh}
             name="salMaxTh"
           />
         </MDBox>
@@ -499,14 +672,9 @@ const Search = () => {
       <MDBox className="location" sx={{ marginBottom: "20px" }} display="flex">
         <p>Current Location</p>
         <Autocomplete
+          defaultValue="Type or select a location from the list"
           options={["New Delhi", "NCR", "Bangalore", "Mumbai", "Chennai", "Pune"]}
-          renderInput={(params) => (
-            <MDInput
-              {...params}
-              variant="standard"
-              placeholder="Type or select a location from the list"
-            />
-          )}
+          renderInput={(params) => <MDInput {...params} variant="standard" />}
           sx={{ width: 500, marginLeft: "20px" }}
           onChange={(e, val) => {
             setAdvancedSearchData({
@@ -514,7 +682,7 @@ const Search = () => {
               location: val,
             });
           }}
-          // value={advancedSearchData.location}
+          value={advancedSearchData.location}
           name="location"
         />
       </MDBox>
@@ -564,6 +732,7 @@ const Search = () => {
         <MDBox display="flex" className="input" sx={{ margin: "20px" }}>
           <p>Year of Graduation</p>
           <Autocomplete
+            defaultValue="From"
             sx={{ width: 300, marginLeft: "20px", marginRight: "20px" }}
             options={[
               "2010",
@@ -586,10 +755,11 @@ const Search = () => {
                 UGFromYearOfGraduation: val,
               });
             }}
-            renderInput={(params) => <MDInput {...params} variant="standard" placeholder="From" />}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
 
           <Autocomplete
+            defaultValue="To"
             sx={{ width: 300 }}
             options={[
               "2010",
@@ -612,12 +782,13 @@ const Search = () => {
                 UGToYearOfGraduation: val,
               });
             }}
-            renderInput={(params) => <MDInput {...params} variant="standard" placeholder="To" />}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
         </MDBox>
         <MDBox className="location" sx={{ display: "flex", margin: "20px" }}>
           <p>Education Type</p>
           <Autocomplete
+            defaultValue="Any"
             sx={{ width: 300, marginLeft: "20px" }}
             options={["Any", "Full Time", "Part Time", "Correspondence"]}
             onChange={(e, val) => {
@@ -626,7 +797,7 @@ const Search = () => {
                 educationType: val,
               });
             }}
-            renderInput={(params) => <MDInput {...params} variant="standard" placeholder="Any" />}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
         </MDBox>
         <MDBox sx={{ marginLeft: "20px", marginBottom: "10px" }}>PG Qualifications</MDBox>
@@ -662,6 +833,7 @@ const Search = () => {
         <MDBox display="flex" className="input" sx={{ margin: "20px" }}>
           <p>Year of Graduation</p>
           <Autocomplete
+            defaultValue="From"
             sx={{ width: 300, marginLeft: "20px", marginRight: "20px" }}
             options={[
               "2010",
@@ -684,10 +856,11 @@ const Search = () => {
                 PGFromYearOfGraduation: val,
               });
             }}
-            renderInput={(params) => <MDInput {...params} variant="standard" placeholder="From" />}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
 
           <Autocomplete
+            defaultValue="To"
             sx={{ width: 300 }}
             options={[
               "2010",
@@ -710,13 +883,13 @@ const Search = () => {
                 PGToYearOfGraduation: val,
               });
             }}
-            renderInput={(params) => <MDInput {...params} variant="standard" placeholder="To" />}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
         </MDBox>
         <MDBox className="location" sx={{ display: "flex", margin: "20px" }}>
           <p>Education Type</p>
           <Autocomplete
-            // defaultValue="Any"
+            defaultValue="Any"
             sx={{ width: 300, marginLeft: "20px" }}
             options={["Any", "Full Time", "Part Time", "Correspondence"]}
             onChange={(e, val) => {
@@ -747,6 +920,7 @@ const Search = () => {
         <MDBox sx={{ paddingRight: "20px", paddingLeft: "20px", paddingTop: "20px" }}>
           <p>Functional Area</p>
           <Autocomplete
+            defaultValue="Select Functional Area/Role(s) or Start typing"
             sx={{ width: 300 }}
             options={[
               "Any",
@@ -762,18 +936,13 @@ const Search = () => {
                 funcArea: val,
               });
             }}
-            renderInput={(params) => (
-              <MDInput
-                {...params}
-                variant="standard"
-                placeholder="Select Functional Area/Role(s) or Start typing"
-              />
-            )}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
           {/* <MDInput type="text" label="Industry" fullWidth margin="normal" /> */}
           <MDBox sx={{ paddingTop: "20px" }}>
             <p>Industry</p>
             <Autocomplete
+              defaultValue="Select Industry(s) or start typing"
               sx={{ width: 300 }}
               options={[
                 "2010",
@@ -796,13 +965,7 @@ const Search = () => {
                   industry: val,
                 });
               }}
-              renderInput={(params) => (
-                <MDInput
-                  {...params}
-                  variant="standard"
-                  placeholder="Select Industry(s) or start typing"
-                />
-              )}
+              renderInput={(params) => <MDInput {...params} variant="standard" />}
             />
           </MDBox>
 
@@ -848,6 +1011,7 @@ const Search = () => {
           <MDBox sx={{ paddingBottom: "20px", paddingTop: "20px" }}>
             <p>Notice Period</p>
             <Autocomplete
+              defaultValue="Type here or select"
               sx={{ width: 300 }}
               options={[
                 "2010",
@@ -870,9 +1034,7 @@ const Search = () => {
                   noticePeriod: val,
                 });
               }}
-              renderInput={(params) => (
-                <MDInput {...params} variant="standard" placeholder="Type here or select" />
-              )}
+              renderInput={(params) => <MDInput {...params} variant="standard" />}
             />
           </MDBox>
         </MDBox>
@@ -888,11 +1050,10 @@ const Search = () => {
         <MDBox sx={{ paddingRight: "20px", paddingLeft: "20px", paddingTop: "20px" }}>
           <p>Candidate Category</p>
           <Autocomplete
+            defaultValue="Select Category"
             sx={{ width: 300 }}
             options={["1", "2", "3", "4"]}
-            renderInput={(params) => (
-              <MDInput {...params} variant="standard" placeholder="Select Category" />
-            )}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
             onChange={(e, val) => {
               setAdditionalDetails({
                 ...additionalDetails,
@@ -933,17 +1094,18 @@ const Search = () => {
         <MDInput type="text" label="Candidate Age (Max)" placeholder="max" margin="normal" /> */}
           <MDBox sx={{ display: "flex", marginBottom: "20px" }}>
             <Grid item xs={12} lg={5}>
-              {/* <MDBox mb={1.5} lineHeight={0}>
+              <MDBox mb={1.5} lineHeight={0}>
                 <MDTypography
                   component="label"
                   variant="button"
                   color="text"
                   fontWeight="regular"
                 ></MDTypography>
-              </MDBox> */}
+              </MDBox>
               <p>Candidate Age</p>
               <Autocomplete
                 sx={{ width: 300 }}
+                defaultValue="MIN"
                 options={[
                   "18 years",
                   "19 years",
@@ -965,23 +1127,22 @@ const Search = () => {
                     candidateAgeMin: val,
                   });
                 }}
-                renderInput={(params) => (
-                  <MDInput {...params} variant="standard" placeholder="MIN" />
-                )}
+                renderInput={(params) => <MDInput {...params} variant="standard" />}
               />
             </Grid>
             <Grid item xs={12} lg={5}>
-              {/* <MDBox mb={1.5} lineHeight={0}>
+              <MDBox mb={1.5} lineHeight={0}>
                 <MDTypography
                   component="label"
                   variant="button"
                   color="text"
-                  halfwidth="true"
+                  halfWidth
                   fontWeight="regular"
                 ></MDTypography>
-              </MDBox> */}
+              </MDBox>
               <p>Candidate Age</p>
               <Autocomplete
+                defaultValue="MAX"
                 sx={{ width: 300, marginLeft: "15px" }}
                 options={[
                   "18 years",
@@ -1004,15 +1165,14 @@ const Search = () => {
                     candidateAgeMax: val,
                   });
                 }}
-                renderInput={(params) => (
-                  <MDInput {...params} variant="standard" placeholder="MAX" />
-                )}
+                renderInput={(params) => <MDInput {...params} variant="standard" />}
               />
             </Grid>
           </MDBox>
           {/* <MDInput type="text" label="Work Status for USA" fullWidth margin="normal" /> */}
           <p>Work status for USA</p>
           <Autocomplete
+            defaultValue="Select"
             sx={{ width: 300 }}
             options={["yes eligible", "not eligible"]}
             onChange={(e, val) => {
@@ -1021,19 +1181,16 @@ const Search = () => {
                 workStatus: val,
               });
             }}
-            renderInput={(params) => (
-              <MDInput {...params} variant="standard" placeholder="Select" />
-            )}
+            renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
 
           <MDBox sx={{ paddingTop: "20px", paddingBottom: "20px" }}>
             <p>Work Permit For</p>
             <Autocomplete
+              defaultValue="Select Country"
               sx={{ width: 300 }}
               options={["India", "Italy", "Japan", "Indonesia", "Jordan"]}
-              renderInput={(params) => (
-                <MDInput {...params} variant="standard" placeholder="Select Country" />
-              )}
+              renderInput={(params) => <MDInput {...params} variant="standard" />}
               onChange={(e, val) => {
                 setAdditionalDetails({
                   ...additionalDetails,
@@ -1098,6 +1255,7 @@ const Search = () => {
               Show Candidate Seeking
               <br />
               <Autocomplete
+                defaultValue="Job Type"
                 sx={{ width: 300, marginLeft: "15px" }}
                 options={["1", "2", "3", "4", "5"]}
                 onChange={(e, val) => {
@@ -1106,11 +1264,10 @@ const Search = () => {
                     jobType: val,
                   });
                 }}
-                renderInput={(params) => (
-                  <MDInput {...params} variant="standard" placeholder="Job Type" />
-                )}
+                renderInput={(params) => <MDInput {...params} variant="standard" />}
               />
               <Autocomplete
+                defaultValue="Employment Type"
                 sx={{ width: 300, marginLeft: "15px" }}
                 options={["1", "2", "3", "4", "5"]}
                 onChange={(e, val) => {
@@ -1119,9 +1276,7 @@ const Search = () => {
                     employmentType: val,
                   });
                 }}
-                renderInput={(params) => (
-                  <MDInput {...params} variant="standard" placeholder="Employment Type" />
-                )}
+                renderInput={(params) => <MDInput {...params} variant="standard" />}
               />
             </MDBox>
             <MDBox>
@@ -1168,6 +1323,7 @@ const Search = () => {
           <MDBox sx={{ marginBottom: "20px" }}>
             <p>Resume per page</p>
             <Autocomplete
+              defaultValue="SELECT"
               sx={{ width: 300 }}
               options={["1", "2", "3", "4", "5"]}
               onChange={(e, val) => {
@@ -1176,9 +1332,7 @@ const Search = () => {
                   resumePerPage: val,
                 });
               }}
-              renderInput={(params) => (
-                <MDInput {...params} variant="standard" placeholder="SELECT" />
-              )}
+              renderInput={(params) => <MDInput {...params} variant="standard" />}
             />
           </MDBox>
 
@@ -1186,6 +1340,7 @@ const Search = () => {
           <MDBox sx={{ marginBottom: "20px" }}>
             <p>Sort By</p>
             <Autocomplete
+              defaultValue="Relevance"
               sx={{ width: 300 }}
               options={["1", "2", "3", "4", "5"]}
               onChange={(e, val) => {
@@ -1194,9 +1349,7 @@ const Search = () => {
                   relevance: val,
                 });
               }}
-              renderInput={(params) => (
-                <MDInput {...params} variant="standard" placeholder="Relevance" />
-              )}
+              renderInput={(params) => <MDInput {...params} variant="standard" />}
             />
           </MDBox>
 
@@ -1217,15 +1370,15 @@ const Search = () => {
           </FormGroup>
         </MDBox>
       </Accordion>
-      {/* <Link to=""> */}
-      <MDButton type="submit" sx={{ width: 300, margin: "20px" }} onClick={goToFilteredResumePage}>
-        Submit
-      </MDButton>
-      {/* </Link> */}
+      <Link to="/resume-details">
+        <MDButton type="submit" sx={{ width: 300, margin: "20px" }} onClick={handleDataUpload}>
+          Submit
+        </MDButton>
+      </Link>
     </DashboardLayout>
   );
 };
-const top18Keywords = [
+const top100Keywords = [
   { title: "Data Analytics" },
   { title: "Data Science" },
   { title: "Frontend Development" },
@@ -1243,7 +1396,29 @@ const top18Keywords = [
   { title: "Part Time" },
   { title: "Contract Based" },
   { title: "Internship" },
+  { title: "Frontend Development" },
+  { title: "Backend Development" },
+  { title: "Fullstack Development" },
+  { title: "Data Analytics" },
+  { title: "Data Science" },
+  { title: "Frontend Development" },
+  { title: "Backend Development" },
+  { title: "Fullstack Development" },
+  { title: "Data Analytics" },
+  { title: "Data Science" },
+  { title: "Frontend Development" },
+  { title: "Backend Development" },
+  { title: "Fullstack Development" },
+  { title: "Data Analytics" },
+  { title: "Data Science" },
+  { title: "Frontend Development" },
+  { title: "Backend Development" },
+  { title: "Fullstack Development" },
+  { title: "Data Analytics" },
+  { title: "Data Science" },
+  { title: "Frontend Development" },
+  { title: "Backend Development" },
   { title: "AI/ML" },
 ];
 
-export default Search;
+export default From;
