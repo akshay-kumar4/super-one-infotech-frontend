@@ -286,7 +286,6 @@ const From = () => {
           }
           label="Job Hopping"
         />
-        {/* </MDBox> */}
       </Stack>
     </DashboardLayout>
   );
