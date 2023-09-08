@@ -115,7 +115,11 @@ const Search = () => {
   const [file, setFile] = useState(null);
 
   const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+    setFile(event.target.files);
+    console.log(file);
+    for (const f of file) {
+      console.log(f);
+    }
   };
 
   const notifyOnResolve = () => toast.success("file upload successful");
@@ -125,7 +129,11 @@ const Search = () => {
   const handleUpload = () => {
     if (file) {
       const formData = new FormData();
-      formData.append("file", file);
+      for (const f of file) {
+        console.log(f);
+        formData.append("file", f);
+      }
+      console.log(formData);
 
       const headers = {
         Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
@@ -210,7 +218,7 @@ const Search = () => {
       >
         <h2>Advanced Search</h2>
         <MDBox>
-          <input type="file" onChange={handleFileChange} />
+          <input type="file" multiple onChange={handleFileChange} />
           <button style={buttonStyles} onClick={handleUpload}>
             Upload Resume
           </button>{" "}
