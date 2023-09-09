@@ -127,8 +127,8 @@ const routes = [
       //   component: <Sales />,
       // },
       {
-        name: "Search",
-        key: "search",
+        name: "Advance Search",
+        key: "advance-search",
         route: "/dashboards/search",
         component: <Search />,
       },
