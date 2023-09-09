@@ -5,6 +5,11 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { KeyboardOptionKey } from "@mui/icons-material";
+import MDTypography from "components/MDTypography";
+import { Link } from "react-router-dom";
+import PlaceIcon from "@mui/icons-material/Place";
+import PhoneIcon from "@mui/icons-material/Phone";
+import MailIcon from "@mui/icons-material/Mail";
 
 const FilterResume = () => {
   const [data, setData] = useState([]);
@@ -113,9 +118,117 @@ const FilterResume = () => {
         sx={{ borderRadius: "10px", marginTop: "20px", marginLeft: "250px", padding: "20px" }}
       >
         <MDBox>
-          <h1>API Response:</h1>
-          <span>{filteredData.length}</span>
-          <pre>{JSON.stringify(filteredData, null, 2)}</pre>
+          {filteredData.map((x) => {
+            return (
+              <div key={x.company_names}>
+                <MDBox
+                  sx={{
+                    // height: "250px",
+                    border: "1px solid grey",
+                    borderRadius: "12px",
+                    padding: "10px",
+                    paddingLeft: "25px",
+                    margin: "20px",
+                    display: "grid",
+                    alignItems: "center",
+                  }}
+                >
+                  <MDTypography
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <h2>{x.name}</h2>
+                  </MDTypography>
+                  <MDBox
+                    sx={{
+                      display: "inline-flex",
+                      justifyContent: "space-around",
+                      width: "70%",
+                      alignItems: "center",
+                      marginLeft: "110px",
+                      marginTop: "5px",
+                    }}
+                  >
+                    <MDTypography
+                      sx={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <MailIcon />
+                      <p>&nbsp;{x.email}</p>{" "}
+                    </MDTypography>
+                    <MDTypography sx={{ display: "inline-flex", alignItems: " center" }}>
+                      <PhoneIcon padding="20px" />
+                      <p>&nbsp;{x.phone}</p>{" "}
+                    </MDTypography>
+                    <MDTypography sx={{ display: "inline-flex", alignItems: " center" }}>
+                      <PlaceIcon></PlaceIcon>
+                      <p>&nbsp;{x.location}</p>{" "}
+                    </MDTypography>
+                  </MDBox>
+                  <MDBox sx={{ display: "grid", marginTop: "5px" }}>
+                    <MDTypography
+                      sx={{ display: "inline-flex", alignItems: "center", justifyContent: "" }}
+                    >
+                      <h5>JOB TITLE : </h5>
+                      <MDTypography sx={{ borderBottom: "1px solid grey" }}>
+                        <p>&nbsp;{x.job_titles}</p>
+                      </MDTypography>
+                    </MDTypography>
+                    <MDTypography
+                      sx={{ display: "inline-flex", alignItems: "center", margin: "5px" }}
+                    >
+                      <h5>EDUCATION : </h5>
+                      <MDTypography sx={{ borderBottom: "1px solid grey" }}>
+                        <p>&nbsp;{x.education}</p>
+                      </MDTypography>
+                    </MDTypography>
+                    <MDTypography
+                      sx={{ display: "inline-flex", alignItems: "center", margin: "5px" }}
+                    >
+                      <h5>EXPERIENCE : </h5>
+                      <MDTypography sx={{ borderBottom: "1px solid grey" }}>
+                        <p>&nbsp;{x.experience_level} year.</p>
+                      </MDTypography>
+                    </MDTypography>
+                    <MDTypography
+                      sx={{ display: "inline-flex", alignItems: "center", margin: "5px" }}
+                    >
+                      <h5>COMPANY : </h5>
+                      <MDTypography sx={{ borderBottom: "1px solid grey" }}>
+                        <p>&nbsp;{x.company_names}</p>{" "}
+                      </MDTypography>
+                    </MDTypography>
+                    <MDTypography
+                      sx={{
+                        display: "inline-flex",
+                        alignItems: " center",
+                      }}
+                    >
+                      <h5>Skills : </h5>
+                      <MDTypography sx={{ borderBottom: "1px solid grey" }}>
+                        <p>&nbsp;{x.skills}</p>{" "}
+                      </MDTypography>
+                    </MDTypography>
+                    <MDTypography
+                      sx={{ display: "inline-flex", alignItems: " center", margin: "5px" }}
+                    >
+                      <h5>RESUME : </h5>&nbsp;
+                      <MDTypography sx={{ borderBottom: "1px solid grey" }}>
+                        <a href={x.resume_permanent_link} target="/resumes">
+                          {x.resume_permanent_link}
+                        </a>
+                      </MDTypography>
+                    </MDTypography>
+                  </MDBox>
+                </MDBox>
+              </div>
+            );
+          })}
         </MDBox>
       </Accordion>
     </div>
