@@ -117,9 +117,9 @@ const Search = () => {
   const handleFileChange = (event) => {
     setFile(event.target.files);
     console.log(file);
-    for (const f of file) {
-      console.log(f);
-    }
+    // for (const f of file) {
+    //   console.log(f);
+    // }
   };
 
   const notifyOnResolve = () => toast.success("file upload successful");
