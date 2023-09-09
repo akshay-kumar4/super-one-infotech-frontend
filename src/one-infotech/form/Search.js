@@ -116,7 +116,7 @@ const Search = () => {
 
   const handleFileChange = (event) => {
     setFile(event.target.files);
-    console.log(file);
+    // console.log(file);
     // for (const f of file) {
     //   console.log(f);
     // }
@@ -130,10 +130,10 @@ const Search = () => {
     if (file) {
       const formData = new FormData();
       for (const f of file) {
-        console.log(f);
+        // console.log(f);
         formData.append("file", f);
       }
-      console.log(formData);
+      // console.log(formData);
 
       const headers = {
         Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
@@ -185,19 +185,41 @@ const Search = () => {
     if (advancedSearchData.location) {
       params.location = advancedSearchData.location;
     }
-    if (employmentDetails.employers) {
-      params.employers = employmentDetails.employers;
+    if (advancedSearchData.employers) {
+      params.employers = advancedSearchData.employers;
     }
-    if (employmentDetails.excludeEmployers) {
-      params.exclude_employers = employmentDetails.excludeEmployers;
+    if (advancedSearchData.excludeEmployers) {
+      params.exclude_employers = advancedSearchData.excludeEmployers;
     }
-    if (employmentDetails.designation) {
-      params.designation = employmentDetails.designation;
+    if (advancedSearchData.designation) {
+      params.designation = advancedSearchData.designation;
     }
     if (advancedSearchData.expMin && advancedSearchData.expMax) {
       params.experience_level = advancedSearchData.expMax - advancedSearchData.expMin;
     }
-    console.log(params);
+    // if (displayDetails.attachedResume) {
+    //   params.attached_resume = "true";
+    // }
+    if (advancedSearchData.expMin) {
+      params.expMin = advancedSearchData.expMin;
+    }
+    if (advancedSearchData.expMax) {
+      params.expMax = advancedSearchData.expMax;
+    }
+    if (advancedSearchData.salMinLac) {
+      params.salMinLac = Number(advancedSearchData.salMinLac) * 100000;
+    }
+    if (advancedSearchData.salMaxLac) {
+      params.salMaxLac = Number(advancedSearchData.salMaxLac) * 100000;
+    }
+    if (advancedSearchData.education) {
+      params.education = advancedSearchData.education;
+    }
+    if (advancedSearchData.skills) {
+      params.skills = advancedSearchData.skills;
+    }
+
+    // console.log(params);
 
     navigate({
       pathname: "/filter-resume-details",
@@ -282,7 +304,7 @@ const Search = () => {
             className="experience"
             sx={{ width: 300, marginRight: "20px", marginLeft: "20px" }}
             // defaultValue="min"
-            options={["0", "1", "2", "3", "4", "5"]}
+            options={Array.from({ length: 31 }, (_, i) => i)}
             renderInput={(params) => <MDInput {...params} variant="standard" placeholder="From" />}
             onChange={(e, val) => {
               setAdvancedSearchData({
@@ -299,7 +321,7 @@ const Search = () => {
             sx={{ width: 300, marginRight: "20px", marginLeft: "20px" }}
             // defaultValue="max"
             placeholder="Max"
-            options={["1", "2", "3", "4", "5", "6", "7", "8", "9"]}
+            options={Array.from({ length: 31 }, (_, i) => i)}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
             onChange={(e, val) => {
               setAdvancedSearchData({
@@ -367,7 +389,7 @@ const Search = () => {
             // value={advancedSearchData.salMinLac}
             name="salMinLac"
           />
-          <Autocomplete
+          {/* <Autocomplete
             className="experience"
             sx={{ width: 200, marginRight: "20px" }}
             // defaultValue="Thousand"
@@ -405,7 +427,7 @@ const Search = () => {
             }}
             // value={advancedSearchData.salMinTh}
             name="salMinTh"
-          />
+          /> */}
           <span>To</span>
           <Autocomplete
             className="experience"
@@ -445,7 +467,7 @@ const Search = () => {
             // value={advancedSearchData.salMaxLac}
             name="salMaxLac"
           />
-          <Autocomplete
+          {/* <Autocomplete
             className="experience"
             sx={{ width: 200 }}
             // defaultValue="Thousand"
@@ -483,7 +505,7 @@ const Search = () => {
             }}
             // value={advancedSearchData.salMaxTh}
             name="salMaxTh"
-          />
+          /> */}
         </MDBox>
       </MDBox>
       <MDBox className="location" display="flex">
@@ -516,9 +538,9 @@ const Search = () => {
         variant="standard"
         margin="normal"
         onChange={(e) => {
-          setEmploymentDetails({
-            ...employmentDetails,
-            employers: e.target.value,
+          setAdvancedSearchData({
+            ...advancedSearchData,
+            education: e.target.value,
           });
         }}
       />
@@ -530,9 +552,9 @@ const Search = () => {
         variant="standard"
         margin="normal"
         onChange={(e) => {
-          setEmploymentDetails({
-            ...employmentDetails,
-            employers: e.target.value,
+          setAdvancedSearchData({
+            ...advancedSearchData,
+            skills: e.target.value,
           });
         }}
       />
@@ -544,8 +566,8 @@ const Search = () => {
         variant="standard"
         margin="normal"
         onChange={(e) => {
-          setEmploymentDetails({
-            ...employmentDetails,
+          setAdvancedSearchData({
+            ...advancedSearchData,
             employers: e.target.value,
           });
         }}
@@ -558,8 +580,8 @@ const Search = () => {
         margin="normal"
         variant="standard"
         onChange={(e) => {
-          setEmploymentDetails({
-            ...employmentDetails,
+          setAdvancedSearchData({
+            ...advancedSearchData,
             excludeEmployers: e.target.value,
           });
         }}
@@ -572,8 +594,8 @@ const Search = () => {
         margin="normal"
         variant="standard"
         onChange={(e) => {
-          setEmploymentDetails({
-            ...employmentDetails,
+          setAdvancedSearchData({
+            ...advancedSearchData,
             designation: e.target.value,
           });
         }}
@@ -1080,7 +1102,7 @@ const Search = () => {
               control={
                 <Switch
                   onChange={(e) => {
-                    console.log(e.target.checked);
+                    // console.log(e.target.checked);
                     let newDetails = { ...displayDetails };
                     newDetails.verifiedMobile = e.target.checked;
                     setDisplayDetails(newDetails);

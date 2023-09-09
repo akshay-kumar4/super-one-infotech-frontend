@@ -60,7 +60,7 @@ const From = () => {
     formData.append("cultural_fit", missingDetails.culturalFit);
     formData.append("keywords_in_coverletter", missingDetails.keywordsInCoverletter);
     formData.append("remote_work", missingDetails.remoteWork);
-    formData.append("qualifications", missingDetails.qualification);
+    formData.append("qualifications", missingDetails.qualifications);
     formData.append("location", missingDetails.location);
     formData.append("applicant_sources", missingDetails.applicantSources);
     formData.append("job_hopping", missingDetails.jobHopping);
@@ -171,9 +171,9 @@ const From = () => {
         <Autocomplete
           multiple
           id="tags-standard"
-          options={top100Keywords}
-          getOptionLabel={(option) => option.title}
-          defaultValue={[top100Keywords[13]]}
+          options={top100Keywords.map((x) => x.title)}
+          // getOptionLabel={(option) => option.title}
+          // defaultValue={[top100Keywords[13]]}
           onChange={(e, val) => {
             setMissingDetails({
               ...missingDetails,
@@ -374,7 +374,7 @@ const From = () => {
           onChange={(e) =>
             setMissingDetails({
               ...missingDetails,
-              accomplishment: e.target.value,
+              location: e.target.value,
             })
           }
         />
@@ -403,6 +403,11 @@ const From = () => {
           label="Job Hopping"
         />
         {/* </MDBox> */}
+        <MDBox>
+          <MDButton variant="contained" onClick={handleDataUpload}>
+            Submit
+          </MDButton>
+        </MDBox>
       </Stack>
     </DashboardLayout>
   );
