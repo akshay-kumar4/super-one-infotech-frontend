@@ -24,6 +24,17 @@ import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
+import { ToastContainer } from "react-toastify";
+
+const buttonStyles = {
+  backgroundColor: "#007BFF",
+  color: "white",
+  padding: "10px 15px",
+  borderRadius: "4px",
+  border: "none",
+  cursor: "pointer",
+  fontSize: "16px",
+};
 
 const From = () => {
   const [missingDetails, setMissingDetails] = useState("");
@@ -70,9 +81,58 @@ const From = () => {
       });
   };
 
+  const handleFileChange = (event) => {
+    setFile(event.target.files);
+    console.log(file);
+    // for (const f of file) {
+    //   console.log(f);
+    // }
+  };
+
+  const handleUpload = () => {
+    if (file) {
+      const formData = new FormData();
+      for (const f of file) {
+        console.log(f);
+        formData.append("file", f);
+      }
+      console.log(formData);
+
+      const headers = {
+        Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+      };
+
+      // Display the 'File uploading' message
+      notifyOnPending();
+
+      axios
+        .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading/", formData, { headers })
+        .then((response) => {
+          // Handle success
+          notifyOnResolve();
+          console.log("File uploaded successfully", response.data);
+        })
+        .catch((error) => {
+          // Handle error
+          notifyOnReject();
+          console.error("Error uploading file", error);
+        });
+    } else {
+      // Handle no file selected error
+      console.error("No file selected");
+    }
+  };
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
+      <MDBox sx={{ display: "flex", justifyContent: "space-end", alignItems: "center" }}>
+        <input type="file" multiple onChange={handleFileChange} />
+        <button style={buttonStyles} onClick={handleUpload}>
+          Upload Resume
+        </button>
+        <ToastContainer />
+      </MDBox>
       <Stack spacing={3} sx={{ width: 1000 }}>
         {/* <MDBox> */}
         <TextField
