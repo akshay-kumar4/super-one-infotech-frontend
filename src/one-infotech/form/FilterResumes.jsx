@@ -25,8 +25,8 @@ const FilterResume = () => {
 
   useEffect(() => {
     let tempFilteredData = data;
-    console.log(tempFilteredData);
-    console.log("Total docs : " + tempFilteredData.length);
+    // console.log(tempFilteredData);
+    // console.log("Total docs : " + tempFilteredData.length);
     // console.log(searchParams.getAll("keyword"));
     // Now filtering from the received array.
     if (searchParams.has("any_keywords")) {
@@ -39,7 +39,7 @@ const FilterResume = () => {
         });
         return test;
       });
-      console.log("reduced to " + tempFilteredData.length + " by any keyword");
+      // console.log("reduced to " + tempFilteredData.length + " by any keyword");
     }
     if (searchParams.has("all_keywords")) {
       tempFilteredData = tempFilteredData.filter((x) => {
@@ -51,7 +51,7 @@ const FilterResume = () => {
         });
         return test;
       });
-      console.log("reduced to " + tempFilteredData.length + " by all keyword");
+      // console.log("reduced to " + tempFilteredData.length + " by all keyword");
     }
     if (searchParams.has("exclude_keywords")) {
       tempFilteredData = tempFilteredData.filter((x) => {
@@ -63,25 +63,25 @@ const FilterResume = () => {
         });
         return test;
       });
-      console.log("reduced to " + tempFilteredData.length + " by exclude keyword");
+      // console.log("reduced to " + tempFilteredData.length + " by exclude keyword");
     }
     if (searchParams.has("location")) {
       tempFilteredData = tempFilteredData.filter((x) =>
         x.location.toLowerCase().includes(searchParams.get("location").toLowerCase())
       );
-      console.log("reduced to " + tempFilteredData.length + " by location");
+      // console.log("reduced to " + tempFilteredData.length + " by location");
     }
     if (searchParams.has("jobHopping")) {
       tempFilteredData = tempFilteredData.filter((x) => {
         return x["job_hopping"] == (searchParams.get("jobHopping") === "yes");
       });
-      console.log("reduced to " + tempFilteredData.length + " by jobHopping");
+      // console.log("reduced to " + tempFilteredData.length + " by jobHopping");
     }
     if (searchParams.has("employers")) {
       tempFilteredData = tempFilteredData.filter((x) =>
         x.company_names.toLowerCase().includes(searchParams.get("employers").toLowerCase())
       );
-      console.log("reduced to " + tempFilteredData.length + " by employers");
+      // console.log("reduced to " + tempFilteredData.length + " by employers");
     }
     if (searchParams.has("exclude_employers")) {
       // tempFilteredData.forEach((x) => console.log(x.company_names));
@@ -91,17 +91,22 @@ const FilterResume = () => {
             .toLowerCase()
             .includes(searchParams.get("exclude_employers").toLowerCase())
       );
-      console.log("reduced to " + tempFilteredData.length + " by employers");
+      // console.log("reduced to " + tempFilteredData.length + " by employers");
     }
     if (searchParams.has("designation")) {
       tempFilteredData = tempFilteredData.filter((x) =>
         x["job_titles"].toLowerCase().includes(searchParams.get("designation").toLowerCase())
       );
     }
-    if (searchParams.has("experience_level")) {
-      tempFilteredData = tempFilteredData.filter((x) => {
-        x["experience_level"] == searchParams.get("experience_level");
-      });
+    if (searchParams.has("expMin")) {
+      tempFilteredData = tempFilteredData.filter(
+        (x) => Number(x.experience_level) >= Number(searchParams.get("expMin"))
+      );
+    }
+    if (searchParams.has("expMax")) {
+      tempFilteredData = tempFilteredData.filter(
+        (x) => Number(x.experience_level) <= Number(searchParams.get("expMax"))
+      );
     }
 
     setFilteredData(tempFilteredData);

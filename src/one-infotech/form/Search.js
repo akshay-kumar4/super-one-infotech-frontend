@@ -116,7 +116,7 @@ const Search = () => {
 
   const handleFileChange = (event) => {
     setFile(event.target.files);
-    console.log(file);
+    // console.log(file);
     // for (const f of file) {
     //   console.log(f);
     // }
@@ -130,10 +130,10 @@ const Search = () => {
     if (file) {
       const formData = new FormData();
       for (const f of file) {
-        console.log(f);
+        // console.log(f);
         formData.append("file", f);
       }
-      console.log(formData);
+      // console.log(formData);
 
       const headers = {
         Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
@@ -197,7 +197,17 @@ const Search = () => {
     if (advancedSearchData.expMin && advancedSearchData.expMax) {
       params.experience_level = advancedSearchData.expMax - advancedSearchData.expMin;
     }
-    console.log(params);
+    if (displayDetails.attachedResume) {
+      params.attached_resume = "true";
+    }
+    if (advancedSearchData.expMin) {
+      params.expMin = advancedSearchData.expMin;
+    }
+    if (advancedSearchData.expMax) {
+      params.expMax = advancedSearchData.expMax;
+    }
+
+    // console.log(params);
 
     navigate({
       pathname: "/filter-resume-details",
@@ -1067,7 +1077,7 @@ const Search = () => {
               control={
                 <Switch
                   onChange={(e) => {
-                    console.log(e.target.checked);
+                    // console.log(e.target.checked);
                     let newDetails = { ...displayDetails };
                     newDetails.verifiedMobile = e.target.checked;
                     setDisplayDetails(newDetails);
