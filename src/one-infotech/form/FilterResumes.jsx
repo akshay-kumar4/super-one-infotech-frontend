@@ -10,6 +10,12 @@ import { Link } from "react-router-dom";
 import PlaceIcon from "@mui/icons-material/Place";
 import PhoneIcon from "@mui/icons-material/Phone";
 import MailIcon from "@mui/icons-material/Mail";
+import LinkIcon from "@mui/icons-material/Link";
+import SchoolIcon from "@mui/icons-material/School";
+import BusinessIcon from "@mui/icons-material/Business";
+import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+import EngineeringIcon from "@mui/icons-material/Engineering";
+import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
 
 const FilterResume = () => {
   const [data, setData] = useState([]);
@@ -149,13 +155,15 @@ const FilterResume = () => {
                 <MDBox
                   sx={{
                     // height: "250px",
-                    border: "1px solid grey",
+                    // border: "1px solid grey",
                     borderRadius: "12px",
                     padding: "10px",
                     paddingLeft: "25px",
                     margin: "20px",
                     display: "grid",
                     alignItems: "center",
+                    backgroundColor: "rgb(216 234 240 / 35%)",
+                    boxShadow: "5px 6px 5px rgba(0,0,0,0.3)",
                   }}
                 >
                   <MDTypography
@@ -191,15 +199,21 @@ const FilterResume = () => {
                       <p>&nbsp;{x.phone}</p>{" "}
                     </MDTypography>
                     <MDTypography sx={{ display: "inline-flex", alignItems: " center" }}>
-                      <PlaceIcon></PlaceIcon>
+                      <PlaceIcon />
                       <p>&nbsp;{x.location}</p>{" "}
                     </MDTypography>
                   </MDBox>
-                  <MDBox sx={{ display: "grid", marginTop: "5px" }}>
+                  <MDBox sx={{ display: "grid", marginTop: "5px", marginBottom: "5px" }}>
                     <MDTypography
-                      sx={{ display: "inline-flex", alignItems: "center", justifyContent: "" }}
+                      sx={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        justifyContent: "",
+                        margin: "5px",
+                      }}
                     >
-                      <h5>JOB TITLE : </h5>
+                      <WorkOutlineIcon />
+                      &nbsp;
                       <MDTypography sx={{ borderBottom: "1px solid grey" }}>
                         <p>&nbsp;{x.job_titles}</p>
                       </MDTypography>
@@ -207,7 +221,8 @@ const FilterResume = () => {
                     <MDTypography
                       sx={{ display: "inline-flex", alignItems: "center", margin: "5px" }}
                     >
-                      <h5>EDUCATION : </h5>
+                      <SchoolIcon />
+                      &nbsp;
                       <MDTypography sx={{ borderBottom: "1px solid grey" }}>
                         <p>&nbsp;{x.education}</p>
                       </MDTypography>
@@ -215,7 +230,8 @@ const FilterResume = () => {
                     <MDTypography
                       sx={{ display: "inline-flex", alignItems: "center", margin: "5px" }}
                     >
-                      <h5>EXPERIENCE : </h5>
+                      <MilitaryTechIcon />
+                      &nbsp;
                       <MDTypography sx={{ borderBottom: "1px solid grey" }}>
                         <p>&nbsp;{x.experience_level} year.</p>
                       </MDTypography>
@@ -223,7 +239,8 @@ const FilterResume = () => {
                     <MDTypography
                       sx={{ display: "inline-flex", alignItems: "center", margin: "5px" }}
                     >
-                      <h5>COMPANY : </h5>
+                      <BusinessIcon />
+                      &nbsp;
                       <MDTypography sx={{ borderBottom: "1px solid grey" }}>
                         <p>&nbsp;{x.company_names}</p>{" "}
                       </MDTypography>
@@ -232,9 +249,11 @@ const FilterResume = () => {
                       sx={{
                         display: "inline-flex",
                         alignItems: " center",
+                        margin: "5px",
                       }}
                     >
-                      <h5>Skills : </h5>
+                      <EngineeringIcon />
+                      &nbsp;
                       <MDTypography sx={{ borderBottom: "1px solid grey" }}>
                         <p>&nbsp;{x.skills}</p>{" "}
                       </MDTypography>
@@ -242,7 +261,8 @@ const FilterResume = () => {
                     <MDTypography
                       sx={{ display: "inline-flex", alignItems: " center", margin: "5px" }}
                     >
-                      <h5>RESUME : </h5>&nbsp;
+                      <LinkIcon />
+                      &nbsp;
                       <MDTypography sx={{ borderBottom: "1px solid grey" }}>
                         <a href={x.resume_permanent_link} target="/resumes">
                           {x.resume_permanent_link}
