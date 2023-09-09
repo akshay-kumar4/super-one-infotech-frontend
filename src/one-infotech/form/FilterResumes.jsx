@@ -108,6 +108,26 @@ const FilterResume = () => {
         (x) => Number(x.experience_level) <= Number(searchParams.get("expMax"))
       );
     }
+    if (searchParams.has("salMinLac")) {
+      tempFilteredData = tempFilteredData.filter(
+        (x) => Number(x.salary_level.split("-").at(0)) >= Number(searchParams.get("salMinLac"))
+      );
+    }
+    if (searchParams.has("salMaxLac")) {
+      tempFilteredData = tempFilteredData.filter(
+        (x) => Number(x.salary_level.split("-").at(-1)) <= Number(searchParams.get("salMaxLac"))
+      );
+    }
+    if (searchParams.has("education")) {
+      tempFilteredData = tempFilteredData.filter((x) =>
+        x.education.toLowerCase().includes(searchParams.get("education").toLowerCase())
+      );
+    }
+    if (searchParams.has("skills")) {
+      tempFilteredData = tempFilteredData.filter((x) =>
+        x.skills.toLowerCase().includes(searchParams.get("skills").toLowerCase())
+      );
+    }
 
     setFilteredData(tempFilteredData);
   }, [data]);
