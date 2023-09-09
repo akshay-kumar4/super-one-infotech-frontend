@@ -343,9 +343,6 @@ const From = () => {
           label="Job Hopping"
         />
         {/* </MDBox> */}
-        <MDButton type="submit" sx={{ width: 300, margin: "20px" }} onClick={handleDataUpload}>
-          Submit
-        </MDButton>
       </Stack>
     </DashboardLayout>
   );
