@@ -1282,6 +1282,7 @@ const Search = () => {
       {/* <Link to=""> */}
       <MDButton
         type="submit"
+        color="primary"
         sx={{ width: 300, marginTop: "20px" }}
         onClick={goToFilteredResumePage}
       >
