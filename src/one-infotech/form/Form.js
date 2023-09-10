@@ -178,482 +178,496 @@ const From = () => {
         </button>
         <ToastContainer />
       </MDBox> */}
-      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <Form.Group controlId="formFileMultiple">
-          <Form.Control type="file" ref={fileRef} />
-        </Form.Group>
-        <Button variant="primary" onClick={handleUpload}>
-          Upload Resume
-        </Button>
-        <ToastContainer />
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-        }}
-      >
-        <div style={{ margin: "40px 0px" }}>
-          <span style={{ padding: "5px 10px", background: "#ccc", borderRadius: "5px" }}>OR</span>
-        </div>
-      </Box>
+      <Box sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
+        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <Form.Group controlId="formFileMultiple">
+            <Form.Control type="file" ref={fileRef} />
+          </Form.Group>
+          <Button variant="primary" onClick={handleUpload}>
+            Upload Resume
+          </Button>
+          <ToastContainer />
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
+          <div style={{ margin: "40px 0px" }}>
+            <span style={{ padding: "5px 10px", background: "#ccc", borderRadius: "5px" }}>OR</span>
+          </div>
+        </Box>
 
-      {/* <hr style={{ width: "100%", margin: "20px 0" }} /> */}
-      <Stack spacing={3} sx={{ width: 1000 }}>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: "10px",
-          }}
-        >
-          <TextField
-            sx={{ width: 450 }}
-            variant="standard"
-            label="Name"
-            placeholder="Enter your name"
-            inputProps={{ style: { fontSize: "17px" } }}
-            InputLabelProps={{ style: { fontSize: "17px" } }}
-            onChange={(e) =>
-              setMissingDetails({
-                ...missingDetails,
-                name: e.target.value,
-              })
-            }
-          />
-          <TextField
-            sx={{ width: 450 }}
-            variant="standard"
-            label="Email"
-            placeholder="Enter your email"
-            inputProps={{ style: { fontSize: "17px" } }}
-            InputLabelProps={{ style: { fontSize: "17px" } }}
-            onChange={(e) =>
-              setMissingDetails({
-                ...missingDetails,
-                email: e.target.value,
-              })
-            }
-          />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: "10px",
-          }}
-        >
-          <TextField
-            sx={{ width: 450 }}
-            variant="standard"
-            label="Phone"
-            placeholder="Enter you phone"
-            inputProps={{ style: { fontSize: "17px" } }}
-            InputLabelProps={{ style: { fontSize: "17px" } }}
-            onChange={(e) =>
-              setMissingDetails({
-                ...missingDetails,
-                phone: e.target.value,
-              })
-            }
-          />
-          <Autocomplete
-            sx={{ width: 450 }}
-            multiple
-            id="tags-standard"
-            options={top100Keywords.map((x) => x.title)}
-            // getOptionLabel={(option) => option.title}
-            // defaultValue={[top100Keywords[13]]}
-            onChange={(e, val) => {
-              setMissingDetails({
-                ...missingDetails,
-                keywords: val,
-              });
+        {/* <hr style={{ width: "100%", margin: "20px 0" }} /> */}
+        <Stack spacing={3} sx={{ width: 1000 }}>
+          <MDBox
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "10px",
             }}
-            renderInput={(params) => (
-              <TextField
-                sx={{ width: 450 }}
-                {...params}
-                variant="standard"
-                label="Keywords"
-                placeholder="Skills, Designation, Role"
-                inputProps={{ style: { fontSize: "17px" } }}
-                InputLabelProps={{ style: { fontSize: "17px" } }}
-              />
-            )}
-          />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: "10px",
-          }}
-        >
-          <TextField
-            sx={{ width: 450 }}
-            variant="standard"
-            label="Education"
-            placeholder="Enter your education"
-            inputProps={{ style: { fontSize: "17px" } }}
-            InputLabelProps={{ style: { fontSize: "17px" } }}
-            onChange={(e) =>
-              setMissingDetails({
-                ...missingDetails,
-                education: e.target.value,
-              })
-            }
-          />
-          <TextField
-            sx={{ width: 450 }}
-            variant="standard"
-            label="Experience level"
-            placeholder="Enter your experience"
-            inputProps={{ style: { fontSize: "17px" } }}
-            InputLabelProps={{ style: { fontSize: "17px" } }}
-            onChange={(e) =>
-              setMissingDetails({
-                ...missingDetails,
-                experienceLevel: e.target.value,
-              })
-            }
-          />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: "10px",
-          }}
-        >
-          <Autocomplete
-            sx={{ width: 450 }}
-            multiple
-            freeSolo
-            id="tags-standard"
-            options={top100Keywords.map((x) => x.title)}
-            // getOptionLabel={(option) => option.title}
-            // defaultValue={[top100Keywords[13]]}
-            onChange={(e, val) => {
-              setMissingDetails({
-                ...missingDetails,
-                skills: val,
-              });
-            }}
-            renderInput={(params) => (
-              <TextField
-                sx={{ width: 450 }}
-                {...params}
-                variant="standard"
-                label="Skills"
-                placeholder="Enter Your Skills"
-                inputProps={{ style: { fontSize: "17px" } }}
-                InputLabelProps={{ style: { fontSize: "17px" } }}
-              />
-            )}
-          />
-          <TextField
-            sx={{ width: 450 }}
-            variant="standard"
-            label="Industry Experience"
-            placeholder="Enter your industry experience"
-            inputProps={{ style: { fontSize: "17px" } }}
-            InputLabelProps={{ style: { fontSize: "17px" } }}
-            onChange={(e) =>
-              setMissingDetails({
-                ...missingDetails,
-                industryExperience: e.target.value,
-              })
-            }
-          />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: "10px",
-          }}
-        >
-          <TextField
-            sx={{ width: 450 }}
-            variant="standard"
-            label="Accomplishment"
-            placeholder="Enter you accomplishment"
-            inputProps={{ style: { fontSize: "17px" } }}
-            InputLabelProps={{ style: { fontSize: "17px" } }}
-            onChange={(e) =>
-              setMissingDetails({
-                ...missingDetails,
-                accomplishment: e.target.value,
-              })
-            }
-          />
-          <TextField
-            sx={{ width: 450 }}
-            variant="standard"
-            label="Job Tenure"
-            placeholder="Enter your tenure"
-            inputProps={{ style: { fontSize: "17px" } }}
-            InputLabelProps={{ style: { fontSize: "17px" } }}
-            onChange={(e) =>
-              setMissingDetails({
-                ...missingDetails,
-                jobTenure: e.target.value,
-              })
-            }
-          />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: "10px",
-          }}
-        >
-          <TextField
-            sx={{ width: 450 }}
-            variant="standard"
-            label="Job Titles"
-            placeholder="Enter your job titles"
-            inputProps={{ style: { fontSize: "17px" } }}
-            InputLabelProps={{ style: { fontSize: "17px" } }}
-            onChange={(e) =>
-              setMissingDetails({
-                ...missingDetails,
-                jobTitles: e.target.value,
-              })
-            }
-          />
-          <TextField
-            sx={{ width: 450 }}
-            variant="standard"
-            label="Enter salary level"
-            placeholder="Salary Level"
-            inputProps={{ style: { fontSize: "17px" } }}
-            InputLabelProps={{ style: { fontSize: "17px" } }}
-            onChange={(e) =>
-              setMissingDetails({
-                ...missingDetails,
-                salaryLevel: e.target.value,
-              })
-            }
-          />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: "10px",
-          }}
-        >
-          <TextField
-            sx={{ width: 450 }}
-            variant="standard"
-            label="Company Names"
-            placeholder="Enter company names"
-            inputProps={{ style: { fontSize: "17px" } }}
-            InputLabelProps={{ style: { fontSize: "17px" } }}
-            onChange={(e) =>
-              setMissingDetails({
-                ...missingDetails,
-                companyNames: e.target.value,
-              })
-            }
-          />
-          <TextField
-            sx={{ width: 450 }}
-            variant="standard"
-            label="Referrals"
-            placeholder="Referrals"
-            inputProps={{ style: { fontSize: "17px" } }}
-            InputLabelProps={{ style: { fontSize: "17px" } }}
-            onChange={(e) =>
-              setMissingDetails({
-                ...missingDetails,
-                referrals: e.target.value,
-              })
-            }
-          />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: "10px",
-          }}
-        >
-          <TextField
-            sx={{ width: 450 }}
-            variant="standard"
-            label="Availability"
-            placeholder="availability"
-            inputProps={{ style: { fontSize: "17px" } }}
-            InputLabelProps={{ style: { fontSize: "17px" } }}
-            onChange={(e) =>
-              setMissingDetails({
-                ...missingDetails,
-                availability: e.target.value,
-              })
-            }
-          />
-          <TextField
-            sx={{ width: 450 }}
-            variant="standard"
-            label="Relevance of Role"
-            placeholder="Relevance Of Role"
-            inputProps={{ style: { fontSize: "17px" } }}
-            InputLabelProps={{ style: { fontSize: "17px" } }}
-            onChange={(e) =>
-              setMissingDetails({
-                ...missingDetails,
-                relevanceOfRole: e.target.value,
-              })
-            }
-          />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: "10px",
-          }}
-        >
-          <TextField
-            sx={{ width: 450 }}
-            variant="standard"
-            label="Cultural Fit"
-            placeholder="Cultural Fit"
-            inputProps={{ style: { fontSize: "17px" } }}
-            InputLabelProps={{ style: { fontSize: "17px" } }}
-            onChange={(e) =>
-              setMissingDetails({
-                ...missingDetails,
-                culturalFit: e.target.value,
-              })
-            }
-          />
-          <Autocomplete
-            sx={{ width: 450 }}
-            multiple
-            freeSolo
-            id="tags-standard"
-            options={top100Keywords.map((x) => x.title)}
-            // getOptionLabel={(option) => option.title}
-            // defaultValue={[top100Keywords[13]]}
-            onChange={(e, val) => {
-              setMissingDetails({
-                ...missingDetails,
-                keywordsInCoverletter: val,
-              });
-            }}
-            renderInput={(params) => (
-              <TextField
-                sx={{ width: 450 }}
-                {...params}
-                variant="standard"
-                label="Keywords in Cover Letter"
-                placeholder="Enter keywords in your cover letter"
-                inputProps={{ style: { fontSize: "17px" } }}
-                InputLabelProps={{ style: { fontSize: "17px" } }}
-              />
-            )}
-          />
-        </div>
-        <FormControlLabel
-          control={
-            <Switch
-              onChange={(e) => {
+          >
+            <TextField
+              sx={{ width: 450 }}
+              variant="standard"
+              label="Name"
+              placeholder="Enter your name"
+              inputProps={{ style: { fontSize: "17px" } }}
+              InputLabelProps={{ style: { fontSize: "17px" } }}
+              onChange={(e) =>
                 setMissingDetails({
                   ...missingDetails,
-                  remoteWork: e.target.checked,
-                });
-              }}
+                  name: e.target.value,
+                })
+              }
             />
-          }
-          label="Remote Work"
-        />
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: "10px",
-          }}
-        >
-          <TextField
-            sx={{ width: 450 }}
-            variant="standard"
-            label="Qualifications"
-            placeholder="Qualifications"
-            inputProps={{ style: { fontSize: "17px" } }}
-            InputLabelProps={{ style: { fontSize: "17px" } }}
-            onChange={(e) =>
-              setMissingDetails({
-                ...missingDetails,
-                qualifications: e.target.value,
-              })
-            }
-          />
-          <TextField
-            sx={{ width: 450 }}
-            variant="standard"
-            label="Location"
-            placeholder="Enter your preferred location"
-            inputProps={{ style: { fontSize: "17px" } }}
-            InputLabelProps={{ style: { fontSize: "17px" } }}
-            onChange={(e) =>
-              setMissingDetails({
-                ...missingDetails,
-                location: e.target.value,
-              })
-            }
-          />
-        </div>
-        <TextField
-          sx={{ width: 450 }}
-          variant="standard"
-          label="Applicant Sources"
-          placeholder="Applicant Source"
-          inputProps={{ style: { fontSize: "17px" } }}
-          InputLabelProps={{ style: { fontSize: "17px" } }}
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              applicantSources: e.target.value,
-            })
-          }
-        />
-        <FormControlLabel
-          control={
-            <Switch
-              onChange={(e) => {
+            <TextField
+              sx={{ width: 450 }}
+              variant="standard"
+              label="Email"
+              placeholder="Enter your email"
+              inputProps={{ style: { fontSize: "17px" } }}
+              InputLabelProps={{ style: { fontSize: "17px" } }}
+              onChange={(e) =>
                 setMissingDetails({
                   ...missingDetails,
-                  jobHopping: e.target.checked,
+                  email: e.target.value,
+                })
+              }
+            />
+          </MDBox>
+          <MDBox
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "10px",
+            }}
+          >
+            <TextField
+              sx={{ width: 450 }}
+              variant="standard"
+              label="Phone"
+              placeholder="Enter you phone"
+              inputProps={{ style: { fontSize: "17px" } }}
+              InputLabelProps={{ style: { fontSize: "17px" } }}
+              onChange={(e) =>
+                setMissingDetails({
+                  ...missingDetails,
+                  phone: e.target.value,
+                })
+              }
+            />
+            <Autocomplete
+              sx={{ width: 450 }}
+              multiple
+              id="tags-standard"
+              options={top100Keywords.map((x) => x.title)}
+              // getOptionLabel={(option) => option.title}
+              // defaultValue={[top100Keywords[13]]}
+              onChange={(e, val) => {
+                setMissingDetails({
+                  ...missingDetails,
+                  keywords: val,
                 });
               }}
+              renderInput={(params) => (
+                <TextField
+                  sx={{ width: 450 }}
+                  {...params}
+                  variant="standard"
+                  label="Keywords"
+                  placeholder="Skills, Designation, Role"
+                  inputProps={{ style: { fontSize: "17px" } }}
+                  InputLabelProps={{ style: { fontSize: "17px" } }}
+                />
+              )}
             />
-          }
-          label="Job Hopping"
-        />
-        {/* </MDBox> */}
-        <MDBox>
-          <MDButton variant="contained" color="primary" onClick={handleDataUpload}>
-            Submit
-          </MDButton>
-        </MDBox>
-      </Stack>
+          </MDBox>
+          <MDBox
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "10px",
+            }}
+          >
+            <TextField
+              sx={{ width: 450 }}
+              variant="standard"
+              label="Education"
+              placeholder="Enter your education"
+              inputProps={{ style: { fontSize: "17px" } }}
+              InputLabelProps={{ style: { fontSize: "17px" } }}
+              onChange={(e) =>
+                setMissingDetails({
+                  ...missingDetails,
+                  education: e.target.value,
+                })
+              }
+            />
+            <TextField
+              sx={{ width: 450 }}
+              variant="standard"
+              label="Experience level"
+              placeholder="Enter your experience"
+              inputProps={{ style: { fontSize: "17px" } }}
+              InputLabelProps={{ style: { fontSize: "17px" } }}
+              onChange={(e) =>
+                setMissingDetails({
+                  ...missingDetails,
+                  experienceLevel: e.target.value,
+                })
+              }
+            />
+          </MDBox>
+          <MDBox
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "10px",
+            }}
+          >
+            <Autocomplete
+              sx={{ width: 450 }}
+              multiple
+              freeSolo
+              id="tags-standard"
+              options={top100Keywords.map((x) => x.title)}
+              // getOptionLabel={(option) => option.title}
+              // defaultValue={[top100Keywords[13]]}
+              onChange={(e, val) => {
+                setMissingDetails({
+                  ...missingDetails,
+                  skills: val,
+                });
+              }}
+              renderInput={(params) => (
+                <TextField
+                  sx={{ width: 450 }}
+                  {...params}
+                  variant="standard"
+                  label="Skills"
+                  placeholder="Enter Your Skills"
+                  inputProps={{ style: { fontSize: "17px" } }}
+                  InputLabelProps={{ style: { fontSize: "17px" } }}
+                />
+              )}
+            />
+            <TextField
+              sx={{ width: 450 }}
+              variant="standard"
+              label="Industry Experience"
+              placeholder="Enter your industry experience"
+              inputProps={{ style: { fontSize: "17px" } }}
+              InputLabelProps={{ style: { fontSize: "17px" } }}
+              onChange={(e) =>
+                setMissingDetails({
+                  ...missingDetails,
+                  industryExperience: e.target.value,
+                })
+              }
+            />
+          </MDBox>
+          <MDBox
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "10px",
+            }}
+          >
+            <TextField
+              sx={{ width: 450 }}
+              variant="standard"
+              label="Accomplishment"
+              placeholder="Enter you accomplishment"
+              inputProps={{ style: { fontSize: "17px" } }}
+              InputLabelProps={{ style: { fontSize: "17px" } }}
+              onChange={(e) =>
+                setMissingDetails({
+                  ...missingDetails,
+                  accomplishment: e.target.value,
+                })
+              }
+            />
+            <TextField
+              sx={{ width: 450 }}
+              variant="standard"
+              label="Job Tenure"
+              placeholder="Enter your tenure"
+              inputProps={{ style: { fontSize: "17px" } }}
+              InputLabelProps={{ style: { fontSize: "17px" } }}
+              onChange={(e) =>
+                setMissingDetails({
+                  ...missingDetails,
+                  jobTenure: e.target.value,
+                })
+              }
+            />
+          </MDBox>
+          <MDBox
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "10px",
+            }}
+          >
+            <TextField
+              sx={{ width: 450 }}
+              variant="standard"
+              label="Job Titles"
+              placeholder="Enter your job titles"
+              inputProps={{ style: { fontSize: "17px" } }}
+              InputLabelProps={{ style: { fontSize: "17px" } }}
+              onChange={(e) =>
+                setMissingDetails({
+                  ...missingDetails,
+                  jobTitles: e.target.value,
+                })
+              }
+            />
+            <TextField
+              sx={{ width: 450 }}
+              variant="standard"
+              label="Enter salary level"
+              placeholder="Salary Level"
+              inputProps={{ style: { fontSize: "17px" } }}
+              InputLabelProps={{ style: { fontSize: "17px" } }}
+              onChange={(e) =>
+                setMissingDetails({
+                  ...missingDetails,
+                  salaryLevel: e.target.value,
+                })
+              }
+            />
+          </MDBox>
+          <MDBox
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "10px",
+            }}
+          >
+            <TextField
+              sx={{ width: 450 }}
+              variant="standard"
+              label="Company Name"
+              placeholder="Enter company name"
+              inputProps={{ style: { fontSize: "17px" } }}
+              InputLabelProps={{ style: { fontSize: "17px" } }}
+              onChange={(e) =>
+                setMissingDetails({
+                  ...missingDetails,
+                  companyNames: e.target.value,
+                })
+              }
+            />
+            <TextField
+              sx={{ width: 450 }}
+              variant="standard"
+              label="Referrals"
+              placeholder="Referrals"
+              inputProps={{ style: { fontSize: "17px" } }}
+              InputLabelProps={{ style: { fontSize: "17px" } }}
+              onChange={(e) =>
+                setMissingDetails({
+                  ...missingDetails,
+                  referrals: e.target.value,
+                })
+              }
+            />
+          </MDBox>
+          <MDBox
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "10px",
+            }}
+          >
+            <TextField
+              sx={{ width: 450 }}
+              variant="standard"
+              label="Availability"
+              placeholder="availability"
+              inputProps={{ style: { fontSize: "17px" } }}
+              InputLabelProps={{ style: { fontSize: "17px" } }}
+              onChange={(e) =>
+                setMissingDetails({
+                  ...missingDetails,
+                  availability: e.target.value,
+                })
+              }
+            />
+            <TextField
+              sx={{ width: 450 }}
+              variant="standard"
+              label="Relevance of Role"
+              placeholder="Relevance Of Role"
+              inputProps={{ style: { fontSize: "17px" } }}
+              InputLabelProps={{ style: { fontSize: "17px" } }}
+              onChange={(e) =>
+                setMissingDetails({
+                  ...missingDetails,
+                  relevanceOfRole: e.target.value,
+                })
+              }
+            />
+          </MDBox>
+          <MDBox
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "10px",
+            }}
+          >
+            <TextField
+              sx={{ width: 450 }}
+              variant="standard"
+              label="Cultural Fit"
+              placeholder="Cultural Fit"
+              inputProps={{ style: { fontSize: "17px" } }}
+              InputLabelProps={{ style: { fontSize: "17px" } }}
+              onChange={(e) =>
+                setMissingDetails({
+                  ...missingDetails,
+                  culturalFit: e.target.value,
+                })
+              }
+            />
+            <Autocomplete
+              sx={{ width: 450 }}
+              multiple
+              freeSolo
+              id="tags-standard"
+              options={top100Keywords.map((x) => x.title)}
+              // getOptionLabel={(option) => option.title}
+              // defaultValue={[top100Keywords[13]]}
+              onChange={(e, val) => {
+                setMissingDetails({
+                  ...missingDetails,
+                  keywordsInCoverletter: val,
+                });
+              }}
+              renderInput={(params) => (
+                <TextField
+                  sx={{ width: 450 }}
+                  {...params}
+                  variant="standard"
+                  label="Keywords in Cover Letter"
+                  placeholder="Enter keywords in your cover letter"
+                  inputProps={{ style: { fontSize: "17px" } }}
+                  InputLabelProps={{ style: { fontSize: "17px" } }}
+                />
+              )}
+            />
+          </MDBox>
+          <MDBox
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "10px",
+            }}
+          >
+            <TextField
+              sx={{ width: 450 }}
+              variant="standard"
+              label="Qualifications"
+              placeholder="Qualifications"
+              inputProps={{ style: { fontSize: "17px" } }}
+              InputLabelProps={{ style: { fontSize: "17px" } }}
+              onChange={(e) =>
+                setMissingDetails({
+                  ...missingDetails,
+                  qualifications: e.target.value,
+                })
+              }
+            />
+            <TextField
+              sx={{ width: 450 }}
+              variant="standard"
+              label="Location"
+              placeholder="Enter your preferred location"
+              inputProps={{ style: { fontSize: "17px" } }}
+              InputLabelProps={{ style: { fontSize: "17px" } }}
+              onChange={(e) =>
+                setMissingDetails({
+                  ...missingDetails,
+                  location: e.target.value,
+                })
+              }
+            />
+          </MDBox>
+          <MDBox
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "10px",
+            }}
+          >
+            <TextField
+              sx={{ width: 450 }}
+              variant="standard"
+              label="Applicant Sources"
+              placeholder="Applicant Source"
+              inputProps={{ style: { fontSize: "17px" } }}
+              InputLabelProps={{ style: { fontSize: "17px" } }}
+              onChange={(e) =>
+                setMissingDetails({
+                  ...missingDetails,
+                  applicantSources: e.target.value,
+                })
+              }
+            />
+            <FormControlLabel
+              sx={{ width: 450 }}
+              control={
+                <Switch
+                  onChange={(e) => {
+                    setMissingDetails({
+                      ...missingDetails,
+                      jobHopping: e.target.checked,
+                    });
+                  }}
+                />
+              }
+              label="Job Hopping"
+            />
+          </MDBox>
+          <FormControlLabel
+            sx={{ width: 450 }}
+            control={
+              <Switch
+                onChange={(e) => {
+                  setMissingDetails({
+                    ...missingDetails,
+                    remoteWork: e.target.checked,
+                  });
+                }}
+              />
+            }
+            label="Remote Work"
+          />
+
+          {/* </MDBox> */}
+          <MDBox>
+            <MDButton variant="contained" color="primary" onClick={handleDataUpload}>
+              Submit
+            </MDButton>
+          </MDBox>
+        </Stack>
+      </Box>
     </DashboardLayout>
   );
 };
