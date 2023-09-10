@@ -29,6 +29,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Button } from "react-bootstrap";
 import { Box } from "@mui/material";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Form from "react-bootstrap/Form";
 
 const buttonStyles = {
   backgroundColor: "#007BFF",
@@ -176,7 +177,9 @@ const From = () => {
         <ToastContainer />
       </MDBox> */}
       <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <input type="file" multiple ref={fileRef} />
+        <Form.Group controlId="formFileMultiple">
+          <Form.Control type="file" ref={fileRef} />
+        </Form.Group>
         <Button variant="primary" onClick={handleUpload}>
           Upload Resume
         </Button>
@@ -190,7 +193,7 @@ const From = () => {
           flexDirection: "column",
         }}
       >
-        <div style={{ margin: "60px 0px" }}>
+        <div style={{ margin: "40px 0px" }}>
           <span style={{ padding: "5px 10px", background: "#ccc", borderRadius: "5px" }}>OR</span>
         </div>
       </Box>
@@ -644,7 +647,7 @@ const From = () => {
         />
         {/* </MDBox> */}
         <MDBox>
-          <MDButton variant="contained" onClick={handleDataUpload}>
+          <MDButton variant="contained" color="primary" onClick={handleDataUpload}>
             Submit
           </MDButton>
         </MDBox>
