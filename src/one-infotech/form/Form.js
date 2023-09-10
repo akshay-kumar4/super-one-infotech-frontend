@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 
@@ -24,7 +24,8 @@ import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const buttonStyles = {
   backgroundColor: "#007BFF",
@@ -38,6 +39,8 @@ const buttonStyles = {
 
 const From = () => {
   const [missingDetails, setMissingDetails] = useState("");
+  const [file, setFile] = useState(null);
+  const fileRef = useRef(null);
 
   const handleDataUpload = () => {
     const formData = new FormData();
@@ -81,53 +84,89 @@ const From = () => {
       });
   };
 
-  const handleFileChange = (event) => {
-    setFile(event.target.files);
-    console.log(file);
-    // for (const f of file) {
-    //   console.log(f);
-    // }
-  };
+  const notifyOnResolve = () => toast.success("file upload successful");
+  const notifyOnReject = () => toast.error("Failed to upload");
+  const notifyOnPending = () => toast.info("File uploading");
 
-  const handleUpload = () => {
-    if (file) {
-      const formData = new FormData();
-      for (const f of file) {
-        console.log(f);
-        formData.append("file", f);
-      }
-      console.log(formData);
+  // const handleFileChange = (event) => {
+  //   // console.log(event.target.files);
+  //   let fileList = event.target.files;
+  //   let newList = new DataTransfer();
+  //   for (let i = 0; i < fileList.length; i++) {
+  //     let newFile = new File([fileList[i]], fileList[i].name.replace(/[^a-zA-Z0-9._]/g, ""));
+  //     newList.items.add(newFile);
+  //   }
+  //   for (let i = 0; i < newList.files.length; i++) {
+  //     console.log(newList.files[i]);
+  //   }
+  //   event.target.files = newList.files;
+  //   // setFile(event.target.files);
+  //   setFile(newList.files);
+  // };
 
-      const headers = {
-        Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
-      };
+  // const handleUpload = () => {
+  //   if (file) {
+  //     const formData = new FormData();
+  //     for (const f of file) {
+  //       // console.log(f);
+  //       formData.append("file", f);
+  //     }
+  //     console.log(formData);
+  //     const headers = {
+  //       Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+  //     };
+  //     // Display the 'File uploading' message
+  //     notifyOnPending();
+  //     axios
+  //       .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading", formData, { headers })
+  //       .then((response) => {
+  //         // Handle success
+  //         notifyOnResolve();
+  //         console.log("File uploaded successfully", response.data);
+  //       })
+  //       .catch((error) => {
+  //         // Handle error
+  //         notifyOnReject();
+  //         console.error("Error uploading file", error);
+  //       });
+  //   } else {
+  //     // Handle no file selected error
+  //     console.error("No file selected");
+  //   }
+  // };
 
-      // Display the 'File uploading' message
-      notifyOnPending();
-
-      axios
-        .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading/", formData, { headers })
-        .then((response) => {
-          // Handle success
-          notifyOnResolve();
-          console.log("File uploaded successfully", response.data);
-        })
-        .catch((error) => {
-          // Handle error
-          notifyOnReject();
-          console.error("Error uploading file", error);
-        });
-    } else {
-      // Handle no file selected error
-      console.error("No file selected");
+  function handleUpload(e) {
+    e.preventDefault();
+    // console.log(fileRef.current.files);
+    let files = fileRef.current.files;
+    let formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append("file", new File([files[i]], files[i].name.replace(/[^a-zA-Z0-9._]/g, "")));
+      // formData.append("file", files[i]);
     }
-  };
+    console.log(formData.getAll("file"));
+    const headers = {
+      Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+      // "Content-Type": "multipart/form-data",
+    };
+    notifyOnPending();
+    axios
+      .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading/", formData, { headers })
+      .then((response) => {
+        notifyOnResolve();
+        console.log("success" + response.data);
+      })
+      .catch((err) => {
+        notifyOnReject();
+        console.error(err);
+      });
+  }
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox sx={{ display: "flex", justifyContent: "space-end", alignItems: "center" }}>
-        <input type="file" multiple onChange={handleFileChange} />
+        <input type="file" multiple ref={fileRef} />
         <button style={buttonStyles} onClick={handleUpload}>
           Upload Resume
         </button>
