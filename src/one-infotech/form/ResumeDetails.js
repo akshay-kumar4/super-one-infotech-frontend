@@ -23,6 +23,7 @@ const ResumeDetails = () => {
         console.error("Error fetching data:", error);
       });
   }, []);
+  let Data = JSON.stringify(data, null, 2);
 
   console.log(data);
   return (
@@ -32,7 +33,7 @@ const ResumeDetails = () => {
       >
         <MDBox>
           <h1>API Response:</h1>
-          <pre>{JSON.stringify(data, null, 2)}</pre>
+          <pre>{Data}</pre>
         </MDBox>
       </Accordion>
     </div>
