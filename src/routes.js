@@ -100,12 +100,12 @@ const routes = [
         route: "/pages/account/settings",
         component: <Settings />,
       },
-      {
-        name: "Logout",
-        key: "logout",
-        route: "/auth/sign-in",
-        component: <Login />,
-      },
+      // {
+      //   name: "Logout",
+      //   key: "logout",
+      //   route: "/auth/sign-in",
+      //   component: <Login />,
+      // },
     ],
   },
   { type: "divider", key: "divider-0" },
