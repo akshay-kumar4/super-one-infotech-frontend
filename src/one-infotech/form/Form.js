@@ -26,6 +26,9 @@ import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Button } from "react-bootstrap";
+import { Box } from "@mui/material";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const buttonStyles = {
   backgroundColor: "#007BFF",
@@ -165,37 +168,35 @@ const From = () => {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox sx={{ display: "flex", justifyContent: "space-end", alignItems: "center" }}>
+      {/* <MDBox sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
         <input type="file" multiple ref={fileRef} />
         <button style={buttonStyles} onClick={handleUpload}>
           Upload Resume
         </button>
         <ToastContainer />
-      </MDBox>
+      </MDBox> */}
+      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <input type="file" multiple ref={fileRef} />
+        <Button variant="primary" onClick={handleUpload}>
+          Upload Resume
+        </Button>
+        <ToastContainer />
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
+        <div style={{ margin: "60px 0px" }}>
+          <span style={{ padding: "5px 10px", background: "#ccc", borderRadius: "5px" }}>OR</span>
+        </div>
+      </Box>
+
+      {/* <hr style={{ width: "100%", margin: "20px 0" }} /> */}
       <Stack spacing={3} sx={{ width: 1000 }}>
-        {/* <MDBox> */}
-        {/* <TextField
-          variant="standard"
-          label="Name"
-          placeholder="Enter you name"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              name: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="Email"
-          placeholder="Enter you email"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              email: e.target.value,
-            })
-          }
-        /> */}
         <div
           style={{
             display: "flex",
@@ -209,6 +210,8 @@ const From = () => {
             variant="standard"
             label="Name"
             placeholder="Enter your name"
+            inputProps={{ style: { fontSize: "20px" } }}
+            InputLabelProps={{ style: { fontSize: "18px" } }}
             onChange={(e) =>
               setMissingDetails({
                 ...missingDetails,
@@ -221,6 +224,8 @@ const From = () => {
             variant="standard"
             label="Email"
             placeholder="Enter your email"
+            inputProps={{ style: { fontSize: "20px" } }}
+            InputLabelProps={{ style: { fontSize: "18px" } }}
             onChange={(e) =>
               setMissingDetails({
                 ...missingDetails,
@@ -242,6 +247,8 @@ const From = () => {
             variant="standard"
             label="Phone"
             placeholder="Enter you phone"
+            inputProps={{ style: { fontSize: "20px" } }}
+            InputLabelProps={{ style: { fontSize: "18px" } }}
             onChange={(e) =>
               setMissingDetails({
                 ...missingDetails,
@@ -269,6 +276,8 @@ const From = () => {
                 variant="standard"
                 label="Keywords"
                 placeholder="Skills, Designation, Role"
+                inputProps={{ style: { fontSize: "20px" } }}
+                InputLabelProps={{ style: { fontSize: "18px" } }}
               />
             )}
           />
@@ -286,6 +295,8 @@ const From = () => {
             variant="standard"
             label="Education"
             placeholder="Enter your education"
+            inputProps={{ style: { fontSize: "20px" } }}
+            InputLabelProps={{ style: { fontSize: "18px" } }}
             onChange={(e) =>
               setMissingDetails({
                 ...missingDetails,
@@ -298,6 +309,8 @@ const From = () => {
             variant="standard"
             label="Experience level"
             placeholder="Enter your experience"
+            inputProps={{ style: { fontSize: "20px" } }}
+            InputLabelProps={{ style: { fontSize: "18px" } }}
             onChange={(e) =>
               setMissingDetails({
                 ...missingDetails,
@@ -335,6 +348,8 @@ const From = () => {
                 variant="standard"
                 label="Skills"
                 placeholder="Enter Your Skills"
+                inputProps={{ style: { fontSize: "20px" } }}
+                InputLabelProps={{ style: { fontSize: "18px" } }}
               />
             )}
           />
@@ -343,6 +358,8 @@ const From = () => {
             variant="standard"
             label="Industry Experience"
             placeholder="Enter your industry experience"
+            inputProps={{ style: { fontSize: "20px" } }}
+            InputLabelProps={{ style: { fontSize: "18px" } }}
             onChange={(e) =>
               setMissingDetails({
                 ...missingDetails,
@@ -364,6 +381,8 @@ const From = () => {
             variant="standard"
             label="Accomplishment"
             placeholder="Enter you accomplishment"
+            inputProps={{ style: { fontSize: "20px" } }}
+            InputLabelProps={{ style: { fontSize: "18px" } }}
             onChange={(e) =>
               setMissingDetails({
                 ...missingDetails,
@@ -376,6 +395,8 @@ const From = () => {
             variant="standard"
             label="Job Tenure"
             placeholder="Enter your tenure"
+            inputProps={{ style: { fontSize: "20px" } }}
+            InputLabelProps={{ style: { fontSize: "18px" } }}
             onChange={(e) =>
               setMissingDetails({
                 ...missingDetails,
@@ -397,6 +418,8 @@ const From = () => {
             variant="standard"
             label="Job Titles"
             placeholder="Enter your job titles"
+            inputProps={{ style: { fontSize: "20px" } }}
+            InputLabelProps={{ style: { fontSize: "18px" } }}
             onChange={(e) =>
               setMissingDetails({
                 ...missingDetails,
@@ -409,6 +432,8 @@ const From = () => {
             variant="standard"
             label="Enter salary level"
             placeholder="Salary Level"
+            inputProps={{ style: { fontSize: "20px" } }}
+            InputLabelProps={{ style: { fontSize: "18px" } }}
             onChange={(e) =>
               setMissingDetails({
                 ...missingDetails,
@@ -430,6 +455,8 @@ const From = () => {
             variant="standard"
             label="Company Names"
             placeholder="Enter company names"
+            inputProps={{ style: { fontSize: "20px" } }}
+            InputLabelProps={{ style: { fontSize: "18px" } }}
             onChange={(e) =>
               setMissingDetails({
                 ...missingDetails,
@@ -442,6 +469,8 @@ const From = () => {
             variant="standard"
             label="Referrals"
             placeholder="Referrals"
+            inputProps={{ style: { fontSize: "20px" } }}
+            InputLabelProps={{ style: { fontSize: "18px" } }}
             onChange={(e) =>
               setMissingDetails({
                 ...missingDetails,
@@ -463,6 +492,8 @@ const From = () => {
             variant="standard"
             label="Availability"
             placeholder="availability"
+            inputProps={{ style: { fontSize: "20px" } }}
+            InputLabelProps={{ style: { fontSize: "18px" } }}
             onChange={(e) =>
               setMissingDetails({
                 ...missingDetails,
@@ -475,6 +506,8 @@ const From = () => {
             variant="standard"
             label="Relevance of Role"
             placeholder="Relevance Of Role"
+            inputProps={{ style: { fontSize: "20px" } }}
+            InputLabelProps={{ style: { fontSize: "18px" } }}
             onChange={(e) =>
               setMissingDetails({
                 ...missingDetails,
@@ -496,6 +529,8 @@ const From = () => {
             variant="standard"
             label="Cultural Fit"
             placeholder="Cultural Fit"
+            inputProps={{ style: { fontSize: "20px" } }}
+            InputLabelProps={{ style: { fontSize: "18px" } }}
             onChange={(e) =>
               setMissingDetails({
                 ...missingDetails,
@@ -524,6 +559,8 @@ const From = () => {
                 variant="standard"
                 label="Keywords in Cover Letter"
                 placeholder="Enter keywords in your cover letter"
+                inputProps={{ style: { fontSize: "20px" } }}
+                InputLabelProps={{ style: { fontSize: "18px" } }}
               />
             )}
           />
@@ -554,6 +591,8 @@ const From = () => {
             variant="standard"
             label="Qualifications"
             placeholder="Qualifications"
+            inputProps={{ style: { fontSize: "20px" } }}
+            InputLabelProps={{ style: { fontSize: "18px" } }}
             onChange={(e) =>
               setMissingDetails({
                 ...missingDetails,
@@ -566,6 +605,8 @@ const From = () => {
             variant="standard"
             label="Location"
             placeholder="Enter your preferred location"
+            inputProps={{ style: { fontSize: "20px" } }}
+            InputLabelProps={{ style: { fontSize: "18px" } }}
             onChange={(e) =>
               setMissingDetails({
                 ...missingDetails,
@@ -579,6 +620,8 @@ const From = () => {
           variant="standard"
           label="Applicant Sources"
           placeholder="Applicant Source"
+          inputProps={{ style: { fontSize: "20px" } }}
+          InputLabelProps={{ style: { fontSize: "18px" } }}
           onChange={(e) =>
             setMissingDetails({
               ...missingDetails,
