@@ -17,25 +17,25 @@ import React, { useState } from "react";
 // Material Dashboard 2 PRO React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "../components/DashboardNavbar/index";
-import Footer from "examples/Footer";
-import MDBadge from "components/MDBadge";
+// import Footer from "examples/Footer";
+// import MDBadge from "components/MDBadge";
 import MDButton from "components/MDButton";
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
-import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+// import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-import Grid from "@mui/material/Grid";
+// import Typography from "@mui/material/Typography";
+// import FormGroup from "@mui/material/FormGroup";
+// import FormControlLabel from "@mui/material/FormControlLabel";
+// import Switch from "@mui/material/Switch";
+// import Grid from "@mui/material/Grid";
 import Autocomplete from "@mui/material/Autocomplete";
-import MDTypography from "components/MDTypography";
-import Chip from "@mui/material/Chip";
+// import MDTypography from "components/MDTypography";
+// import Chip from "@mui/material/Chip";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import axios from "axios";
@@ -115,7 +115,11 @@ const Search = () => {
   const [file, setFile] = useState(null);
 
   const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+    setFile(event.target.files);
+    // console.log(file);
+    // for (const f of file) {
+    //   console.log(f);
+    // }
   };
 
   const notifyOnResolve = () => toast.success("file upload successful");
@@ -125,7 +129,11 @@ const Search = () => {
   const handleUpload = () => {
     if (file) {
       const formData = new FormData();
-      formData.append("file", file);
+      for (const f of file) {
+        // console.log(f);
+        formData.append("file", f);
+      }
+      // console.log(formData);
 
       const headers = {
         Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
@@ -177,19 +185,41 @@ const Search = () => {
     if (advancedSearchData.location) {
       params.location = advancedSearchData.location;
     }
-    if (employmentDetails.employers) {
-      params.employers = employmentDetails.employers;
+    if (advancedSearchData.employers) {
+      params.employers = advancedSearchData.employers;
     }
-    if (employmentDetails.excludeEmployers) {
-      params.exclude_employers = employmentDetails.excludeEmployers;
+    if (advancedSearchData.excludeEmployers) {
+      params.exclude_employers = advancedSearchData.excludeEmployers;
     }
-    if (employmentDetails.designation) {
-      params.designation = employmentDetails.designation;
+    if (advancedSearchData.designation) {
+      params.designation = advancedSearchData.designation;
     }
     if (advancedSearchData.expMin && advancedSearchData.expMax) {
       params.experience_level = advancedSearchData.expMax - advancedSearchData.expMin;
     }
-    console.log(params);
+    // if (displayDetails.attachedResume) {
+    //   params.attached_resume = "true";
+    // }
+    if (advancedSearchData.expMin) {
+      params.expMin = advancedSearchData.expMin;
+    }
+    if (advancedSearchData.expMax) {
+      params.expMax = advancedSearchData.expMax;
+    }
+    if (advancedSearchData.salMinLac) {
+      params.salMinLac = Number(advancedSearchData.salMinLac) * 100000;
+    }
+    if (advancedSearchData.salMaxLac) {
+      params.salMaxLac = Number(advancedSearchData.salMaxLac) * 100000;
+    }
+    if (advancedSearchData.education) {
+      params.education = advancedSearchData.education;
+    }
+    if (advancedSearchData.skills) {
+      params.skills = advancedSearchData.skills;
+    }
+
+    // console.log(params);
 
     navigate({
       pathname: "/filter-resume-details",
@@ -210,7 +240,7 @@ const Search = () => {
       >
         <h2>Advanced Search</h2>
         <MDBox>
-          <input type="file" multiple onChange={handleFileChange} />
+          <input type="file" onChange={handleFileChange} />
           <button style={buttonStyles} onClick={handleUpload}>
             Upload Resume
           </button>{" "}
@@ -292,7 +322,7 @@ const Search = () => {
             className="experience"
             sx={{ width: 300, marginRight: "20px", marginLeft: "20px" }}
             // defaultValue="min"
-            options={["0", "1", "2", "3", "4", "5"]}
+            options={Array.from({ length: 31 }, (_, i) => i)}
             renderInput={(params) => <MDInput {...params} variant="standard" placeholder="From" />}
             onChange={(e, val) => {
               setAdvancedSearchData({
@@ -309,7 +339,7 @@ const Search = () => {
             sx={{ width: 300, marginRight: "20px", marginLeft: "20px" }}
             // defaultValue="max"
             placeholder="Max"
-            options={["1", "2", "3", "4", "5", "6", "7", "8", "9"]}
+            options={Array.from({ length: 31 }, (_, i) => i)}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
             onChange={(e, val) => {
               setAdvancedSearchData({
@@ -320,16 +350,16 @@ const Search = () => {
             value={advancedSearchData.expMax}
             name="expMax"
           />
-          <p>in years</p>
+          <p>in Years</p>
         </MDBox>
       </MDBox>
       <MDBox className="input" sx={{ display: "flex", marginTop: "20px", marginBottom: "20px" }}>
-        <p>Annual Salary</p>
+        <p>Annual Salary:</p>
         <Autocomplete
           className="experience"
-          sx={{ width: 50, marginRight: "20px", marginLeft: "20px" }}
+          sx={{ width: 80, marginLeft: "20px" }}
           // defaultValue="₹"
-          options={["$", "€", "£", "¥", "₣", "₹"]}
+          options={["IND", "USD"]}
           onChange={(e, val) => {
             setAdvancedSearchData({
               ...advancedSearchData,
@@ -377,7 +407,7 @@ const Search = () => {
             // value={advancedSearchData.salMinLac}
             name="salMinLac"
           />
-          <Autocomplete
+          {/* <Autocomplete
             className="experience"
             sx={{ width: 200, marginRight: "20px" }}
             // defaultValue="Thousand"
@@ -415,7 +445,7 @@ const Search = () => {
             }}
             // value={advancedSearchData.salMinTh}
             name="salMinTh"
-          />
+          /> */}
           <span>To</span>
           <Autocomplete
             className="experience"
@@ -455,7 +485,7 @@ const Search = () => {
             // value={advancedSearchData.salMaxLac}
             name="salMaxLac"
           />
-          <Autocomplete
+          {/* <Autocomplete
             className="experience"
             sx={{ width: 200 }}
             // defaultValue="Thousand"
@@ -493,11 +523,11 @@ const Search = () => {
             }}
             // value={advancedSearchData.salMaxTh}
             name="salMaxTh"
-          />
+          /> */}
         </MDBox>
       </MDBox>
-      <MDBox className="location" sx={{ marginBottom: "20px" }} display="flex">
-        <p>Current Location</p>
+      <MDBox className="location" display="flex">
+        <p>Current Location:</p>
         <Autocomplete
           options={["New Delhi", "NCR", "Bangalore", "Mumbai", "Chennai", "Pune"]}
           renderInput={(params) => (
@@ -518,8 +548,78 @@ const Search = () => {
           name="location"
         />
       </MDBox>
+      <MDInput
+        type="text"
+        label="Education"
+        placeholder="Education Details"
+        fullWidth
+        variant="standard"
+        margin="normal"
+        onChange={(e) => {
+          setAdvancedSearchData({
+            ...advancedSearchData,
+            education: e.target.value,
+          });
+        }}
+      />
+      <MDInput
+        type="text"
+        label="Skills"
+        placeholder="Skills"
+        fullWidth
+        variant="standard"
+        margin="normal"
+        onChange={(e) => {
+          setAdvancedSearchData({
+            ...advancedSearchData,
+            skills: e.target.value,
+          });
+        }}
+      />
+      <MDInput
+        type="text"
+        label="Employers"
+        placeholder="Type company name"
+        fullWidth
+        variant="standard"
+        margin="normal"
+        onChange={(e) => {
+          setAdvancedSearchData({
+            ...advancedSearchData,
+            employers: e.target.value,
+          });
+        }}
+      />
+      <MDInput
+        type="text"
+        label="Exclude Employers"
+        placeholder="Type company name"
+        fullWidth
+        margin="normal"
+        variant="standard"
+        onChange={(e) => {
+          setAdvancedSearchData({
+            ...advancedSearchData,
+            excludeEmployers: e.target.value,
+          });
+        }}
+      />
+      <MDInput
+        type="text"
+        label="Designation"
+        placeholder="Type designation"
+        fullWidth
+        margin="normal"
+        variant="standard"
+        onChange={(e) => {
+          setAdvancedSearchData({
+            ...advancedSearchData,
+            designation: e.target.value,
+          });
+        }}
+      />
 
-      <Accordion
+      {/* <Accordion
         expanded={expanded === "panel1"}
         onChange={handleChangeAccordion("panel1")}
         sx={{ borderRadius: "10px" }}
@@ -727,15 +827,15 @@ const Search = () => {
             }}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
           />
-        </MDBox>
-        {/* <AccordionDetails>
+        </MDBox> */}
+      {/* <AccordionDetails>
           <Typography></Typography>
         </AccordionDetails> */}
-      </Accordion>
+      {/* </Accordion> */}
       {/* <AccordionDetails>
         <Typography></Typography>
       </AccordionDetails> */}
-      <Accordion
+      {/* <Accordion
         expanded={expanded === "panel2"}
         onChange={handleChangeAccordion("panel2")}
         sx={{ borderRadius: "10px", marginTop: "20px" }}
@@ -771,7 +871,7 @@ const Search = () => {
             )}
           />
           {/* <MDInput type="text" label="Industry" fullWidth margin="normal" /> */}
-          <MDBox sx={{ paddingTop: "20px" }}>
+      {/* <MDBox sx={{ paddingTop: "20px" }}>
             <p>Industry</p>
             <Autocomplete
               sx={{ width: 300 }}
@@ -806,45 +906,6 @@ const Search = () => {
             />
           </MDBox>
 
-          <MDInput
-            type="text"
-            label="Employers"
-            placeholder="Type company name"
-            fullWidth
-            margin="normal"
-            onChange={(e) => {
-              setEmploymentDetails({
-                ...employmentDetails,
-                employers: e.target.value,
-              });
-            }}
-          />
-          <MDInput
-            type="text"
-            label="Exclude Employers"
-            placeholder="Type company name"
-            fullWidth
-            margin="normal"
-            onChange={(e) => {
-              setEmploymentDetails({
-                ...employmentDetails,
-                excludeEmployers: e.target.value,
-              });
-            }}
-          />
-          <MDInput
-            type="text"
-            label="Designation"
-            placeholder="Type designation"
-            fullWidth
-            margin="normal"
-            onChange={(e) => {
-              setEmploymentDetails({
-                ...employmentDetails,
-                designation: e.target.value,
-              });
-            }}
-          />
           <MDBox sx={{ paddingBottom: "20px", paddingTop: "20px" }}>
             <p>Notice Period</p>
             <Autocomplete
@@ -875,9 +936,9 @@ const Search = () => {
               )}
             />
           </MDBox>
-        </MDBox>
-      </Accordion>
-      <Accordion
+        </MDBox> */}
+      {/* </Accordion> */}
+      {/* <Accordion
         expanded={expanded === "panel3"}
         onChange={handleChangeAccordion("panel3")}
         sx={{ borderRadius: "10px", marginTop: "20px" }}
@@ -927,13 +988,13 @@ const Search = () => {
                 label="Search Candidates with Special Abilities Only"
               />
             </FormGroup>
-          </MDBox>
+          </MDBox> */}
 
-          {/* <MDInput type="text" label="Candidate Age (Min)" placeholder="Min" margin="normal" />
+      {/* <MDInput type="text" label="Candidate Age (Min)" placeholder="Min" margin="normal" />
         <MDInput type="text" label="Candidate Age (Max)" placeholder="max" margin="normal" /> */}
-          <MDBox sx={{ display: "flex", marginBottom: "20px" }}>
-            <Grid item xs={12} lg={5}>
-              {/* <MDBox mb={1.5} lineHeight={0}>
+      {/* <MDBox sx={{ display: "flex", marginBottom: "20px" }}>
+            <Grid item xs={12} lg={5}> */}
+      {/* <MDBox mb={1.5} lineHeight={0}>
                 <MDTypography
                   component="label"
                   variant="button"
@@ -941,7 +1002,7 @@ const Search = () => {
                   fontWeight="regular"
                 ></MDTypography>
               </MDBox> */}
-              <p>Candidate Age</p>
+      {/* <p>Candidate Age</p>
               <Autocomplete
                 sx={{ width: 300 }}
                 options={[
@@ -970,8 +1031,8 @@ const Search = () => {
                 )}
               />
             </Grid>
-            <Grid item xs={12} lg={5}>
-              {/* <MDBox mb={1.5} lineHeight={0}>
+            <Grid item xs={12} lg={5}> */}
+      {/* <MDBox mb={1.5} lineHeight={0}>
                 <MDTypography
                   component="label"
                   variant="button"
@@ -980,7 +1041,7 @@ const Search = () => {
                   fontWeight="regular"
                 ></MDTypography>
               </MDBox> */}
-              <p>Candidate Age</p>
+      {/* <p>Candidate Age</p>
               <Autocomplete
                 sx={{ width: 300, marginLeft: "15px" }}
                 options={[
@@ -1011,7 +1072,7 @@ const Search = () => {
             </Grid>
           </MDBox>
           {/* <MDInput type="text" label="Work Status for USA" fullWidth margin="normal" /> */}
-          <p>Work status for USA</p>
+      {/* <p>Work status for USA</p>
           <Autocomplete
             sx={{ width: 300 }}
             options={["yes eligible", "not eligible"]}
@@ -1042,9 +1103,9 @@ const Search = () => {
               }}
             />
           </MDBox>
-        </MDBox>
-      </Accordion>
-      <Accordion
+        </MDBox> */}
+      {/* </Accordion> */}
+      {/* <Accordion
         expanded={expanded === "panel4"}
         onChange={handleChangeAccordion("panel4")}
         sx={{ borderRadius: "10px", marginTop: "20px" }}
@@ -1059,7 +1120,7 @@ const Search = () => {
               control={
                 <Switch
                   onChange={(e) => {
-                    console.log(e.target.checked);
+                    // console.log(e.target.checked);
                     let newDetails = { ...displayDetails };
                     newDetails.verifiedMobile = e.target.checked;
                     setDisplayDetails(newDetails);
@@ -1180,10 +1241,10 @@ const Search = () => {
                 <MDInput {...params} variant="standard" placeholder="SELECT" />
               )}
             />
-          </MDBox>
+          </MDBox> */}
 
-          {/* <MDInput type="text" label="Sort By" placeholder="Relevance" fullWidth margin="normal" /> */}
-          <MDBox sx={{ marginBottom: "20px" }}>
+      {/* <MDInput type="text" label="Sort By" placeholder="Relevance" fullWidth margin="normal" /> */}
+      {/* <MDBox sx={{ marginBottom: "20px" }}>
             <p>Sort By</p>
             <Autocomplete
               sx={{ width: 300 }}
@@ -1216,9 +1277,13 @@ const Search = () => {
             />
           </FormGroup>
         </MDBox>
-      </Accordion>
+      </Accordion> */}
       {/* <Link to=""> */}
-      <MDButton type="submit" sx={{ width: 300, margin: "20px" }} onClick={goToFilteredResumePage}>
+      <MDButton
+        type="submit"
+        sx={{ width: 300, marginTop: "20px" }}
+        onClick={goToFilteredResumePage}
+      >
         Submit
       </MDButton>
       {/* </Link> */}

@@ -60,7 +60,7 @@ const Login = () => {
             Sign In
           </MDTypography>
           <MDTypography display="block" variant="button" color="white" my={1}>
-            Enter your Email and Password to Sign In
+            Enter your Username and Password to Sign In
           </MDTypography>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
@@ -89,7 +89,7 @@ const Login = () => {
                 InputLabelProps={{ shrink: true }}
               />
             </MDBox>
-            <MDBox display="flex" alignItems="center" ml={-1}>
+            {/* <MDBox display="flex" alignItems="center" ml={-1}>
               <Switch checked={rememberMe} onChange={handleSetRememberMe} />
               <MDTypography
                 variant="button"
@@ -100,13 +100,13 @@ const Login = () => {
               >
                 &nbsp;&nbsp;Remember me
               </MDTypography>
-            </MDBox>
+            </MDBox> */}
             <MDBox mt={4} mb={1}>
               <MDButton variant="gradient" color="info" fullWidth onClick={onSubmit}>
                 sign in
               </MDButton>
             </MDBox>
-            <MDBox mt={3} mb={1} textAlign="center">
+            {/* <MDBox mt={3} mb={1} textAlign="center">
               <MDTypography variant="button" color="text">
                 Don&apos;t have an account?
                 <MDTypography
@@ -120,7 +120,7 @@ const Login = () => {
                   Sign up
                 </MDTypography>
               </MDTypography>
-            </MDBox>
+            </MDBox> */}
           </MDBox>
         </MDBox>
       </Card>

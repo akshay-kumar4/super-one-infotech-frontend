@@ -67,6 +67,7 @@ import ResetCover from "layouts/authentication/reset-password/cover";
 import Search from "one-infotech/form/Search";
 import Form from "./one-infotech/form/Form";
 import ResumeDetails from "one-infotech/form/ResumeDetails";
+import PersonIcon from "@mui/icons-material/Person";
 
 // Material Dashboard 2 PRO React components
 import MDAvatar from "components/MDAvatar";
@@ -83,19 +84,19 @@ import FilterResume from "one-infotech/form/FilterResumes";
 const routes = [
   {
     type: "collapse",
-    name: "Brooklyn Alice",
-    key: "brooklyn-alice",
-    icon: <MDAvatar src={profilePicture} alt="Brooklyn Alice" size="sm" />,
+    name: "Admin",
+    key: "admin",
+    icon: <MDAvatar src={PersonIcon} alt="Admin" size="sm" />,
     collapse: [
+      // {
+      //   name: "My Profile",
+      //   key: "my-profile",
+      //   route: "/pages/profile/profile-overview",
+      //   component: <ProfileOverview />,
+      // },
       {
-        name: "My Profile",
-        key: "my-profile",
-        route: "/pages/profile/profile-overview",
-        component: <ProfileOverview />,
-      },
-      {
-        name: "Settings",
-        key: "profile-settings",
+        name: "Scrap Resume",
+        key: "scrap-resume",
         route: "/pages/account/settings",
         component: <Settings />,
       },
@@ -110,8 +111,8 @@ const routes = [
   { type: "divider", key: "divider-0" },
   {
     type: "collapse",
-    name: "Dashboards",
-    key: "dashboards",
+    name: "Functions",
+    key: "functions",
     icon: <Icon fontSize="medium">dashboard</Icon>,
     collapse: [
       // {
@@ -127,8 +128,8 @@ const routes = [
       //   component: <Sales />,
       // },
       {
-        name: "Search",
-        key: "search",
+        name: "Advance Search",
+        key: "advance-search",
         route: "/dashboards/search",
         component: <Search />,
       },
