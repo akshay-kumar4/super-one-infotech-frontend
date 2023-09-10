@@ -100,12 +100,12 @@ const routes = [
         route: "https://get-token-outlook.onrender.com/",
         // link: "https://get-token-outlook.onrender.com/",
       },
-      {
-        name: "Logout",
-        key: "logout",
-        route: "/auth/sign-in",
-        component: <Login />,
-      },
+      // {
+      //   name: "Logout",
+      //   key: "logout",
+      //   route: "/auth/sign-in",
+      //   component: <Login />,
+      // },
     ],
   },
   { type: "divider", key: "divider-0" },

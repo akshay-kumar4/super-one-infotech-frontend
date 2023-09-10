@@ -231,7 +231,7 @@ const Search = () => {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox
+      {/* <MDBox
         sx={{
           display: "flex",
           alignItems: "center",
@@ -247,7 +247,7 @@ const Search = () => {
           </button>{" "}
           <ToastContainer />
         </MDBox>
-      </MDBox>
+      </MDBox> */}
 
       <Stack spacing={3} sx={{ width: 1000 }}>
         <Autocomplete
