@@ -468,7 +468,7 @@ const From = () => {
       </Stack>
 
       <MDBox className="input" sx={{ display: "flex", marginTop: "20px" }}>
-        <p>Total Experience:</p>
+        <p> Total Experience:</p>
         <MDBox sx={{ display: "flex" }}>
           <Autocomplete
             className="experience"
