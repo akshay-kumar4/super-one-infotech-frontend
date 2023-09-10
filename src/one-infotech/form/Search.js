@@ -210,7 +210,7 @@ const Search = () => {
       >
         <h2>Advanced Search</h2>
         <MDBox>
-          <input type="file" onChange={handleFileChange} />
+          <input type="file" multiple onChange={handleFileChange} />
           <button style={buttonStyles} onClick={handleUpload}>
             Upload Resume
           </button>{" "}
