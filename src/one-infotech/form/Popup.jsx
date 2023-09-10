@@ -11,6 +11,7 @@ import BusinessIcon from "@mui/icons-material/Business";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import EngineeringIcon from "@mui/icons-material/Engineering";
 import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
+import MDButton from "components/MDButton";
 
 const Popup = (props) => {
   if (!props.isOpen) return null;
@@ -37,71 +38,50 @@ const Popup = (props) => {
         }}
       >
         <MDTypography sx={{ justifyContent: "center" }}>
-          {" "}
           <h1>{props.data.name}</h1>
         </MDTypography>
         <MDTypography sx={{ display: "inline-flex", marginTop: "15px" }}>
-          {" "}
-          <WorkOutlineIcon fontSize="large" style={{ width: "100px" }} />
+          <WorkOutlineIcon fontSize="medium" style={{ width: "100px" }} />
           &nbsp;
           <h5>{props.data.job_titles}</h5>
         </MDTypography>
         <MDTypography sx={{ display: "inline-flex", marginTop: "15px" }}>
-          {" "}
-          <MailIcon fontSize="large" style={{ width: "100px" }} /> &nbsp;
+          <MailIcon fontSize="medium" style={{ width: "100px" }} /> &nbsp;
           <h5>{props.data.email}</h5>
         </MDTypography>
         <MDTypography sx={{ display: "inline-flex", marginTop: "15px" }}>
-          {" "}
-          <PhoneIcon fontSize="large" style={{ width: "100px" }} />
+          <PhoneIcon fontSize="medium" style={{ width: "100px" }} />
           &nbsp;
           <h5 style={{ display: "flex", alignSelf: "center" }}>{props.data.phone}</h5>
         </MDTypography>
         <MDTypography sx={{ display: "inline-flex", marginTop: "15px" }}>
-          {" "}
-          <MilitaryTechIcon fontSize="large" style={{ width: "100px" }} />
+          <MilitaryTechIcon fontSize="medium" style={{ width: "100px" }} />
           &nbsp;
           <h5 style={{ display: "flex", alignSelf: "center" }}>{props.data.experience_level}</h5>
         </MDTypography>
         <MDTypography sx={{ display: "inline-flex", marginTop: "15px" }}>
-          {" "}
-          <EngineeringIcon fontSize="large" style={{ width: "100px" }} /> &nbsp;
+          <EngineeringIcon fontSize="medium" style={{ width: "100px" }} /> &nbsp;
           <h5 style={{ display: "flex", alignSelf: "center" }}>{props.data.skills}</h5>
         </MDTypography>
         <MDTypography sx={{ display: "inline-flex", marginTop: "15px" }}>
-          {" "}
-          <BusinessIcon fontSize="large" style={{ width: "100px" }} /> &nbsp;
+          <BusinessIcon fontSize="medium" style={{ width: "100px" }} /> &nbsp;
           <h5 style={{ display: "flex", alignSelf: "center" }}>{props.data.company_names}</h5>
         </MDTypography>
         <MDTypography sx={{ display: "inline-flex", marginTop: "15px" }}>
-          {" "}
-          <SchoolIcon fontSize="large" style={{ width: "100px" }} />
+          <SchoolIcon fontSize="medium" style={{ width: "100px" }} />
           &nbsp;
           <h5 style={{ display: "flex", alignSelf: "center" }}>{props.data.education}</h5>
         </MDTypography>
         <MDTypography sx={{ display: "inline-flex", marginBottom: "8px", marginTop: "8px" }}>
-          {" "}
-          <LinkIcon fontSize="large" style={{ width: "100px" }} />
+          <LinkIcon fontSize="medium" style={{ width: "100px" }} />
           <a href={props.data.resume_permanent_link} target="/">
             {props.data.resume_permanent_link}
           </a>
         </MDTypography>
         <MDBox sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
-          <button
-            style={{
-              height: "40px",
-              backgroundColor: "white",
-              border: "none",
-              width: "200px",
-              fontSize: "large",
-              color: "balck",
-              borderRadius: "10px",
-              margin: "10px",
-            }}
-            onClick={props.onClose}
-          >
+          <MDButton color="primary" onClick={props.onClose}>
             close
-          </button>
+          </MDButton>
         </MDBox>
       </MDBox>
     </div>
