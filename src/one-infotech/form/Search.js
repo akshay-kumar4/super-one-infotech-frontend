@@ -42,6 +42,7 @@ import axios from "axios";
 import { Link, createSearchParams, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Typography } from "@mui/material";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -316,7 +317,7 @@ const Search = () => {
       </Stack>
 
       <MDBox className="input" sx={{ display: "flex", marginTop: "20px" }}>
-        <p>Total Experience:</p>
+        <Typography fontSize={16}>Total Experience:</Typography>
         <MDBox sx={{ display: "flex" }}>
           <Autocomplete
             className="experience"
@@ -333,7 +334,7 @@ const Search = () => {
             value={advancedSearchData.expMin}
             name="expMin"
           />
-          <p>To</p>
+          <Typography fontSize={16}>To</Typography>
           <Autocomplete
             className="experience"
             sx={{ width: 300, marginRight: "20px", marginLeft: "20px" }}
@@ -350,11 +351,11 @@ const Search = () => {
             value={advancedSearchData.expMax}
             name="expMax"
           />
-          <p>in Years</p>
+          <Typography fontSize={16}>in Years</Typography>
         </MDBox>
       </MDBox>
       <MDBox className="input" sx={{ display: "flex", marginTop: "20px", marginBottom: "20px" }}>
-        <p>Annual Salary:</p>
+        <Typography fontSize={16}>Annual Salary:</Typography>
         <Autocomplete
           className="experience"
           sx={{ width: 80, marginLeft: "20px" }}
@@ -446,7 +447,7 @@ const Search = () => {
             // value={advancedSearchData.salMinTh}
             name="salMinTh"
           /> */}
-          <span>To</span>
+          <Typography fontSize={16}>To</Typography>
           <Autocomplete
             className="experience"
             sx={{ width: 100, marginRight: "20px", marginLeft: "20px" }}
@@ -527,7 +528,7 @@ const Search = () => {
         </MDBox>
       </MDBox>
       <MDBox className="location" display="flex">
-        <p>Current Location:</p>
+        <Typography fontSize={16}>Current Location:</Typography>
         <Autocomplete
           options={["New Delhi", "NCR", "Bangalore", "Mumbai", "Chennai", "Pune"]}
           renderInput={(params) => (
