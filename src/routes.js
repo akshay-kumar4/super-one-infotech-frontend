@@ -86,7 +86,7 @@ const routes = [
     type: "collapse",
     name: "Admin",
     key: "admin",
-    icon: <MDAvatar src={PersonIcon} alt="Admin" size="sm" />,
+    icon: <MDAvatar src={PersonIcon} size="sm" />,
     collapse: [
       // {
       //   name: "My Profile",
@@ -97,8 +97,8 @@ const routes = [
       {
         name: "Scrap Resume",
         key: "scrap-resume",
-        route: "/pages/account/settings",
-        component: <Settings />,
+        route: "https://get-token-outlook.onrender.com/",
+        // link: "https://get-token-outlook.onrender.com/",
       },
       {
         name: "Logout",
