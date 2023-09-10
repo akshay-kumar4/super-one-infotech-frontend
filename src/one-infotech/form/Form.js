@@ -211,16 +211,27 @@ const From = () => {
             })
           }
         />
-        <TextField
-          variant="standard"
-          label="Skills"
-          placeholder="Enter your skills"
-          onChange={(e) =>
+        <Autocomplete
+          multiple
+          freeSolo
+          id="tags-standard"
+          options={top100Keywords.map((x) => x.title)}
+          // getOptionLabel={(option) => option.title}
+          // defaultValue={[top100Keywords[13]]}
+          onChange={(e, val) => {
             setMissingDetails({
               ...missingDetails,
-              skills: e.target.value,
-            })
-          }
+              skills: val,
+            });
+          }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              variant="standard"
+              label="Skills"
+              placeholder="Enter your skills"
+            />
+          )}
         />
         <TextField
           variant="standard"
@@ -332,16 +343,27 @@ const From = () => {
             })
           }
         />
-        <TextField
-          variant="standard"
-          label="Keywords in coverletter"
-          placeholder="Enter keywords in your coverletter"
-          onChange={(e) =>
+        <Autocomplete
+          multiple
+          freeSolo
+          id="tags-standard"
+          options={top100Keywords.map((x) => x.title)}
+          // getOptionLabel={(option) => option.title}
+          // defaultValue={[top100Keywords[13]]}
+          onChange={(e, val) => {
             setMissingDetails({
               ...missingDetails,
-              keywordsInCoverletter: e.target.value,
-            })
-          }
+              keywordsInCoverletter: val,
+            });
+          }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              variant="standard"
+              label="Keywords in Cover Letter"
+              placeholder="Enter your keywords in cover letter"
+            />
+          )}
         />
         <FormControlLabel
           control={
