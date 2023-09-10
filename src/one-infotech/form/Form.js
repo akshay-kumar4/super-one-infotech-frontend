@@ -275,17 +275,29 @@ const From = () => {
             marginBottom: "10px",
           }}
         >
-          <TextField
+          <Autocomplete
             sx={{ width: 450 }}
-            variant="standard"
-            label="Skills"
-            placeholder="Enter your skills"
-            onChange={(e) =>
+            multiple
+            freeSolo
+            id="tags-standard"
+            options={top100Keywords.map((x) => x.title)}
+            // getOptionLabel={(option) => option.title}
+            // defaultValue={[top100Keywords[13]]}
+            onChange={(e, val) => {
               setMissingDetails({
                 ...missingDetails,
-                skills: e.target.value,
-              })
-            }
+                skills: val,
+              });
+            }}
+            renderInput={(params) => (
+              <TextField
+                sx={{ width: 450 }}
+                {...params}
+                variant="standard"
+                label="Skills"
+                placeholder="Enter Your Skills"
+              />
+            )}
           />
           <TextField
             sx={{ width: 450 }}
@@ -452,17 +464,29 @@ const From = () => {
               })
             }
           />
-          <TextField
+          <Autocomplete
             sx={{ width: 450 }}
-            variant="standard"
-            label="Keywords in coverletter"
-            placeholder="Enter keywords in your coverletter"
-            onChange={(e) =>
+            multiple
+            freeSolo
+            id="tags-standard"
+            options={top100Keywords.map((x) => x.title)}
+            // getOptionLabel={(option) => option.title}
+            // defaultValue={[top100Keywords[13]]}
+            onChange={(e, val) => {
               setMissingDetails({
                 ...missingDetails,
-                keywordsInCoverletter: e.target.value,
-              })
-            }
+                keywordsInCoverletter: val,
+              });
+            }}
+            renderInput={(params) => (
+              <TextField
+                sx={{ width: 450 }}
+                {...params}
+                variant="standard"
+                label="Keywords in Cover Letter"
+                placeholder="Enter keywords in your cover letter"
+              />
+            )}
           />
         </div>
         <FormControlLabel
