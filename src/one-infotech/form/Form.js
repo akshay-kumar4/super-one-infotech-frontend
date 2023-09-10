@@ -135,7 +135,7 @@ const From = () => {
       </MDBox>
       <Stack spacing={3} sx={{ width: 1000 }}>
         {/* <MDBox> */}
-        <TextField
+        {/* <TextField
           variant="standard"
           label="Name"
           placeholder="Enter you name"
@@ -156,215 +156,315 @@ const From = () => {
               email: e.target.value,
             })
           }
-        />
-        <TextField
-          variant="standard"
-          label="Phone"
-          placeholder="Enter you phone"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              phone: e.target.value,
-            })
-          }
-        />
-        <Autocomplete
-          multiple
-          id="tags-standard"
-          options={top100Keywords.map((x) => x.title)}
-          // getOptionLabel={(option) => option.title}
-          // defaultValue={[top100Keywords[13]]}
-          onChange={(e, val) => {
-            setMissingDetails({
-              ...missingDetails,
-              keywords: val,
-            });
+        /> */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: "10px",
           }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              label="Keywords"
-              placeholder="Skills, Designation, Role"
-            />
-          )}
-        />
-        <TextField
-          variant="standard"
-          label="Education"
-          placeholder="Enter your education"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              education: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="Experience level"
-          placeholder="Enter your experience"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              experienceLevel: e.target.value,
-            })
-          }
-        />
-        <Autocomplete
-          multiple
-          freeSolo
-          id="tags-standard"
-          options={top100Keywords.map((x) => x.title)}
-          // getOptionLabel={(option) => option.title}
-          // defaultValue={[top100Keywords[13]]}
-          onChange={(e, val) => {
-            setMissingDetails({
-              ...missingDetails,
-              skills: val,
-            });
+        >
+          <TextField
+            sx={{ width: 450 }}
+            variant="standard"
+            label="Name"
+            placeholder="Enter your name"
+            onChange={(e) =>
+              setMissingDetails({
+                ...missingDetails,
+                name: e.target.value,
+              })
+            }
+          />
+          <TextField
+            sx={{ width: 450 }}
+            variant="standard"
+            label="Email"
+            placeholder="Enter your email"
+            onChange={(e) =>
+              setMissingDetails({
+                ...missingDetails,
+                email: e.target.value,
+              })
+            }
+          />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: "10px",
           }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              label="Skills"
-              placeholder="Enter your skills"
-            />
-          )}
-        />
-        <TextField
-          variant="standard"
-          label="Industry Experience"
-          placeholder="Enter your industry experience"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              industryExperience: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="Accomplishment"
-          placeholder="Enter you accomplishment"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              accomplishment: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="Job Tenure"
-          placeholder="Enter your tenure"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              jobTenure: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="Job Titles"
-          placeholder="Enter your job titles"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              jobTitles: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="Enter salary level"
-          placeholder="Salary Level"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              salaryLevel: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="Company Names"
-          placeholder="Enter company names"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              companyNames: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="Referrals"
-          placeholder="Referrals"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              referrals: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="Availability"
-          placeholder="availability"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              availability: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="Relevance of Role"
-          placeholder="Relevance Of Role"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              relevanceOfRole: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="Cultural Fit"
-          placeholder="Cultural Fit"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              culturalFit: e.target.value,
-            })
-          }
-        />
-        <Autocomplete
-          multiple
-          freeSolo
-          id="tags-standard"
-          options={top100Keywords.map((x) => x.title)}
-          // getOptionLabel={(option) => option.title}
-          // defaultValue={[top100Keywords[13]]}
-          onChange={(e, val) => {
-            setMissingDetails({
-              ...missingDetails,
-              keywordsInCoverletter: val,
-            });
+        >
+          <TextField
+            sx={{ width: 450 }}
+            variant="standard"
+            label="Phone"
+            placeholder="Enter you phone"
+            onChange={(e) =>
+              setMissingDetails({
+                ...missingDetails,
+                phone: e.target.value,
+              })
+            }
+          />
+          <Autocomplete
+            sx={{ width: 450 }}
+            multiple
+            id="tags-standard"
+            options={top100Keywords.map((x) => x.title)}
+            // getOptionLabel={(option) => option.title}
+            // defaultValue={[top100Keywords[13]]}
+            onChange={(e, val) => {
+              setMissingDetails({
+                ...missingDetails,
+                keywords: val,
+              });
+            }}
+            renderInput={(params) => (
+              <TextField
+                sx={{ width: 450 }}
+                {...params}
+                variant="standard"
+                label="Keywords"
+                placeholder="Skills, Designation, Role"
+              />
+            )}
+          />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: "10px",
           }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              label="Keywords in Cover Letter"
-              placeholder="Enter your keywords in cover letter"
-            />
-          )}
-        />
+        >
+          <TextField
+            sx={{ width: 450 }}
+            variant="standard"
+            label="Education"
+            placeholder="Enter your education"
+            onChange={(e) =>
+              setMissingDetails({
+                ...missingDetails,
+                education: e.target.value,
+              })
+            }
+          />
+          <TextField
+            sx={{ width: 450 }}
+            variant="standard"
+            label="Experience level"
+            placeholder="Enter your experience"
+            onChange={(e) =>
+              setMissingDetails({
+                ...missingDetails,
+                experienceLevel: e.target.value,
+              })
+            }
+          />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: "10px",
+          }}
+        >
+          <TextField
+            sx={{ width: 450 }}
+            variant="standard"
+            label="Skills"
+            placeholder="Enter your skills"
+            onChange={(e) =>
+              setMissingDetails({
+                ...missingDetails,
+                skills: e.target.value,
+              })
+            }
+          />
+          <TextField
+            sx={{ width: 450 }}
+            variant="standard"
+            label="Industry Experience"
+            placeholder="Enter your industry experience"
+            onChange={(e) =>
+              setMissingDetails({
+                ...missingDetails,
+                industryExperience: e.target.value,
+              })
+            }
+          />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: "10px",
+          }}
+        >
+          <TextField
+            sx={{ width: 450 }}
+            variant="standard"
+            label="Accomplishment"
+            placeholder="Enter you accomplishment"
+            onChange={(e) =>
+              setMissingDetails({
+                ...missingDetails,
+                accomplishment: e.target.value,
+              })
+            }
+          />
+          <TextField
+            sx={{ width: 450 }}
+            variant="standard"
+            label="Job Tenure"
+            placeholder="Enter your tenure"
+            onChange={(e) =>
+              setMissingDetails({
+                ...missingDetails,
+                jobTenure: e.target.value,
+              })
+            }
+          />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: "10px",
+          }}
+        >
+          <TextField
+            sx={{ width: 450 }}
+            variant="standard"
+            label="Job Titles"
+            placeholder="Enter your job titles"
+            onChange={(e) =>
+              setMissingDetails({
+                ...missingDetails,
+                jobTitles: e.target.value,
+              })
+            }
+          />
+          <TextField
+            sx={{ width: 450 }}
+            variant="standard"
+            label="Enter salary level"
+            placeholder="Salary Level"
+            onChange={(e) =>
+              setMissingDetails({
+                ...missingDetails,
+                salaryLevel: e.target.value,
+              })
+            }
+          />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: "10px",
+          }}
+        >
+          <TextField
+            sx={{ width: 450 }}
+            variant="standard"
+            label="Company Names"
+            placeholder="Enter company names"
+            onChange={(e) =>
+              setMissingDetails({
+                ...missingDetails,
+                companyNames: e.target.value,
+              })
+            }
+          />
+          <TextField
+            sx={{ width: 450 }}
+            variant="standard"
+            label="Referrals"
+            placeholder="Referrals"
+            onChange={(e) =>
+              setMissingDetails({
+                ...missingDetails,
+                referrals: e.target.value,
+              })
+            }
+          />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: "10px",
+          }}
+        >
+          <TextField
+            sx={{ width: 450 }}
+            variant="standard"
+            label="Availability"
+            placeholder="availability"
+            onChange={(e) =>
+              setMissingDetails({
+                ...missingDetails,
+                availability: e.target.value,
+              })
+            }
+          />
+          <TextField
+            sx={{ width: 450 }}
+            variant="standard"
+            label="Relevance of Role"
+            placeholder="Relevance Of Role"
+            onChange={(e) =>
+              setMissingDetails({
+                ...missingDetails,
+                relevanceOfRole: e.target.value,
+              })
+            }
+          />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: "10px",
+          }}
+        >
+          <TextField
+            sx={{ width: 450 }}
+            variant="standard"
+            label="Cultural Fit"
+            placeholder="Cultural Fit"
+            onChange={(e) =>
+              setMissingDetails({
+                ...missingDetails,
+                culturalFit: e.target.value,
+              })
+            }
+          />
+          <TextField
+            sx={{ width: 450 }}
+            variant="standard"
+            label="Keywords in coverletter"
+            placeholder="Enter keywords in your coverletter"
+            onChange={(e) =>
+              setMissingDetails({
+                ...missingDetails,
+                keywordsInCoverletter: e.target.value,
+              })
+            }
+          />
+        </div>
         <FormControlLabel
           control={
             <Switch
@@ -378,29 +478,41 @@ const From = () => {
           }
           label="Remote Work"
         />
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: "10px",
+          }}
+        >
+          <TextField
+            sx={{ width: 450 }}
+            variant="standard"
+            label="Qualifications"
+            placeholder="Qualifications"
+            onChange={(e) =>
+              setMissingDetails({
+                ...missingDetails,
+                qualifications: e.target.value,
+              })
+            }
+          />
+          <TextField
+            sx={{ width: 450 }}
+            variant="standard"
+            label="Location"
+            placeholder="Enter your preferred location"
+            onChange={(e) =>
+              setMissingDetails({
+                ...missingDetails,
+                location: e.target.value,
+              })
+            }
+          />
+        </div>
         <TextField
-          variant="standard"
-          label="Qualifications"
-          placeholder="Qualifications"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              qualifications: e.target.value,
-            })
-          }
-        />
-        <TextField
-          variant="standard"
-          label="Location"
-          placeholder="Enter your preferred location"
-          onChange={(e) =>
-            setMissingDetails({
-              ...missingDetails,
-              location: e.target.value,
-            })
-          }
-        />
-        <TextField
+          sx={{ width: 450 }}
           variant="standard"
           label="Applicant Sources"
           placeholder="Applicant Source"
@@ -447,7 +559,7 @@ const top100Keywords = [
   { title: "SDE1" },
   { title: "SDE2" },
   { title: "Manager" },
-  { title: "Senior Managr" },
+  { title: "Senior Manager" },
   { title: "Full Time" },
   { title: "Part Time" },
   { title: "Contract Based" },
