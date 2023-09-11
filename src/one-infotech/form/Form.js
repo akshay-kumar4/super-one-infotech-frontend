@@ -204,7 +204,7 @@ const From = () => {
         </Box>
 
         {/* <hr style={{ width: "100%", margin: "20px 0" }} /> */}
-        <Stack spacing={3} sx={{ width: 1000 }}>
+        <Stack spacing={3} sx={{ width: 1200 }}>
           <MDBox
             sx={{
               display: "flex",
