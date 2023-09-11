@@ -19,7 +19,7 @@ import DefaultPricingCard from "examples/Cards/PricingCards/DefaultPricingCard";
 const Popup = (props) => {
   if (!props.isOpen) return null;
 
-  return <></>;
+  return <> </>;
 };
 Popup.propTypes = {
   isOpen: PropTypes.bool.isRequired,

@@ -28,6 +28,7 @@ import Icon from "@mui/material/Icon";
 import PersonIcon from "@mui/icons-material/Person";
 import MailIcon from "@mui/icons-material/Mail";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+import PhoneIcon from "@mui/icons-material/Phone";
 // import { Grid, Container } from "@mui/material";
 
 // Material Dashboard 2 PRO React components
@@ -40,9 +41,56 @@ import typography from "assets/theme/base/typography";
 import MDButton from "components/MDButton";
 import Popup from "one-infotech/form/Popup";
 
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+
+const style = {
+  position: "absolute as absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
 function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow }) {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  if (!phone) {
+    return null; // You can also render a message or handle this case differently
+  }
+
+  // Check if the jobTitle prop is provided and not null/undefined
+  if (!jobTitle) {
+    return null; // You can also render a message or handle this case differently
+  }
+
+  // Split the phone prop using a regular expression to match "," or "/"
+  const phoneNumbers = phone.split(/[,/]/);
+
+  // Trim any leading or trailing whitespace from each phone number
+  const trimmedPhoneNumbers = phoneNumbers.map((number) => number.trim());
+
+  // Split the jobTitle prop using a regular expression to match "," or "/"
+  const jobTitles = jobTitle.split(/[,/]/);
+
+  // Trim any leading or trailing whitespace from each job title
+  const trimmedJobTitles = jobTitles.map((title) => title.trim());
+
+  // Extract the first phone number (index 0)
+  const firstPhoneNumber = trimmedPhoneNumbers[0];
+
+  // Extract the first job title (index 0)
+  const firstJobTitle = trimmedJobTitles[0];
 
   const onOpen = (data) => {
     setSelectedData(data);
@@ -111,6 +159,10 @@ function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow }) {
       <Card sx={{ height: "100%", boxShadow: !shadow && "none" }}>
         <MDBox display="flex" justifyContent="space-between" alignItems="center" pt={2} px={2}>
           <MDTypography variant="h5" fontWeight="medium" textTransform="capitalize">
+            <Icon>
+              <PersonIcon />
+            </Icon>
+            &nbsp; &nbsp;
             {name}
           </MDTypography>
           {/* <MDTypography component={Link} to={action.route} variant="body2" color="secondary">
@@ -120,37 +172,59 @@ function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow }) {
         </MDTypography> */}
         </MDBox>
         <MDBox p={2}>
-          <MDBox mb={2} lineHeight={1}>
+          <MDBox mb={2} lineHeight={2}>
             <MDTypography variant="h6" fontWeight="medium" textTransform="capitalize">
-              {jobTitle}...
+              <Icon>
+                <WorkOutlineIcon sx={{ marginTop: "-5px" }} />
+              </Icon>
+              &nbsp;
+              {firstJobTitle}
             </MDTypography>
           </MDBox>
-          <MDBox mb={2} lineHeight={1}>
+          <MDBox mb={2} lineHeight={2}>
             <MDTypography variant="h6" fontWeight="medium" textTransform="capitalize">
-              {phone}...
+              <Icon>
+                <PhoneIcon sx={{ marginTop: "-5px" }} />
+              </Icon>
+              &nbsp;
+              {firstPhoneNumber}
             </MDTypography>
           </MDBox>
-          <MDBox mb={2} lineHeight={1}>
+          <MDBox mb={2} lineHeight={2}>
             <MDTypography variant="h6" fontWeight="medium" textTransform="capitalize">
-              {email}...
+              <Icon>
+                <MailIcon sx={{ marginTop: "-5px" }} />
+              </Icon>
+              &nbsp;
+              {email}
             </MDTypography>
           </MDBox>
           <MDBox opacity={0.3}>
             <Divider />
           </MDBox>
-          <MDButton
-            color="dark"
-            onClick={() => {
-              onOpen(data);
-            }}
-          >
+          <MDButton color="dark" onClick={handleOpen}>
             view details
           </MDButton>
         </MDBox>
       </Card>
       {/* </Grid>
       </Grid> */}
-      <Popup isOpen={isOpen} onClose={onClose} data={selectedData} />
+      {/* <Popup isOpen={isOpen} onClose={onClose} data={selectedData} /> */}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Text in a modal
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </Typography>
+        </Box>
+      </Modal>
     </MDBox>
   );
 }
