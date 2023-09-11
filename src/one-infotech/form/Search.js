@@ -563,61 +563,96 @@ const Search = () => {
           });
         }}
       />
-      <MDInput
-        type="text"
-        label="Skills"
-        placeholder="Skills"
-        fullWidth
-        variant="standard"
-        margin="normal"
-        onChange={(e) => {
+      <Autocomplete
+        multiple
+        freeSolo
+        id="tags-standard"
+        options={top18Keywords.map((x) => x.title)}
+        // getOptionLabel={(option) => option.title}
+        // defaultValue={[top18Keywords[13]]}
+        onChange={(e, val) => {
           setAdvancedSearchData({
             ...advancedSearchData,
-            skills: e.target.value,
+            skills: val,
           });
         }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            variant="standard"
+            label="Skills"
+            placeholder="Enter your Skills"
+          />
+        )}
       />
-      <MDInput
-        type="text"
-        label="Employers"
-        placeholder="Type company name"
-        fullWidth
-        variant="standard"
-        margin="normal"
-        onChange={(e) => {
+      <Autocomplete
+        className="noShowOption"
+        multiple
+        freeSolo
+        id="tags-standard"
+        options={employerList}
+        // getOptionLabel={(option) => option.title}
+        // defaultValue={[top18Keywords[13]]}
+        onChange={(e, val) => {
           setAdvancedSearchData({
             ...advancedSearchData,
-            employers: e.target.value,
+            employers: val,
           });
         }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            variant="standard"
+            label="Employers"
+            placeholder="Enter previous employers"
+          />
+        )}
       />
-      <MDInput
-        type="text"
-        label="Exclude Employers"
-        placeholder="Type company name"
-        fullWidth
-        margin="normal"
-        variant="standard"
-        onChange={(e) => {
+      <Autocomplete
+        className="noShowOption"
+        multiple
+        freeSolo
+        id="tags-standard"
+        options={employerList}
+        // getOptionLabel={(option) => option.title}
+        // defaultValue={[top18Keywords[13]]}
+        onChange={(e, val) => {
           setAdvancedSearchData({
             ...advancedSearchData,
-            excludeEmployers: e.target.value,
+            excludeEmployers: val,
           });
         }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            variant="standard"
+            label="Exclude Employers"
+            placeholder="Enter previous employers to exclude"
+          />
+        )}
       />
-      <MDInput
-        type="text"
-        label="Designation"
-        placeholder="Type designation"
-        fullWidth
-        margin="normal"
-        variant="standard"
-        onChange={(e) => {
+      <Autocomplete
+        className="noShowOption"
+        multiple
+        freeSolo
+        id="tags-standard"
+        options={top18Keywords.map((x) => x.title)}
+        // getOptionLabel={(option) => option.title}
+        // defaultValue={[top18Keywords[13]]}
+        onChange={(e, val) => {
           setAdvancedSearchData({
             ...advancedSearchData,
-            designation: e.target.value,
+            designation: val,
           });
         }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            variant="standard"
+            label="Designation"
+            placeholder="Enter designation to search for"
+          />
+        )}
       />
 
       {/* <Accordion
@@ -1311,6 +1346,18 @@ const top18Keywords = [
   { title: "Contract Based" },
   { title: "Internship" },
   { title: "AI/ML" },
+];
+
+const employerList = [
+  "Microsoft",
+  "Amazon",
+  "Netflix",
+  "Google",
+  "AirBnB",
+  "Uber",
+  "Meta",
+  "Instagram",
+  "X/Twitter",
 ];
 
 export default Search;

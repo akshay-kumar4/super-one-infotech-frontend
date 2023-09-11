@@ -46,6 +46,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import axios from "axios";
 
 const style = {
   position: "absolute as absolute",
@@ -63,7 +64,25 @@ function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow }) {
   // const [isOpen, setIsOpen] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleDownload = () => {
+    // setOpen(true);
+
+    axios
+      .get(
+        "https://resume-api-6u3t4.ondigitalocean.app/file-uploading/?file_link=" +
+          data.resume_permanent_link,
+        {
+          headers: {
+            Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+          },
+        }
+      )
+      .then((x) => {
+        // console.log(x.data.public_file_link);
+        window.open(x.data.public_file_link);
+      })
+      .catch(() => console.error("Resume Not available"));
+  };
   const handleClose = () => setOpen(false);
   if (!phone) {
     return null; // You can also render a message or handle this case differently
@@ -202,8 +221,8 @@ function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow }) {
           <MDBox opacity={0.3}>
             <Divider />
           </MDBox>
-          <MDButton color="dark" onClick={handleOpen}>
-            view details
+          <MDButton color="dark" onClick={handleDownload}>
+            Download Resume
           </MDButton>
         </MDBox>
       </Card>
