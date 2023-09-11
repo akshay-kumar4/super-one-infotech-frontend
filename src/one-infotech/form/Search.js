@@ -587,6 +587,7 @@ const Search = () => {
       />
       <Autocomplete
         className="noShowOption"
+        sx={{ marginTop: "10px" }}
         multiple
         freeSolo
         id="tags-standard"
@@ -610,6 +611,7 @@ const Search = () => {
       />
       <Autocomplete
         className="noShowOption"
+        sx={{ marginTop: "10px" }}
         multiple
         freeSolo
         id="tags-standard"
@@ -633,6 +635,7 @@ const Search = () => {
       />
       <Autocomplete
         className="noShowOption"
+        sx={{ marginTop: "10px" }}
         multiple
         freeSolo
         id="tags-standard"

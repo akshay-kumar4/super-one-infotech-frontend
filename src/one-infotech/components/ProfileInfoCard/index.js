@@ -47,6 +47,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const style = {
   position: "absolute as absolute",
@@ -81,7 +82,7 @@ function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow }) {
         // console.log(x.data.public_file_link);
         window.open(x.data.public_file_link);
       })
-      .catch(() => console.error("Resume Not available"));
+      .catch(() => toast.error("Resume Not available"));
   };
   const handleClose = () => setOpen(false);
   if (!phone) {
