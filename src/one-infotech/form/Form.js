@@ -271,6 +271,7 @@ const From = () => {
             <Autocomplete
               sx={{ width: 450 }}
               multiple
+              freeSolo
               id="tags-standard"
               options={top100Keywords.map((x) => x.title)}
               // getOptionLabel={(option) => option.title}

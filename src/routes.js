@@ -139,15 +139,15 @@ const routes = [
         route: "/dashboards/form",
         component: <Form />,
       },
+      // {
+      //   name: "Details",
+      //   key: "Details",
+      //   route: "/resume-details",
+      //   component: <ResumeDetails />,
+      // },
       {
-        name: "Details",
-        key: "Details",
-        route: "/resume-details",
-        component: <ResumeDetails />,
-      },
-      {
-        name: "Filter Resumes",
-        key: "FilterResumes",
+        name: "All Resumes",
+        key: "all-resumes",
         route: "/filter-resume-details",
         component: <FilterResume />,
       },
