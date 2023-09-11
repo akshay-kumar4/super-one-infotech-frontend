@@ -52,14 +52,19 @@ const FilterResume = () => {
     // console.log(searchParams.getAll("keyword"));
     // Now filtering from the received array.
     if (searchParams.has("any_keywords")) {
+      // console.log(searchParams.getAll("any_keywords"));
       tempFilteredData = tempFilteredData.filter((x) => {
-        let test = false;
-        searchParams.getAll("any_keywords").forEach((k) => {
-          if (x.keywords.toLowerCase().includes(k.toLowerCase())) {
-            test = true;
-          }
-        });
-        return test;
+        if (x.keywords) {
+          let test = false;
+          searchParams.getAll("any_keywords").forEach((k) => {
+            if (x.keywords.toLowerCase().includes(k.toLowerCase())) {
+              test = true;
+            }
+          });
+          return test;
+        }
+        return false;
+        // console.log(x["keywords"]);
       });
       // console.log("reduced to " + tempFilteredData.length + " by any keyword");
     }
@@ -89,7 +94,9 @@ const FilterResume = () => {
     }
     if (searchParams.has("location")) {
       tempFilteredData = tempFilteredData.filter((x) =>
-        x.location.toLowerCase().includes(searchParams.get("location").toLowerCase())
+        x.location
+          ? x.location.toLowerCase().includes(searchParams.get("location").toLowerCase())
+          : false
       );
       // console.log("reduced to " + tempFilteredData.length + " by location");
     }
@@ -100,25 +107,51 @@ const FilterResume = () => {
       // console.log("reduced to " + tempFilteredData.length + " by jobHopping");
     }
     if (searchParams.has("employers")) {
-      tempFilteredData = tempFilteredData.filter((x) =>
-        x.company_names.toLowerCase().includes(searchParams.get("employers").toLowerCase())
-      );
+      tempFilteredData = tempFilteredData.filter((x) => {
+        if (x.company_names) {
+          let test = true;
+          searchParams.getAll("employers").forEach((k) => {
+            if (!x.company_names.toLowerCase().includes(k.toLowerCase())) {
+              test = false;
+            }
+          });
+          return test;
+        }
+        return false;
+      });
       // console.log("reduced to " + tempFilteredData.length + " by employers");
     }
     if (searchParams.has("exclude_employers")) {
-      // tempFilteredData.forEach((x) => console.log(x.company_names));
-      tempFilteredData = tempFilteredData.filter(
-        (x) =>
-          !x.company_names
-            .toLowerCase()
-            .includes(searchParams.get("exclude_employers").toLowerCase())
-      );
+      tempFilteredData = tempFilteredData.filter((x) => {
+        if (x.company_names) {
+          let test = true;
+          searchParams.getAll("exclude_employers").forEach((k) => {
+            if (x.company_names.toLowerCase().includes(k.toLowerCase())) {
+              test = false;
+            }
+          });
+          return test;
+        }
+        return false;
+      });
       // console.log("reduced to " + tempFilteredData.length + " by employers");
     }
     if (searchParams.has("designation")) {
-      tempFilteredData = tempFilteredData.filter((x) =>
-        x["job_titles"].toLowerCase().includes(searchParams.get("designation").toLowerCase())
-      );
+      // tempFilteredData = tempFilteredData.filter((x) =>
+      //   x["job_titles"].toLowerCase().includes(searchParams.get("designation").toLowerCase())
+      // );
+      tempFilteredData = tempFilteredData.filter((x) => {
+        if (x.job_titles) {
+          let test = true;
+          searchParams.getAll("designation").forEach((k) => {
+            if (!x.job_titles.toLowerCase().includes(k.toLowerCase())) {
+              test = false;
+            }
+          });
+          return test;
+        }
+        return false;
+      });
     }
     if (searchParams.has("expMin")) {
       tempFilteredData = tempFilteredData.filter(
@@ -131,13 +164,17 @@ const FilterResume = () => {
       );
     }
     if (searchParams.has("salMinLac")) {
-      tempFilteredData = tempFilteredData.filter(
-        (x) => Number(x.salary_level.split("-").at(0)) >= Number(searchParams.get("salMinLac"))
+      tempFilteredData = tempFilteredData.filter((x) =>
+        x.salary_level
+          ? Number(x.salary_level.split("-").at(0)) >= Number(searchParams.get("salMinLac"))
+          : false
       );
     }
     if (searchParams.has("salMaxLac")) {
-      tempFilteredData = tempFilteredData.filter(
-        (x) => Number(x.salary_level.split("-").at(-1)) <= Number(searchParams.get("salMaxLac"))
+      tempFilteredData = tempFilteredData.filter((x) =>
+        x.salary_level
+          ? Number(x.salary_level.split("-").at(-1)) <= Number(searchParams.get("salMaxLac"))
+          : false
       );
     }
     if (searchParams.has("education")) {
@@ -146,9 +183,17 @@ const FilterResume = () => {
       );
     }
     if (searchParams.has("skills")) {
-      tempFilteredData = tempFilteredData.filter((x) =>
-        x.skills.toLowerCase().includes(searchParams.get("skills").toLowerCase())
-      );
+      tempFilteredData = tempFilteredData.filter((x) => {
+        if (x.skills) {
+          let test = true;
+          searchParams.getAll("skills").forEach((k) => {
+            if (!x.skills.toLowerCase().includes(k.toLowerCase())) {
+              test = false;
+            }
+          });
+          return test;
+        }
+      });
     }
 
     setFilteredData(tempFilteredData);
@@ -165,19 +210,18 @@ const FilterResume = () => {
           <Grid container spacing={1} gap={4}>
             {filteredData.map((Data) => {
               return (
-                <>
-                  <Grid item xs={3.5}>
-                    <ProfileInfoCard
-                      name={Data.name}
-                      jobTitle={Data.job_titles}
-                      phone={Data.phone}
-                      email={Data.email}
-                      info=""
-                      data={Data}
-                      link={Data.resume_permanent_link}
-                    />
-                  </Grid>
-                </>
+                <Grid item xs={3.5} key={Data.id}>
+                  <ProfileInfoCard
+                    // key={Data.id}
+                    name={Data.name}
+                    jobTitle={Data.job_titles}
+                    phone={Data.phone}
+                    email={Data.email}
+                    info=""
+                    data={Data}
+                    // fileLink={Data.resume_permanent_link}
+                  />
+                </Grid>
               );
             })}
           </Grid>

@@ -41,6 +41,32 @@ const buttonStyles = {
   fontSize: "16px",
 };
 
+// const initialFormData = {
+//   name: "",
+//   email: "",
+//   phone: "",
+//   keywords: "",
+//   education: "",
+//   experienceLevel: "",
+//   skills: "",
+//   industryExperience: "",
+//   accomplishment: "",
+//   jobTenure: "",
+//   jobTitles: "",
+//   salaryLevel: "",
+//   companyNames: "",
+//   referrals: "",
+//   availability: "",
+//   relevanceOfRole: "",
+//   culturalFit: "",
+//   keywordsInCoverletter: "",
+//   remoteWork: false,
+//   qualifications: "",
+//   location: "",
+//   applicantSources: "",
+//   jobHopping: false,
+// };
+
 const From = () => {
   const [missingDetails, setMissingDetails] = useState("");
   const [file, setFile] = useState(null);
@@ -80,12 +106,13 @@ const From = () => {
       .post("https://resume-api-6u3t4.ondigitalocean.app/resume-data/", formData, { headers })
       .then((response) => {
         // Handle success
-        console.log("File uploaded successfully", response.data);
+        console.log("Form Data uploaded successfully", response.data);
+        setMissingDetails(initialFormData);
         toast.success("Form submitted successfully");
       })
       .catch((error) => {
         // Handle error
-        console.error("Error uploading file", error);
+        console.error("Error uploading Form Data", error);
         toast.error(
           "Oops! It looks like you missed something. Please complete all required fields."
         );

@@ -46,6 +46,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import axios from "axios";
 
 const style = {
   position: "absolute as absolute",
@@ -59,11 +60,30 @@ const style = {
   p: 4,
 };
 
-function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow, link }) {
+function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow }) {
   // const [isOpen, setIsOpen] = useState(false);
-  // const [selectedData, setSelectedData] = useState(null);
-  // const [open, setOpen] = React.useState(false);
-  // const handleClose = () => setOpen(false);
+  const [selectedData, setSelectedData] = useState(null);
+  const [open, setOpen] = React.useState(false);
+  const handleDownload = () => {
+    // setOpen(true);
+
+    axios
+      .get(
+        "https://resume-api-6u3t4.ondigitalocean.app/file-uploading/?file_link=" +
+          data.resume_permanent_link,
+        {
+          headers: {
+            Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+          },
+        }
+      )
+      .then((x) => {
+        // console.log(x.data.public_file_link);
+        window.open(x.data.public_file_link);
+      })
+      .catch(() => console.error("Resume Not available"));
+  };
+  const handleClose = () => setOpen(false);
   if (!phone) {
     return null; // You can also render a message or handle this case differently
   }
@@ -198,21 +218,16 @@ function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow, lin
               {email}
             </MDTypography>
           </MDBox>
-          <Divider />
-          <MDBox sx={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
-            <MDBox sx={{ width: "45%" }}>
-              <a target="/" href={link}>
-                <MDButton color="dark" size="medium">
-                  view resume
-                </MDButton>
-              </a>
-            </MDBox>
+          <MDBox opacity={0.3}>
+            <Divider />
           </MDBox>
+          <MDButton color="dark" onClick={handleDownload}>
+            Download Resume
+          </MDButton>
         </MDBox>
       </Card>
       {/* </Grid>
       </Grid> */}
-      {/* <Popup isOpen={isOpen} onClose={onClose} data={selectedData} /> */}
       {/* <Modal
         open={open}
         onClose={handleClose}
@@ -245,7 +260,6 @@ ProfileInfoCard.propTypes = {
   info: PropTypes.string,
   shadow: PropTypes.bool,
   phone: PropTypes.number.isRequired,
-  link: PropTypes.string.isRequired,
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     job_titles: PropTypes.string.isRequired,
@@ -255,6 +269,7 @@ ProfileInfoCard.propTypes = {
     experience_level: PropTypes.string.isRequired,
     company_names: PropTypes.string.isRequired,
     phone: PropTypes.number.isRequired,
+    resume_permanent_link: PropTypes.string.isRequired,
   }).isRequired,
 };
 
