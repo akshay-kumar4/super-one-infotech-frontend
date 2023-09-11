@@ -174,6 +174,7 @@ const FilterResume = () => {
                       email={Data.email}
                       info=""
                       data={Data}
+                      link={Data.resume_permanent_link}
                     />
                   </Grid>
                 </>

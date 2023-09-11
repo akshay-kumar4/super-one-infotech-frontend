@@ -59,12 +59,11 @@ const style = {
   p: 4,
 };
 
-function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow }) {
+function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow, link }) {
   // const [isOpen, setIsOpen] = useState(false);
-  const [selectedData, setSelectedData] = useState(null);
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const [selectedData, setSelectedData] = useState(null);
+  // const [open, setOpen] = React.useState(false);
+  // const handleClose = () => setOpen(false);
   if (!phone) {
     return null; // You can also render a message or handle this case differently
   }
@@ -199,18 +198,22 @@ function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow }) {
               {email}
             </MDTypography>
           </MDBox>
-          <MDBox opacity={0.3}>
-            <Divider />
+          <Divider />
+          <MDBox sx={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
+            <MDBox sx={{ width: "45%" }}>
+              <a target="/" href={link}>
+                <MDButton color="dark" size="medium">
+                  view resume
+                </MDButton>
+              </a>
+            </MDBox>
           </MDBox>
-          <MDButton color="dark" onClick={handleOpen}>
-            view details
-          </MDButton>
         </MDBox>
       </Card>
       {/* </Grid>
       </Grid> */}
       {/* <Popup isOpen={isOpen} onClose={onClose} data={selectedData} /> */}
-      <Modal
+      {/* <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -224,7 +227,7 @@ function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow }) {
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
           </Typography>
         </Box>
-      </Modal>
+      </Modal> */}
     </MDBox>
   );
 }
@@ -242,6 +245,7 @@ ProfileInfoCard.propTypes = {
   info: PropTypes.string,
   shadow: PropTypes.bool,
   phone: PropTypes.number.isRequired,
+  link: PropTypes.string.isRequired,
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     job_titles: PropTypes.string.isRequired,
@@ -251,7 +255,6 @@ ProfileInfoCard.propTypes = {
     experience_level: PropTypes.string.isRequired,
     company_names: PropTypes.string.isRequired,
     phone: PropTypes.number.isRequired,
-    resume_permanent_link: PropTypes.string.isRequired,
   }).isRequired,
 };
 
