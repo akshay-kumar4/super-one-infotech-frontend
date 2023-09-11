@@ -158,7 +158,7 @@ export default function App() {
         <Routes>
           {getRoutes(routes)}
           {user ? (
-            <Route path="*" element={<Navigate to="/dashboards/form" />} />
+            <Route path="*" element={<Navigate to="/dashboards/search" />} />
           ) : (
             <Route path="*" element={<Navigate to="/auth/sign-in" />} />
           )}
@@ -186,7 +186,7 @@ export default function App() {
       <Routes>
         {getRoutes(routes)}
         {user ? (
-          <Route path="*" element={<Navigate to="/dashboards/form" />} />
+          <Route path="*" element={<Navigate to="/dashboards/search" />} />
         ) : (
           <Route path="*" element={<Navigate to="/auth/sign-in" />} />
         )}
