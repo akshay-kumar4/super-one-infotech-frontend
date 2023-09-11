@@ -15,13 +15,14 @@ import EngineeringIcon from "@mui/icons-material/Engineering";
 import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
 import Popup from "./Popup";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+import ProfileInfoCard from "one-infotech/components/ProfileInfoCard";
 
 const FilterResume = () => {
   const [data, setData] = useState([]);
   let [filteredData, setFilteredData] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [isOpen, setIsOpen] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const onOpen = (Data) => {
     setSelectedData(Data);
@@ -156,93 +157,31 @@ const FilterResume = () => {
 
   return (
     <DashboardLayout>
-      {/* <Accordion
-        sx={{ borderRadius: "10px", marginTop: "20px", marginLeft: "250px", padding: "20px" }}
-      > */}
       <Container>
-        <Popup isOpen={isOpen} onClose={onClose} data={selectedData} />
+        {/* <Popup isOpen={isOpen} onClose={onClose} data={selectedData} /> */}
         {filteredData.length === 0 ? ( // Check if filteredData is empty
           <h3 style={{ color: "red", textAlign: "center" }}>No Data Found !</h3>
         ) : (
           <Grid container spacing={1} gap={4}>
             {filteredData.map((Data) => {
               return (
-                <Grid
-                  item
-                  onClick={() => onOpen(Data)}
-                  key={Data.id}
-                  xs={3.5}
-                  sx={{
-                    border: "1px solid white ",
-                    borderRadius: "13px",
-                    boxShadow: "5px 8px 5px rgba(0 0 0 0.5)",
-                    margin: "5px",
-                    paddingTop: "20px",
-                    paddingBottom: "15px",
-                    paddingLeft: "20px",
-                    backgroundColor: "rgb(216 234 240 / 65%)",
-                    transition: "0.4s ease",
-                    alignItems: "center",
-                    ":hover": {
-                      background: "rgb(216 239 244)",
-                      transform: "scale(1.02)",
-                      cursor: "pointer",
-                    },
-                  }}
-                >
-                  <h2 style={{ display: "flex", justifyContent: "center" }}>{Data.name}</h2>
-                  <MDTypography
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      flexDirection: "row",
-                    }}
-                  >
-                    {" "}
-                    <WorkOutlineIcon sx={{ marginLeft: "10px" }} />
-                    &nbsp;
-                    <p> {Data.job_titles.substring(0, 20)}...</p>
-                  </MDTypography>
-                  <MDTypography
-                    sx={{ display: "flex", alignItems: "center", flexDirection: "row" }}
-                  >
-                    {" "}
-                    <MailIcon sx={{ marginLeft: "10px" }} /> &nbsp;{Data.email}
-                  </MDTypography>
-                  <MDTypography
-                    sx={{ display: "flex", alignItems: "center", flexDirection: "row" }}
-                  >
-                    {" "}
-                    <EngineeringIcon sx={{ marginLeft: "10px" }} />
-                    &nbsp;
-                    {Data.skills.substring(0, 20)}...
-                  </MDTypography>
-                  <MDTypography
-                    sx={{ display: "flex", alignItems: "center", flexDirection: "row" }}
-                  >
-                    {" "}
-                    <MilitaryTechIcon sx={{ marginLeft: "10px" }} />
-                    &nbsp; {Data.experience}
-                  </MDTypography>
-                  <MDTypography
-                    sx={{ display: "flex", alignItems: "center", flexDirection: "row" }}
-                  >
-                    <SchoolIcon sx={{ marginLeft: "10px" }} /> &nbsp;
-                    {Data.education.substring(0, 20)}...
-                  </MDTypography>
-                  <MDTypography
-                    sx={{ display: "flex", alignItems: "center", flexDirection: "row" }}
-                  >
-                    <BusinessIcon sx={{ marginLeft: "10px" }} />
-                    &nbsp; {Data.company_names.substring(0, 20)}...
-                  </MDTypography>
-                </Grid>
+                <>
+                  <Grid item xs={3.5}>
+                    <ProfileInfoCard
+                      name={Data.name}
+                      jobTitle={Data.job_titles}
+                      phone={Data.phone}
+                      email={Data.email}
+                      info=""
+                      data={Data}
+                    />
+                  </Grid>
+                </>
               );
             })}
           </Grid>
         )}
       </Container>
-      {/* </Accordion> */}
     </DashboardLayout>
   );
 };
