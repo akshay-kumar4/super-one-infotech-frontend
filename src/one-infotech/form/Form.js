@@ -68,10 +68,61 @@ const buttonStyles = {
 // };
 
 const From = () => {
-  const [missingDetails, setMissingDetails] = useState("");
+  const [missingDetails, setMissingDetails] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    keywords: [],
+    education: "",
+    experienceLevel: "",
+    skills: [],
+    industryExperience: "",
+    accomplishment: "",
+    jobTenure: "",
+    jobTitles: "",
+    salaryLevel: "",
+    companyNames: "",
+    referrals: "",
+    availability: "",
+    relevanceOfRole: "",
+    culturalFit: "",
+    keywordsInCoverletter: [],
+    remoteWork: false,
+    qualifications: "",
+    location: "",
+    applicantSources: "",
+    jobHopping: false,
+  });
   const [file, setFile] = useState(null);
   const fileRef = useRef(null);
 
+  const clearInputs = () => {
+    setMissingDetails({
+      name: "",
+      email: "",
+      phone: "",
+      keywords: [],
+      education: "",
+      experienceLevel: "",
+      skills: [],
+      industryExperience: "",
+      accomplishment: "",
+      jobTenure: "",
+      jobTitles: "",
+      salaryLevel: "",
+      companyNames: "",
+      referrals: "",
+      availability: "",
+      relevanceOfRole: "",
+      culturalFit: "",
+      keywordsInCoverletter: [],
+      remoteWork: false,
+      qualifications: "",
+      location: "",
+      applicantSources: "",
+      jobHopping: false,
+    });
+  };
   const handleDataUpload = () => {
     const formData = new FormData();
     formData.append("name", missingDetails.name);
@@ -107,8 +158,9 @@ const From = () => {
       .then((response) => {
         // Handle success
         console.log("Form Data uploaded successfully", response.data);
-        setMissingDetails(initialFormData);
+        // setMissingDetails(initialFormData);
         toast.success("Form submitted successfully");
+        clearInputs();
       })
       .catch((error) => {
         // Handle error
@@ -241,6 +293,7 @@ const From = () => {
             }}
           >
             <TextField
+              value={missingDetails.name}
               sx={{ width: 450 }}
               variant="standard"
               label="Name"
@@ -257,6 +310,7 @@ const From = () => {
             />
             <TextField
               sx={{ width: 450 }}
+              value={missingDetails.email}
               variant="standard"
               label="Email"
               placeholder="Enter your email"
@@ -282,6 +336,7 @@ const From = () => {
           >
             <TextField
               sx={{ width: 450 }}
+              value={missingDetails.phone}
               variant="standard"
               label="Phone"
               placeholder="Enter you phone"
@@ -297,6 +352,7 @@ const From = () => {
             />
             <Autocomplete
               sx={{ width: 450 }}
+              value={missingDetails.keywords}
               multiple
               freeSolo
               id="tags-standard"
@@ -333,6 +389,7 @@ const From = () => {
           >
             <TextField
               sx={{ width: 450 }}
+              value={missingDetails.education}
               variant="standard"
               label="Education"
               placeholder="Enter your education"
@@ -348,6 +405,7 @@ const From = () => {
             />
             <TextField
               sx={{ width: 450 }}
+              value={missingDetails.experienceLevel}
               variant="standard"
               label="Experience level"
               placeholder="Enter your experience"
@@ -372,6 +430,7 @@ const From = () => {
           >
             <Autocomplete
               sx={{ width: 450 }}
+              value={missingDetails.skills}
               multiple
               freeSolo
               id="tags-standard"
@@ -399,6 +458,7 @@ const From = () => {
             />
             <TextField
               sx={{ width: 450 }}
+              value={missingDetails.industryExperience}
               variant="standard"
               label="Industry Experience"
               placeholder="Enter your industry experience"
@@ -423,6 +483,7 @@ const From = () => {
           >
             <TextField
               sx={{ width: 450 }}
+              value={missingDetails.accomplishment}
               variant="standard"
               label="Accomplishment"
               placeholder="Enter you accomplishment"
@@ -438,6 +499,7 @@ const From = () => {
             />
             <TextField
               sx={{ width: 450 }}
+              value={missingDetails.jobTenure}
               variant="standard"
               label="Job Tenure"
               placeholder="Enter your tenure"
@@ -462,6 +524,7 @@ const From = () => {
           >
             <TextField
               sx={{ width: 450 }}
+              value={missingDetails.jobTitles}
               variant="standard"
               label="Job Titles"
               placeholder="Enter your job titles"
@@ -477,6 +540,7 @@ const From = () => {
             />
             <TextField
               sx={{ width: 450 }}
+              value={missingDetails.salaryLevel}
               variant="standard"
               label="Enter salary level"
               placeholder="Salary Level"
@@ -501,6 +565,7 @@ const From = () => {
           >
             <TextField
               sx={{ width: 450 }}
+              value={missingDetails.companyNames}
               variant="standard"
               label="Company Name"
               placeholder="Enter company name"
@@ -516,6 +581,7 @@ const From = () => {
             />
             <TextField
               sx={{ width: 450 }}
+              value={missingDetails.referrals}
               variant="standard"
               label="Referrals"
               placeholder="Referrals"
@@ -540,6 +606,7 @@ const From = () => {
           >
             <TextField
               sx={{ width: 450 }}
+              value={missingDetails.availability}
               variant="standard"
               label="Availability"
               placeholder="availability"
@@ -555,6 +622,7 @@ const From = () => {
             />
             <TextField
               sx={{ width: 450 }}
+              value={missingDetails.relevanceOfRole}
               variant="standard"
               label="Relevance of Role"
               placeholder="Relevance Of Role"
@@ -579,6 +647,7 @@ const From = () => {
           >
             <TextField
               sx={{ width: 450 }}
+              value={missingDetails.culturalFit}
               variant="standard"
               label="Cultural Fit"
               placeholder="Cultural Fit"
@@ -594,6 +663,7 @@ const From = () => {
             />
             <Autocomplete
               sx={{ width: 450 }}
+              value={missingDetails.keywordsInCoverletter}
               multiple
               freeSolo
               id="tags-standard"
@@ -630,6 +700,7 @@ const From = () => {
           >
             <TextField
               sx={{ width: 450 }}
+              value={missingDetails.qualifications}
               variant="standard"
               label="Qualifications"
               placeholder="Qualifications"
@@ -645,6 +716,7 @@ const From = () => {
             />
             <TextField
               sx={{ width: 450 }}
+              value={missingDetails.location}
               variant="standard"
               label="Location"
               placeholder="Enter your preferred location"
@@ -669,6 +741,7 @@ const From = () => {
           >
             <TextField
               sx={{ width: 450 }}
+              value={missingDetails.applicantSources}
               variant="standard"
               label="Applicant Sources"
               placeholder="Applicant Source"
@@ -686,6 +759,7 @@ const From = () => {
               sx={{ width: 450 }}
               control={
                 <Switch
+                  value={missingDetails.jobHopping}
                   onChange={(e) => {
                     setMissingDetails({
                       ...missingDetails,
@@ -702,6 +776,7 @@ const From = () => {
             sx={{ width: 450 }}
             control={
               <Switch
+                value={missingDetails.remoteWork}
                 onChange={(e) => {
                   setMissingDetails({
                     ...missingDetails,
