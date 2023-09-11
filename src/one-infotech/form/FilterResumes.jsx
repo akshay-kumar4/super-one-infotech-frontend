@@ -16,6 +16,10 @@ import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
 import Popup from "./Popup";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import ProfileInfoCard from "one-infotech/components/ProfileInfoCard";
+import Backdrop from "@mui/material/Backdrop"; // Import Backdrop from Material-UI
+import CircularProgress from "@mui/material/CircularProgress"; // Import CircularProgress from Material-UI
+import Button from "@mui/material/Button";
+// import axios from 'axios'
 
 const FilterResume = () => {
   const [data, setData] = useState([]);
@@ -23,12 +27,14 @@ const FilterResume = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedData, setSelectedData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const onOpen = (Data) => {
     setSelectedData(Data);
     setIsOpen(true);
     console.log(Data.company_names);
   };
+
   const onClose = () => {
     setIsOpen(false);
   };
@@ -42,6 +48,11 @@ const FilterResume = () => {
       })
       .then((response) => {
         setData([...response.data]);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
       });
   }, []);
 
@@ -203,31 +214,39 @@ const FilterResume = () => {
   return (
     <DashboardLayout>
       <Container>
-        {/* <Popup isOpen={isOpen} onClose={onClose} data={selectedData} /> */}
-        {filteredData.length === 0 ? ( // Check if filteredData is empty
-          <h3 style={{ color: "red", textAlign: "center" }}>No Data Found !</h3>
+        {isLoading ? (
+          <Backdrop
+            sx={{ color: "#000", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={isLoading}
+            onClick={() => setIsLoading(false)}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
         ) : (
-          <Grid container spacing={1} gap={4}>
-            {filteredData.map((Data) => {
-              return (
-                <Grid item xs={3.5} key={Data.id}>
-                  <ProfileInfoCard
-                    // key={Data.id}
-                    name={Data.name}
-                    jobTitle={Data.job_titles}
-                    phone={Data.phone}
-                    email={Data.email}
-                    info=""
-                    data={Data}
-                    // fileLink={Data.resume_permanent_link}
-                  />
-                </Grid>
-              );
-            })}
-          </Grid>
+          <React.Fragment>
+            {filteredData.length === 0 ? (
+              <h3 style={{ color: "red", textAlign: "center" }}>No Data Found !</h3>
+            ) : (
+              <Grid container spacing={1} gap={4}>
+                {filteredData.map((Data) => (
+                  <Grid item xs={3.5} key={Data.id}>
+                    <ProfileInfoCard
+                      name={Data.name}
+                      jobTitle={Data.job_titles}
+                      phone={Data.phone}
+                      email={Data.email}
+                      info=""
+                      data={Data}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            )}
+          </React.Fragment>
         )}
       </Container>
     </DashboardLayout>
   );
 };
+
 export default FilterResume;
