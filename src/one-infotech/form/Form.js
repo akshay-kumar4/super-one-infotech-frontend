@@ -101,10 +101,10 @@ const From = () => {
       name: "",
       email: "",
       phone: "",
-      keywords: [],
+      keywords: "",
       education: "",
       experienceLevel: "",
-      skills: [],
+      skills: "",
       industryExperience: "",
       accomplishment: "",
       jobTenure: "",
@@ -115,7 +115,7 @@ const From = () => {
       availability: "",
       relevanceOfRole: "",
       culturalFit: "",
-      keywordsInCoverletter: [],
+      keywordsInCoverletter: "",
       remoteWork: false,
       qualifications: "",
       location: "",
@@ -156,11 +156,41 @@ const From = () => {
     axios
       .post("https://resume-api-6u3t4.ondigitalocean.app/resume-data/", formData, { headers })
       .then((response) => {
-        // Handle success
-        console.log("Form Data uploaded successfully", response.data);
-        // setMissingDetails(initialFormData);
-        toast.success("Form submitted successfully");
-        clearInputs();
+        if (
+          !missingDetails.name &&
+          !missingDetails.email &&
+          !missingDetails.phone &&
+          !missingDetails.keywords &&
+          !missingDetails.education &&
+          !missingDetails.experienceLevel &&
+          !missingDetails.skills &&
+          !missingDetails.industryExperience &&
+          !missingDetails.accomplishment &&
+          !missingDetails.jobTenure &&
+          !missingDetails.jobTitles &&
+          !missingDetails.salaryLevel &&
+          !missingDetails.companyNames &&
+          !missingDetails.referrals &&
+          !missingDetails.availability &&
+          !missingDetails.relevanceOfRole &&
+          !missingDetails.culturalFit &&
+          !missingDetails.keywordsInCoverletter &&
+          !missingDetails.remoteWork &&
+          !missingDetails.qualifications &&
+          !missingDetails.location &&
+          !missingDetails.applicantSource &&
+          !missingDetails.jobHopping
+        ) {
+          return toast.error(
+            "Oops! It looks like you missed something. Please complete all required fields."
+          ); // Stop form submission
+        } else {
+          // Handle success
+          console.log("Form Data uploaded successfully", response.data);
+          // setMissingDetails(initialFormData);
+          toast.success("Form submitted successfully");
+          clearInputs();
+        }
       })
       .catch((error) => {
         // Handle error
