@@ -288,7 +288,7 @@ const From = () => {
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "space-evenly",
               marginBottom: "10px",
             }}
           >
@@ -330,7 +330,7 @@ const From = () => {
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "space-evenly",
               marginBottom: "10px",
             }}
           >
@@ -383,7 +383,7 @@ const From = () => {
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "space-evenly",
               marginBottom: "10px",
             }}
           >
@@ -424,7 +424,7 @@ const From = () => {
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "space-evenly",
               marginBottom: "10px",
             }}
           >
@@ -477,7 +477,7 @@ const From = () => {
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "space-evenly",
               marginBottom: "10px",
             }}
           >
@@ -518,7 +518,7 @@ const From = () => {
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "space-evenly",
               marginBottom: "10px",
             }}
           >
@@ -559,7 +559,7 @@ const From = () => {
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "space-evenly",
               marginBottom: "10px",
             }}
           >
@@ -600,7 +600,7 @@ const From = () => {
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "space-evenly",
               marginBottom: "10px",
             }}
           >
@@ -641,7 +641,7 @@ const From = () => {
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "space-evenly",
               marginBottom: "10px",
             }}
           >
@@ -694,7 +694,7 @@ const From = () => {
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "space-evenly",
               marginBottom: "10px",
             }}
           >
@@ -735,7 +735,7 @@ const From = () => {
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "space-evenly",
               marginBottom: "10px",
             }}
           >
@@ -756,7 +756,7 @@ const From = () => {
               required
             />
             <FormControlLabel
-              sx={{ width: 450 }}
+              sx={{ width: 160 }}
               control={
                 <Switch
                   value={missingDetails.jobHopping}
@@ -771,26 +771,27 @@ const From = () => {
               label="Job Hopping"
               required
             />
+            <FormControlLabel
+              sx={{ width: 165 }}
+              control={
+                <Switch
+                  value={missingDetails.remoteWork}
+                  onChange={(e) => {
+                    setMissingDetails({
+                      ...missingDetails,
+                      remoteWork: e.target.checked,
+                    });
+                  }}
+                />
+              }
+              label="Remote Work"
+              required
+            />
           </MDBox>
-          <FormControlLabel
-            sx={{ width: 450 }}
-            control={
-              <Switch
-                value={missingDetails.remoteWork}
-                onChange={(e) => {
-                  setMissingDetails({
-                    ...missingDetails,
-                    remoteWork: e.target.checked,
-                  });
-                }}
-              />
-            }
-            label="Remote Work"
-            required
-          />
 
           {/* </MDBox> */}
-          <MDBox>
+
+          <MDBox sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
             <MDButton variant="contained" color="primary" onClick={handleDataUpload}>
               Submit
             </MDButton>
