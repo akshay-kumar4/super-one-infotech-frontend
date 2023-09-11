@@ -289,7 +289,7 @@ const From = () => {
                   variant="standard"
                   label="Keywords"
                   placeholder="Skills, Designation, Role"
-                  inputProps={{ style: { fontSize: "17px" } }}
+                  // inputProps={{ style: { fontSize: "17px" } }}
                   InputLabelProps={{ style: { fontSize: "17px" } }}
                   required
                 />
@@ -364,7 +364,7 @@ const From = () => {
                   variant="standard"
                   label="Skills"
                   placeholder="Enter Your Skills"
-                  inputProps={{ style: { fontSize: "17px" } }}
+                  // inputProps={{ style: { fontSize: "17px" } }}
                   InputLabelProps={{ style: { fontSize: "17px" } }}
                   required
                 />
@@ -586,7 +586,7 @@ const From = () => {
                   variant="standard"
                   label="Keywords in Cover Letter"
                   placeholder="Enter keywords in your cover letter"
-                  inputProps={{ style: { fontSize: "17px" } }}
+                  // inputProps={{ style: { fontSize: "17px" } }}
                   InputLabelProps={{ style: { fontSize: "17px" } }}
                   required
                 />
