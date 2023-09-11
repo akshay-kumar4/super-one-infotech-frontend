@@ -40,14 +40,7 @@ import {
   setOpenConfigurator,
 } from "context";
 
-import MDButton from "components/MDButton";
-import { useDispatch } from "react-redux";
-import { logout } from "one-infotech/redux/features/userSlice";
-import { useNavigate } from "react-router-dom";
-
 function DashboardNavbar({ absolute, light, isMini }) {
-  const dispatchAction = useDispatch();
-  const navigate = useNavigate();
   const [navbarType, setNavbarType] = useState();
   const [controller, dispatch] = useMaterialUIController();
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
@@ -98,11 +91,6 @@ function DashboardNavbar({ absolute, light, isMini }) {
     },
   });
 
-  const SignOut = () => {
-    dispatchAction(logout());
-    navigate("/auth/sign-in");
-  };
-
   return (
     <AppBar
       position={absolute ? "absolute" : navbarType}
@@ -120,11 +108,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
             </Icon>
           </IconButton>
         </MDBox>
-        {isMini ? null : (
-          <MDButton color="primary" onClick={SignOut}>
-            Logout
-          </MDButton>
-        )}
+        {isMini ? null : null}
       </Toolbar>
     </AppBar>
   );

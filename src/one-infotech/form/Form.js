@@ -86,7 +86,9 @@ const From = () => {
       .catch((error) => {
         // Handle error
         console.error("Error uploading file", error);
-        toast.error("Error submitting form");
+        toast.error(
+          "Oops! It looks like you missed something. Please complete all required fields."
+        );
       });
   };
 
@@ -224,6 +226,7 @@ const From = () => {
                   name: e.target.value,
                 })
               }
+              required
             />
             <TextField
               sx={{ width: 450 }}
@@ -232,12 +235,14 @@ const From = () => {
               placeholder="Enter your email"
               inputProps={{ style: { fontSize: "17px" } }}
               InputLabelProps={{ style: { fontSize: "17px" } }}
+              type="email"
               onChange={(e) =>
                 setMissingDetails({
                   ...missingDetails,
                   email: e.target.value,
                 })
               }
+              required
             />
           </MDBox>
           <MDBox
@@ -261,6 +266,7 @@ const From = () => {
                   phone: e.target.value,
                 })
               }
+              required
             />
             <Autocomplete
               sx={{ width: 450 }}
@@ -284,6 +290,7 @@ const From = () => {
                   placeholder="Skills, Designation, Role"
                   inputProps={{ style: { fontSize: "17px" } }}
                   InputLabelProps={{ style: { fontSize: "17px" } }}
+                  required
                 />
               )}
             />
@@ -309,6 +316,7 @@ const From = () => {
                   education: e.target.value,
                 })
               }
+              required
             />
             <TextField
               sx={{ width: 450 }}
@@ -323,6 +331,7 @@ const From = () => {
                   experienceLevel: e.target.value,
                 })
               }
+              required
             />
           </MDBox>
           <MDBox
@@ -356,6 +365,7 @@ const From = () => {
                   placeholder="Enter Your Skills"
                   inputProps={{ style: { fontSize: "17px" } }}
                   InputLabelProps={{ style: { fontSize: "17px" } }}
+                  required
                 />
               )}
             />
@@ -372,6 +382,7 @@ const From = () => {
                   industryExperience: e.target.value,
                 })
               }
+              required
             />
           </MDBox>
           <MDBox
@@ -395,6 +406,7 @@ const From = () => {
                   accomplishment: e.target.value,
                 })
               }
+              required
             />
             <TextField
               sx={{ width: 450 }}
@@ -409,6 +421,7 @@ const From = () => {
                   jobTenure: e.target.value,
                 })
               }
+              required
             />
           </MDBox>
           <MDBox
@@ -432,6 +445,7 @@ const From = () => {
                   jobTitles: e.target.value,
                 })
               }
+              required
             />
             <TextField
               sx={{ width: 450 }}
@@ -446,6 +460,7 @@ const From = () => {
                   salaryLevel: e.target.value,
                 })
               }
+              required
             />
           </MDBox>
           <MDBox
@@ -469,6 +484,7 @@ const From = () => {
                   companyNames: e.target.value,
                 })
               }
+              required
             />
             <TextField
               sx={{ width: 450 }}
@@ -483,6 +499,7 @@ const From = () => {
                   referrals: e.target.value,
                 })
               }
+              required
             />
           </MDBox>
           <MDBox
@@ -506,6 +523,7 @@ const From = () => {
                   availability: e.target.value,
                 })
               }
+              required
             />
             <TextField
               sx={{ width: 450 }}
@@ -520,6 +538,7 @@ const From = () => {
                   relevanceOfRole: e.target.value,
                 })
               }
+              required
             />
           </MDBox>
           <MDBox
@@ -543,6 +562,7 @@ const From = () => {
                   culturalFit: e.target.value,
                 })
               }
+              required
             />
             <Autocomplete
               sx={{ width: 450 }}
@@ -567,6 +587,7 @@ const From = () => {
                   placeholder="Enter keywords in your cover letter"
                   inputProps={{ style: { fontSize: "17px" } }}
                   InputLabelProps={{ style: { fontSize: "17px" } }}
+                  required
                 />
               )}
             />
@@ -592,6 +613,7 @@ const From = () => {
                   qualifications: e.target.value,
                 })
               }
+              required
             />
             <TextField
               sx={{ width: 450 }}
@@ -606,6 +628,7 @@ const From = () => {
                   location: e.target.value,
                 })
               }
+              required
             />
           </MDBox>
           <MDBox
@@ -629,6 +652,7 @@ const From = () => {
                   applicantSources: e.target.value,
                 })
               }
+              required
             />
             <FormControlLabel
               sx={{ width: 450 }}
@@ -643,6 +667,7 @@ const From = () => {
                 />
               }
               label="Job Hopping"
+              required
             />
           </MDBox>
           <FormControlLabel
@@ -658,6 +683,7 @@ const From = () => {
               />
             }
             label="Remote Work"
+            required
           />
 
           {/* </MDBox> */}

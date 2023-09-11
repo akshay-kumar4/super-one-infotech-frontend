@@ -44,7 +44,7 @@ const Login = () => {
 
   return (
     <CoverLayout image={bgImage}>
-      <Card>
+      <Card sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
         <MDBox
           variant="gradient"
           bgColor="info"
