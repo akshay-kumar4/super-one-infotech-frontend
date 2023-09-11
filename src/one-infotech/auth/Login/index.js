@@ -38,7 +38,7 @@ const Login = () => {
       .then((response) => {
         dispatch(login(response.data));
         console.log(response);
-        navigate("/dashboards/form");
+        navigate("/dashboards/search");
       });
   };
 

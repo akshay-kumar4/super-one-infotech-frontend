@@ -101,10 +101,10 @@ const From = () => {
       name: "",
       email: "",
       phone: "",
-      keywords: "",
+      keywords: [],
       education: "",
       experienceLevel: "",
-      skills: "",
+      skills: [],
       industryExperience: "",
       accomplishment: "",
       jobTenure: "",
@@ -115,7 +115,7 @@ const From = () => {
       availability: "",
       relevanceOfRole: "",
       culturalFit: "",
-      keywordsInCoverletter: "",
+      keywordsInCoverletter: [],
       remoteWork: false,
       qualifications: "",
       location: "",
@@ -178,7 +178,7 @@ const From = () => {
           !missingDetails.remoteWork &&
           !missingDetails.qualifications &&
           !missingDetails.location &&
-          !missingDetails.applicantSource &&
+          !missingDetails.applicantSources &&
           !missingDetails.jobHopping
         ) {
           return toast.error(
