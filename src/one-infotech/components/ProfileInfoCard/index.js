@@ -41,13 +41,16 @@ import typography from "assets/theme/base/typography";
 import MDButton from "components/MDButton";
 import Popup from "one-infotech/form/Popup";
 
+// React tostify component
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
-import { toast } from "react-toastify";
 
 const style = {
   position: "absolute as absolute",
@@ -63,11 +66,18 @@ const style = {
 
 function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow }) {
   // const [isOpen, setIsOpen] = useState(false);
-  const [selectedData, setSelectedData] = useState(null);
+  // const [selectedData, setSelectedData] = useState(null);
   const [open, setOpen] = React.useState(false);
+
+  const notifyOnFail = () => toast.error("Resume Not Found !!");
   const handleDownload = () => {
     // setOpen(true);
+    if (!data.resume_permanent_link) {
+      notifyOnFail();
+      return; // Don't proceed if resume link is not defined or null
+    }
 
+    // Now you can proceed with the Axios request and opening a new tab
     axios
       .get(
         "https://resume-api-6u3t4.ondigitalocean.app/file-uploading/?file_link=" +
@@ -79,12 +89,15 @@ function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow }) {
         }
       )
       .then((x) => {
-        // console.log(x.data.public_file_link);
+        console.log(x.data.public_file_link);
         window.open(x.data.public_file_link);
       })
-      .catch(() => toast.error("Resume Not available"));
+      .catch((error) => {
+        console.log(error);
+        notifyOnFail();
+      });
   };
-  const handleClose = () => setOpen(false);
+  // const handleClose = () => setOpen(false);
   if (!phone) {
     return null; // You can also render a message or handle this case differently
   }
@@ -112,15 +125,15 @@ function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow }) {
   // Extract the first job title (index 0)
   const firstJobTitle = trimmedJobTitles[0];
 
-  const onOpen = (data) => {
-    setSelectedData(data);
-    setIsOpen(true);
-    console.log(data.company_names);
-  };
+  // const onOpen = (data) => {
+  //   setSelectedData(data);
+  //   setIsOpen(true);
+  //   console.log(data.company_names);
+  // };
 
-  const onClose = () => {
-    setIsOpen(false);
-  };
+  // const onClose = () => {
+  //   setIsOpen(false);
+  // };
 
   const labels = [];
   const values = [];
@@ -224,6 +237,7 @@ function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow }) {
           </MDBox>
           <MDButton color="dark" onClick={handleDownload}>
             Download Resume
+            <ToastContainer />
           </MDButton>
         </MDBox>
       </Card>

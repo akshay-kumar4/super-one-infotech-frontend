@@ -227,7 +227,14 @@ const FilterResume = () => {
             {filteredData.length === 0 ? (
               <h3 style={{ color: "red", textAlign: "center" }}>No Data Found !</h3>
             ) : (
-              <Grid container spacing={1} gap={4}>
+              <Grid
+                container
+                spacing={1}
+                gap={4}
+                sx={{
+                  justifyContent: "center",
+                }}
+              >
                 {filteredData.map((Data) => (
                   <Grid item xs={3.5} key={Data.id}>
                     <ProfileInfoCard
