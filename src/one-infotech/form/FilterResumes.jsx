@@ -2,6 +2,7 @@ import axios from "axios";
 import MDBox from "components/MDBox";
 import { Accordion } from "@mui/material";
 import { Grid, Container } from "@mui/material";
+import { Modal, Box, Typography } from "@mui/material";
 import React from "react";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -19,6 +20,7 @@ import ProfileInfoCard from "one-infotech/components/ProfileInfoCard";
 import Backdrop from "@mui/material/Backdrop"; // Import Backdrop from Material-UI
 import CircularProgress from "@mui/material/CircularProgress"; // Import CircularProgress from Material-UI
 import Button from "@mui/material/Button";
+import { ToastContainer, toast } from "react-toastify";
 // import axios from 'axios'
 
 const FilterResume = () => {
@@ -28,6 +30,8 @@ const FilterResume = () => {
   const [selectedData, setSelectedData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [noDataFound, setNoDataFound] = useState(false);
 
   const onOpen = (Data) => {
     setSelectedData(Data);
@@ -58,6 +62,14 @@ const FilterResume = () => {
 
   useEffect(() => {
     let tempFilteredData = data;
+    if (tempFilteredData.length === 0) {
+      toast.error("No data found", {
+        position: "top-center",
+        autoClose: 3000, // Close after 3 seconds
+        hideProgressBar: true,
+      });
+    }
+
     // console.log(tempFilteredData);
     // console.log("Total docs : " + tempFilteredData.length);
     // console.log(searchParams.getAll("keyword"));
@@ -227,47 +239,35 @@ const FilterResume = () => {
   // data = JSON.stringify(data, null, 2);
 
   return (
-    <DashboardLayout>
-      <Container>
-        {isLoading ? (
-          <Backdrop
-            sx={{ color: "#000", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-            open={isLoading}
-            onClick={() => setIsLoading(false)}
-          >
-            <CircularProgress color="inherit" />
-          </Backdrop>
-        ) : (
-          <React.Fragment>
-            {filteredData.length === 0 ? (
-              <h3 style={{ color: "red", textAlign: "center" }}>No Data Found !</h3>
-            ) : (
-              <Grid
-                container
-                spacing={1}
-                gap={4}
-                sx={{
-                  justifyContent: "center",
-                }}
-              >
-                {filteredData.map((Data) => (
-                  <Grid item xs={3.5} key={Data.id}>
-                    <ProfileInfoCard
-                      name={Data.name ? Data.name : "No name"}
-                      jobTitle={Data.job_titles ? Data.job_titles : "N/A"}
-                      phone={Data.phone ? Data.phone : "N/A"}
-                      email={Data.email ? Data.email : "N/A"}
-                      info=""
-                      data={Data}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-            )}
-          </React.Fragment>
-        )}
-      </Container>
-    </DashboardLayout>
+    <Container>
+      <ToastContainer />
+      {isLoading ? (
+        <Backdrop
+          sx={{ color: "#000", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={isLoading}
+          onClick={() => setIsLoading(false)}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : (
+        <React.Fragment>
+          {filteredData.length > 0 ? (
+            <Grid
+              container
+              spacing={1}
+              gap={4}
+              sx={{
+                justifyContent: "center",
+              }}
+            >
+              {filteredData.map((Data) => (
+                <Grid item xs={3.5} key={Data.id}></Grid>
+              ))}
+            </Grid>
+          ) : null}
+        </React.Fragment>
+      )}
+    </Container>
   );
 };
 
