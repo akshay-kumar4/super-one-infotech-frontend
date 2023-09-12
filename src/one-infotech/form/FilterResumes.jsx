@@ -109,15 +109,11 @@ const FilterResume = () => {
     if (searchParams.has("exclude_keywords")) {
       tempFilteredData = tempFilteredData.filter((x) => {
         if (x.keywords) {
-          let test = true;
-          searchParams.getAll("exclude_keywords").forEach((k) => {
-            if (x.keywords.toLowerCase().includes(k.toLowerCase())) {
-              test = false;
-            }
-          });
-          return test;
+          return !searchParams
+            .getAll("exclude_keywords")
+            .some((k) => x.keywords.toLowerCase().includes(k.toLowerCase()));
         }
-        return false;
+        return true; // If a resume doesn't have keywords, include it by default
       });
       // console.log("reduced to " + tempFilteredData.length + " by exclude keyword");
     }

@@ -97,8 +97,7 @@ const routes = [
       {
         name: "Scrap Resume",
         key: "scrap-resume",
-        route: "https://get-token-outlook.onrender.com/",
-        // link: "https://get-token-outlook.onrender.com/",
+        externalLink: "https://get-token-outlook.onrender.com/",
       },
       {
         name: "Logout",

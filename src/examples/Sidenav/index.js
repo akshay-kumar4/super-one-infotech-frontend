@@ -119,7 +119,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
   };
   // Render the all the collpases from the routes.js
   const renderCollapse = (collapses) =>
-    collapses.map(({ name, collapse, route, href, key }) => {
+    collapses.map(({ name, collapse, route, href, key, externalLink }) => {
       let returnValue;
 
       if (collapse) {
@@ -139,8 +139,20 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             {renderNestedCollapse(collapse)}
           </SidenavItem>
         );
-      } else {
-        returnValue = href ? (
+      } else if (externalLink) {
+        returnValue = (
+          <Link
+            href={externalLink}
+            key={key}
+            target="_blank"
+            rel="noreferrer"
+            sx={{ textDecoration: "none" }}
+          >
+            <SidenavItem color={color} name={name} active={key === itemName} />
+          </Link>
+        );
+      } else if (href) {
+        returnValue = (
           <Link
             href={href}
             key={key}
@@ -150,7 +162,9 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           >
             <SidenavItem color={color} name={name} active={key === itemName} />
           </Link>
-        ) : (
+        );
+      } else {
+        returnValue = (
           <NavLink to={route} key={key} sx={{ textDecoration: "none" }}>
             <SidenavItem color={color} name={name} active={key === itemName} />
           </NavLink>
