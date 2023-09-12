@@ -107,12 +107,23 @@ const Search = () => {
     setExpanded(newExpanded ? panel : false);
   };
 
-  const [missingDetails, setMissingDetails] = useState("");
-  const [advancedSearchData, setAdvancedSearchData] = useState({});
-  const [educationQualification, setEducationQualification] = useState({});
-  const [employmentDetails, setEmploymentDetails] = useState({});
-  const [additionalDetails, setAdditionalDetails] = useState({});
-  const [displayDetails, setDisplayDetails] = useState({});
+  const [advancedSearchData, setAdvancedSearchData] = useState({
+    anyKeys: [],
+    allKeys: [],
+    excludingKeys: [],
+    expMin: null,
+    expMax: null,
+    currency: null,
+    salMinLac: null,
+    salMaxLac: null,
+    location: null,
+    education: null,
+    skills: [],
+    employers: [],
+    excludeEmployers: [],
+    designation: [],
+  });
+
   const [file, setFile] = useState(null);
 
   const handleFileChange = (event) => {
@@ -323,7 +334,7 @@ const Search = () => {
             className="experience"
             sx={{ width: 300, marginRight: "20px", marginLeft: "20px" }}
             // defaultValue="min"
-            options={Array.from({ length: 31 }, (_, i) => i)}
+            options={Array.from({ length: 31 }, (_, i) => String(i))}
             renderInput={(params) => <MDInput {...params} variant="standard" placeholder="From" />}
             onChange={(e, val) => {
               setAdvancedSearchData({
@@ -340,7 +351,7 @@ const Search = () => {
             sx={{ width: 300, marginRight: "20px", marginLeft: "20px" }}
             // defaultValue="max"
             placeholder="Max"
-            options={Array.from({ length: 31 }, (_, i) => i)}
+            options={Array.from({ length: 31 }, (_, i) => String(i))}
             renderInput={(params) => <MDInput {...params} variant="standard" />}
             onChange={(e, val) => {
               setAdvancedSearchData({

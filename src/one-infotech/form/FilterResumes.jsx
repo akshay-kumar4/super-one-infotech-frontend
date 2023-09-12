@@ -81,25 +81,31 @@ const FilterResume = () => {
     }
     if (searchParams.has("all_keywords")) {
       tempFilteredData = tempFilteredData.filter((x) => {
-        let test = true;
-        searchParams.getAll("all_keywords").forEach((k) => {
-          if (!x.keywords.toLowerCase().includes(k.toLowerCase())) {
-            test = false;
-          }
-        });
-        return test;
+        if (x.keywords) {
+          let test = true;
+          searchParams.getAll("all_keywords").forEach((k) => {
+            if (!x.keywords.toLowerCase().includes(k.toLowerCase())) {
+              test = false;
+            }
+          });
+          return test;
+        }
+        return false;
       });
       // console.log("reduced to " + tempFilteredData.length + " by all keyword");
     }
     if (searchParams.has("exclude_keywords")) {
       tempFilteredData = tempFilteredData.filter((x) => {
-        let test = true;
-        searchParams.getAll("exclude_keywords").forEach((k) => {
-          if (x.keywords.toLowerCase().includes(k.toLowerCase())) {
-            test = false;
-          }
-        });
-        return test;
+        if (x.keywords) {
+          let test = true;
+          searchParams.getAll("exclude_keywords").forEach((k) => {
+            if (x.keywords.toLowerCase().includes(k.toLowerCase())) {
+              test = false;
+            }
+          });
+          return test;
+        }
+        return false;
       });
       // console.log("reduced to " + tempFilteredData.length + " by exclude keyword");
     }
@@ -113,7 +119,10 @@ const FilterResume = () => {
     }
     if (searchParams.has("jobHopping")) {
       tempFilteredData = tempFilteredData.filter((x) => {
-        return x["job_hopping"] == (searchParams.get("jobHopping") === "yes");
+        if (x.job_hopping) {
+          return x["job_hopping"] == (searchParams.get("jobHopping") === "yes");
+        }
+        return false;
       });
       // console.log("reduced to " + tempFilteredData.length + " by jobHopping");
     }
@@ -165,13 +174,17 @@ const FilterResume = () => {
       });
     }
     if (searchParams.has("expMin")) {
-      tempFilteredData = tempFilteredData.filter(
-        (x) => Number(x.experience_level) >= Number(searchParams.get("expMin"))
+      tempFilteredData = tempFilteredData.filter((x) =>
+        x.experience_level
+          ? Number(x.experience_level) >= Number(searchParams.get("expMin"))
+          : false
       );
     }
     if (searchParams.has("expMax")) {
-      tempFilteredData = tempFilteredData.filter(
-        (x) => Number(x.experience_level) <= Number(searchParams.get("expMax"))
+      tempFilteredData = tempFilteredData.filter((x) =>
+        x.experience_level
+          ? Number(x.experience_level) <= Number(searchParams.get("expMax"))
+          : false
       );
     }
     if (searchParams.has("salMinLac")) {
@@ -190,7 +203,9 @@ const FilterResume = () => {
     }
     if (searchParams.has("education")) {
       tempFilteredData = tempFilteredData.filter((x) =>
-        x.education.toLowerCase().includes(searchParams.get("education").toLowerCase())
+        x.education
+          ? x.education.toLowerCase().includes(searchParams.get("education").toLowerCase())
+          : false
       );
     }
     if (searchParams.has("skills")) {
@@ -231,10 +246,10 @@ const FilterResume = () => {
                 {filteredData.map((Data) => (
                   <Grid item xs={3.5} key={Data.id}>
                     <ProfileInfoCard
-                      name={Data.name}
-                      jobTitle={Data.job_titles}
-                      phone={Data.phone}
-                      email={Data.email}
+                      name={Data.name ? Data.name : "No name"}
+                      jobTitle={Data.job_titles ? Data.job_titles : "N/A"}
+                      phone={Data.phone ? Data.phone : "N/A"}
+                      email={Data.email ? Data.email : "N/A"}
                       info=""
                       data={Data}
                     />
