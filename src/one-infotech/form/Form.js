@@ -291,7 +291,7 @@ const From = () => {
       </MDBox> */}
       <Box sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <Form.Group controlId="formFileMultiple">
+          <Form.Group controlId="formFileMultiple" style={{ paddingRight: "15px" }}>
             <Form.Control type="file" ref={fileRef} />
           </Form.Group>
           <Button variant="primary" onClick={handleUpload}>
@@ -308,7 +308,7 @@ const From = () => {
           }}
         >
           <div style={{ margin: "40px 0px" }}>
-            <span style={{ padding: "5px 10px", background: "#ccc", borderRadius: "5px" }}>OR</span>
+            <span style={{ padding: "5px 10px", color: "rgb(233,30,99)" }}>OR</span>
           </div>
         </Box>
 

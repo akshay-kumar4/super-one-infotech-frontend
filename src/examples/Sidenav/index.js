@@ -130,6 +130,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             name={name}
             active={key === itemParentName ? "isParent" : false}
             open={openNestedCollapse === key}
+            style={{ fontSize: "15px" }}
             onClick={({ currentTarget }) =>
               openNestedCollapse === key && currentTarget.classList.contains("MuiListItem-root")
                 ? setOpenNestedCollapse(false)
@@ -277,12 +278,18 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           </MDTypography>
         </MDBox>
         <MDBox component={NavLink} to="/" display="flex" alignItems="center">
-          {brand && <MDBox component="img" src={brand} alt="Brand" width="2rem" />}
+          {/* {brand && <MDBox component="img" src={brand} alt="Brand" width="2rem" />} */}
           <MDBox
             width={!brandName && "100%"}
             sx={(theme) => sidenavLogoLabel(theme, { miniSidenav })}
           >
-            <MDTypography component="h6" variant="button" fontWeight="medium" color={textColor}>
+            <MDTypography
+              component="h1"
+              variant="button"
+              fontWeight="medium"
+              color={textColor}
+              style={{ fontWeight: "bold", fontSize: "20px" }}
+            >
               {brandName}
             </MDTypography>
           </MDBox>
