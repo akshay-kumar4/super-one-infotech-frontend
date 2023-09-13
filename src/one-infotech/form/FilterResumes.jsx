@@ -19,6 +19,10 @@ import ProfileInfoCard from "one-infotech/components/ProfileInfoCard";
 import Backdrop from "@mui/material/Backdrop"; // Import Backdrop from Material-UI
 import CircularProgress from "@mui/material/CircularProgress"; // Import CircularProgress from Material-UI
 import Button from "@mui/material/Button";
+import { Dialog, DialogTitle, DialogContent, DialogContentText, IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { Link } from "react-router-dom";
+import { Grow } from "@mui/material";
 // import axios from 'axios'
 
 const FilterResume = () => {
@@ -221,8 +225,56 @@ const FilterResume = () => {
     setFilteredData(tempFilteredData);
   }, [data]);
   // data = JSON.stringify(data, null, 2);
+  const [openDialog, setOpenDialog] = useState(false);
+
+  useEffect(() => {
+    if (filteredData.length === 0) {
+      setOpenDialog(true);
+    }
+  }, [filteredData]);
 
   return (
+    // <DashboardLayout>
+    //   <Container>
+    //     {isLoading ? (
+    //       <Backdrop
+    //         sx={{ color: "#000", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+    //         open={isLoading}
+    //         onClick={() => setIsLoading(false)}
+    //       >
+    //         <CircularProgress color="inherit" />
+    //       </Backdrop>
+    //     ) : (
+    //       <React.Fragment>
+    //         {filteredData.length === 0 ? (
+    //           <h3 style={{ color: "red", textAlign: "center" }}>No Data Found !</h3>
+    //         ) : (
+    //           <Grid
+    //             container
+    //             spacing={1}
+    //             gap={4}
+    //             sx={{
+    //               justifyContent: "center",
+    //             }}
+    //           >
+    //             {filteredData.map((Data) => (
+    //               <Grid item xs={3.5} key={Data.id}>
+    //                 <ProfileInfoCard
+    //                   name={Data.name ? Data.name : "No name"}
+    //                   jobTitle={Data.job_titles ? Data.job_titles : "N/A"}
+    //                   phone={Data.phone ? Data.phone : "N/A"}
+    //                   email={Data.email ? Data.email : "N/A"}
+    //                   info=""
+    //                   data={Data}
+    //                 />
+    //               </Grid>
+    //             ))}
+    //           </Grid>
+    //         )}
+    //       </React.Fragment>
+    //     )}
+    //   </Container>
+    // </DashboardLayout>
     <DashboardLayout>
       <Container>
         {isLoading ? (
@@ -236,7 +288,31 @@ const FilterResume = () => {
         ) : (
           <React.Fragment>
             {filteredData.length === 0 ? (
-              <h3 style={{ color: "red", textAlign: "center" }}>No Data Found !</h3>
+              <Dialog
+                open={openDialog}
+                onClose={() => setOpenDialog(false)}
+                TransitionComponent={Grow}
+              >
+                <DialogTitle>
+                  <Link to="/dashboards/search">
+                    <IconButton
+                      edge="end"
+                      color="inherit"
+                      onClick={() => setOpenDialog(false)}
+                      aria-label="close"
+                      sx={{ mr: 1 }}
+                    >
+                      <CloseIcon />
+                    </IconButton>
+                  </Link>
+                  No Data Found
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    Sorry, we couldn&apos;t find any data matching your criteria.
+                  </DialogContentText>
+                </DialogContent>
+              </Dialog>
             ) : (
               <Grid
                 container
