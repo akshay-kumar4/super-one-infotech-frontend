@@ -30,6 +30,8 @@ import { Button } from "react-bootstrap";
 import { Box } from "@mui/material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Form from "react-bootstrap/Form";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
 const buttonStyles = {
   backgroundColor: "#007BFF",
@@ -40,6 +42,32 @@ const buttonStyles = {
   cursor: "pointer",
   fontSize: "16px",
 };
+
+// const validationSchema = yup.object({
+//   name: yup.string().required("Name is required"),
+//   email: yup.string().email("Invalid Email address").required("Email is required"),
+//   phone: yup.string().required("Phone Number is required"),
+//   keywords: yup.array().required("Keywords is required"),
+//   education: yup.string().required("Education is required"),
+//   experience_level: yup.string().required("Experience Level is required"),
+//   skills: yup.array().required("Skills is required"),
+//   industry_experience: yup.string().required("Industry Experience is required"),
+//   accomplishment: yup.string().required("Accomplishments is required"),
+//   jobTenure: yup.string().required("Job Tenure is required"),
+//   jobTitles: yup.string().required("Job Titles is required"),
+//   salaryLevel: yup.string().required("Salary Level is required"),
+//   companyName: yup.string().required("Company Name is required"),
+//   referrals: yup.string().required("Referrals is required"),
+//   availability: yup.string().required("Availability is required"),
+//   relevanceOfRole: yup.string().required("Relevance Of Role is required"),
+//   culturalFit: yup.string().required("Cultural Fit is required"),
+//   keywordsInCoverletter: yup.array().required("keywords In Cover letter is required"),
+//   remoteWork: yup.boolean().required("Remote Work is required"),
+//   qualifications: yup.string().required("Qualifications is required"),
+//   location: yup.string().required("Location is required"),
+//   applicantSources: yup.string().required("Applicant Sources is required"),
+//   jobHopping: yup.boolean().required("Job Hopping is required"),
+// });
 
 // const initialFormData = {
 //   name: "",
@@ -93,7 +121,7 @@ const From = () => {
     applicantSources: "",
     jobHopping: false,
   });
-  const [file, setFile] = useState(null);
+  const [selectedFiles, setSelectedFiles] = useState([]);
   const fileRef = useRef(null);
 
   const clearInputs = () => {
@@ -201,9 +229,13 @@ const From = () => {
       });
   };
 
-  const notifyOnResolve = () => toast.success("file upload successful");
+  const notifyOnResolve = () => toast.success("File upload successful");
   const notifyOnReject = () => toast.error("Failed to upload");
   const notifyOnPending = () => toast.info("File uploading");
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setSelectedFiles(files);
+  };
 
   // const handleFileChange = (event) => {
   //   // console.log(event.target.files);
@@ -252,11 +284,11 @@ const From = () => {
   //   }
   // };
 
-  function handleUpload(e) {
+  const handleUpload = (e) => {
     e.preventDefault();
     // console.log(fileRef.current.files);
-    let files = fileRef.current.files;
-    let formData = new FormData();
+    const files = selectedFiles;
+    const formData = new FormData();
     for (let i = 0; i < files.length; i++) {
       formData.append("file", new File([files[i]], files[i].name.replace(/[^a-zA-Z0-9._]/g, "")));
       // formData.append("file", files[i]);
@@ -277,7 +309,13 @@ const From = () => {
         notifyOnReject();
         console.error(err);
       });
-  }
+  };
+
+  const formik = useFormik({
+    initialValues: missingDetails,
+    validationSchema: validationSchema,
+    onSubmit: handleDataUpload,
+  });
 
   return (
     <DashboardLayout>
@@ -292,7 +330,7 @@ const From = () => {
       <Box sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <Form.Group controlId="formFileMultiple" style={{ paddingRight: "15px" }}>
-            <Form.Control type="file" ref={fileRef} />
+            <Form.Control type="file" multiple onChange={handleFileChange} />
           </Form.Group>
           <Button variant="primary" onClick={handleUpload}>
             Upload Resume
@@ -337,6 +375,8 @@ const From = () => {
                 })
               }
               required
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
             />
             <TextField
               sx={{ width: 450 }}
