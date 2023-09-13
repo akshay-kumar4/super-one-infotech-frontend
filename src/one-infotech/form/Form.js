@@ -262,7 +262,10 @@ const From = () => {
     const formData = new FormData();
 
     for (let i = 0; i < files.length; i++) {
-      formData.append(`file[${i}]`, new File([files[i]], files[i].name.replace(/[^a-zA-Z0-9._]/g, "")));
+      formData.append(
+        `file[${i}]`,
+        new File([files[i]], files[i].name.replace(/[^a-zA-Z0-9._]/g, ""))
+      );
     }
 
     const headers = {
