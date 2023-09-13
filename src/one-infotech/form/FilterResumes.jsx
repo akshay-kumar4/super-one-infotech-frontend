@@ -2,6 +2,7 @@ import axios from "axios";
 import MDBox from "components/MDBox";
 import { Accordion } from "@mui/material";
 import { Grid, Container } from "@mui/material";
+import { Modal, Box, Typography } from "@mui/material";
 import React from "react";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -33,6 +34,8 @@ const FilterResume = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  const [noDataFound, setNoDataFound] = useState(false);
+
   const onOpen = (Data) => {
     setSelectedData(Data);
     setIsOpen(true);
@@ -62,6 +65,14 @@ const FilterResume = () => {
 
   useEffect(() => {
     let tempFilteredData = data;
+    // if (tempFilteredData.length === 0) {
+    //   toast.error("No data found", {
+    //     position: "top-center",
+    //     autoClose: 3000, // Close after 3 seconds
+    //     hideProgressBar: true,
+    //   });
+    // }
+
     // console.log(tempFilteredData);
     // console.log("Total docs : " + tempFilteredData.length);
     // console.log(searchParams.getAll("keyword"));
