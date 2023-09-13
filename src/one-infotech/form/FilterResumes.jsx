@@ -29,6 +29,7 @@ import { Grow } from "@mui/material";
 const FilterResume = () => {
   const [data, setData] = useState([]);
   let [filteredData, setFilteredData] = useState([]);
+  const [isDataPresent, setIsDataPresent] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedData, setSelectedData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -232,7 +233,9 @@ const FilterResume = () => {
         }
       });
     }
-
+    if (tempFilteredData.length == 0) {
+      setIsDataPresent(false);
+    }
     setFilteredData(tempFilteredData);
   }, [data]);
   // data = JSON.stringify(data, null, 2);
@@ -298,7 +301,7 @@ const FilterResume = () => {
           </Backdrop>
         ) : (
           <React.Fragment>
-            {filteredData.length === 0 ? (
+            {isDataPresent ? (
               <Dialog
                 open={openDialog}
                 onClose={() => setOpenDialog(false)}
