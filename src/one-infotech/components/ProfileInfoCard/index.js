@@ -69,7 +69,27 @@ function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow }) {
   // const [selectedData, setSelectedData] = useState(null);
   const [open, setOpen] = React.useState(false);
 
-  const notifyOnFail = () => toast.error("Resume Not Found !!");
+  // const notifyOnFail = () => toast.error("Resume Not Found !!");
+  const notifyOnFail = () => {
+    toast.error("Resume Not Found !!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      style: {
+        background: "#333",
+        color: "#fff",
+        fontSize: "18px",
+        padding: "15px",
+        borderRadius: "10px",
+        boxShadow: "0px 0px 15px rgba(0,0,0,0.8)",
+      },
+    });
+  };
+
   const handleDownload = () => {
     // setOpen(true);
     if (!data.resume_permanent_link) {
