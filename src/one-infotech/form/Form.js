@@ -259,14 +259,7 @@ const From = () => {
     e.preventDefault();
 
     const files = fileRef.current.files;
-    const formData = new FormData();
-
-    for (let i = 0; i < files.length; i++) {
-      formData.append(
-        `file[${i}]`,
-        new File([files[i]], files[i].name.replace(/[^a-zA-Z0-9._]/g, ""))
-      );
-    }
+    if (!files.length) return;
 
     const headers = {
       Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
@@ -274,16 +267,38 @@ const From = () => {
 
     notifyOnPending();
 
-    axios
-      .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading/", formData, { headers })
-      .then((response) => {
-        notifyOnResolve();
-        console.log("success", response.data);
-      })
-      .catch((err) => {
-        notifyOnReject();
-        console.error(err);
-      });
+    // Function to send a single file
+    const sendFile = (index) => {
+      if (index >= files.length) return;
+
+      const file = files[index];
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        const formData = new FormData();
+        const blob = new Blob([event.target.result], { type: file.type });
+        formData.append("file", blob, file.name.replace(/[^a-zA-Z0-9._]/g, ""));
+
+        axios
+          .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading/", formData, {
+            headers,
+          })
+          .then((response) => {
+            console.log("success", response.data);
+            // Send the next file
+            sendFile(index + 1);
+          })
+          .catch((err) => {
+            notifyOnReject();
+            console.error(err);
+          });
+      };
+
+      reader.readAsArrayBuffer(file);
+    };
+
+    // Start sending files
+    sendFile(0);
   }
 
   return (
