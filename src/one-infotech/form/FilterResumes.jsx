@@ -126,10 +126,10 @@ const FilterResume = () => {
     if (searchParams.has("employers")) {
       tempFilteredData = tempFilteredData.filter((x) => {
         if (x.company_names) {
-          let test = true;
+          let test = false;
           searchParams.getAll("employers").forEach((k) => {
-            if (!x.company_names.toLowerCase().includes(k.toLowerCase())) {
-              test = false;
+            if (x.company_names.toLowerCase().includes(k.toLowerCase())) {
+              test = true;
             }
           });
           return test;
@@ -218,7 +218,6 @@ const FilterResume = () => {
         }
       });
     }
-
     setFilteredData(tempFilteredData);
   }, [data]);
   // data = JSON.stringify(data, null, 2);
