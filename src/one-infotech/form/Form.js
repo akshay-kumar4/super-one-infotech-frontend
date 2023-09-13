@@ -30,8 +30,6 @@ import { Button } from "react-bootstrap";
 import { Box } from "@mui/material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Form from "react-bootstrap/Form";
-import { useFormik } from "formik";
-import * as yup from "yup";
 
 const buttonStyles = {
   backgroundColor: "#007BFF",
@@ -42,32 +40,6 @@ const buttonStyles = {
   cursor: "pointer",
   fontSize: "16px",
 };
-
-// const validationSchema = yup.object({
-//   name: yup.string().required("Name is required"),
-//   email: yup.string().email("Invalid Email address").required("Email is required"),
-//   phone: yup.string().required("Phone Number is required"),
-//   keywords: yup.array().required("Keywords is required"),
-//   education: yup.string().required("Education is required"),
-//   experience_level: yup.string().required("Experience Level is required"),
-//   skills: yup.array().required("Skills is required"),
-//   industry_experience: yup.string().required("Industry Experience is required"),
-//   accomplishment: yup.string().required("Accomplishments is required"),
-//   jobTenure: yup.string().required("Job Tenure is required"),
-//   jobTitles: yup.string().required("Job Titles is required"),
-//   salaryLevel: yup.string().required("Salary Level is required"),
-//   companyName: yup.string().required("Company Name is required"),
-//   referrals: yup.string().required("Referrals is required"),
-//   availability: yup.string().required("Availability is required"),
-//   relevanceOfRole: yup.string().required("Relevance Of Role is required"),
-//   culturalFit: yup.string().required("Cultural Fit is required"),
-//   keywordsInCoverletter: yup.array().required("keywords In Cover letter is required"),
-//   remoteWork: yup.boolean().required("Remote Work is required"),
-//   qualifications: yup.string().required("Qualifications is required"),
-//   location: yup.string().required("Location is required"),
-//   applicantSources: yup.string().required("Applicant Sources is required"),
-//   jobHopping: yup.boolean().required("Job Hopping is required"),
-// });
 
 // const initialFormData = {
 //   name: "",
@@ -121,8 +93,10 @@ const From = () => {
     applicantSources: "",
     jobHopping: false,
   });
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [showError, setShowError] = useState(false);
+  const [file, setFile] = useState(null);
   const fileRef = useRef(null);
+  const [emailError, setEmailError] = useState("");
 
   const clearInputs = () => {
     setMissingDetails({
@@ -229,13 +203,9 @@ const From = () => {
       });
   };
 
-  const notifyOnResolve = () => toast.success("File upload successful");
+  const notifyOnResolve = () => toast.success("file upload successful");
   const notifyOnReject = () => toast.error("Failed to upload");
   const notifyOnPending = () => toast.info("File uploading");
-  const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    setSelectedFiles(files);
-  };
 
   // const handleFileChange = (event) => {
   //   // console.log(event.target.files);
@@ -284,11 +254,11 @@ const From = () => {
   //   }
   // };
 
-  const handleUpload = (e) => {
+  function handleUpload(e) {
     e.preventDefault();
     // console.log(fileRef.current.files);
-    const files = selectedFiles;
-    const formData = new FormData();
+    let files = fileRef.current.files;
+    let formData = new FormData();
     for (let i = 0; i < files.length; i++) {
       formData.append("file", new File([files[i]], files[i].name.replace(/[^a-zA-Z0-9._]/g, "")));
       // formData.append("file", files[i]);
@@ -309,13 +279,7 @@ const From = () => {
         notifyOnReject();
         console.error(err);
       });
-  };
-
-  const formik = useFormik({
-    initialValues: missingDetails,
-    validationSchema: validationSchema,
-    onSubmit: handleDataUpload,
-  });
+  }
 
   return (
     <DashboardLayout>
@@ -329,8 +293,8 @@ const From = () => {
       </MDBox> */}
       <Box sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <Form.Group controlId="formFileMultiple" style={{ paddingRight: "15px" }}>
-            <Form.Control type="file" multiple onChange={handleFileChange} />
+          <Form.Group controlId="formFileMultiple">
+            <Form.Control type="file" ref={fileRef} />
           </Form.Group>
           <Button variant="primary" onClick={handleUpload}>
             Upload Resume
@@ -346,7 +310,7 @@ const From = () => {
           }}
         >
           <div style={{ margin: "40px 0px" }}>
-            <span style={{ padding: "5px 10px", color: "rgb(233,30,99)" }}>OR</span>
+            <span style={{ padding: "5px 10px", background: "#ccc", borderRadius: "5px" }}>OR</span>
           </div>
         </Box>
 
@@ -361,12 +325,20 @@ const From = () => {
             }}
           >
             <TextField
-              value={missingDetails.name}
               sx={{ width: 450 }}
+              value={missingDetails.name}
               variant="standard"
               label="Name"
               placeholder="Enter your name"
-              inputProps={{ style: { fontSize: "17px" } }}
+              inputProps={{
+                style: { fontSize: "17px" },
+                onKeyPress: (e) => {
+                  // Check if the key pressed is not a number
+                  if (!/[a-zA-Z+]/.test(e.key)) {
+                    e.preventDefault();
+                  }
+                },
+              }}
               InputLabelProps={{ style: { fontSize: "17px" } }}
               onChange={(e) =>
                 setMissingDetails({
@@ -375,8 +347,6 @@ const From = () => {
                 })
               }
               required
-              error={formik.touched.name && Boolean(formik.errors.name)}
-              helperText={formik.touched.name && formik.errors.name}
             />
             <TextField
               sx={{ width: 450 }}
@@ -387,13 +357,24 @@ const From = () => {
               inputProps={{ style: { fontSize: "17px" } }}
               InputLabelProps={{ style: { fontSize: "17px" } }}
               type="email"
-              onChange={(e) =>
+              onChange={(e) => {
+                const emailValue = e.target.value;
+
+                // Check if the email contains "@" and "."
+                if (emailValue.includes("@") && emailValue.includes(".")) {
+                  setEmailError("");
+                } else {
+                  setEmailError('Email should contain "@" and "."');
+                }
+
                 setMissingDetails({
                   ...missingDetails,
-                  email: e.target.value,
-                })
-              }
+                  email: emailValue,
+                });
+              }}
               required
+              error={!!emailError}
+              helperText={emailError}
             />
           </MDBox>
           <MDBox
@@ -409,8 +390,16 @@ const From = () => {
               value={missingDetails.phone}
               variant="standard"
               label="Phone"
-              placeholder="Enter you phone"
-              inputProps={{ style: { fontSize: "17px" } }}
+              placeholder="Enter your phone"
+              inputProps={{
+                style: { fontSize: "17px" },
+                onKeyPress: (e) => {
+                  // Check if the key pressed is not a number
+                  if (!/[0-9+]/.test(e.key)) {
+                    e.preventDefault();
+                  }
+                },
+              }}
               InputLabelProps={{ style: { fontSize: "17px" } }}
               onChange={(e) =>
                 setMissingDetails({
@@ -473,13 +462,37 @@ const From = () => {
               }
               required
             />
-            <TextField
+            {/* <TextField
               sx={{ width: 450 }}
               value={missingDetails.experienceLevel}
               variant="standard"
               label="Experience level"
               placeholder="Enter your experience"
               inputProps={{ style: { fontSize: "17px" } }}
+              InputLabelProps={{ style: { fontSize: "17px" } }}
+              onChange={(e) =>
+                setMissingDetails({
+                  ...missingDetails,
+                  experienceLevel: e.target.value,
+                })
+              }
+              required
+            /> */}
+            <TextField
+              sx={{ width: 450 }}
+              value={missingDetails.experienceLevel}
+              variant="standard"
+              label="Experience Level"
+              placeholder="Enter your Experience Level"
+              inputProps={{
+                style: { fontSize: "17px" },
+                onKeyPress: (e) => {
+                  // Check if the key pressed is not a number
+                  if (!/[0-9]/.test(e.key)) {
+                    e.preventDefault();
+                  }
+                },
+              }}
               InputLabelProps={{ style: { fontSize: "17px" } }}
               onChange={(e) =>
                 setMissingDetails({
