@@ -29,7 +29,6 @@ import { Grow } from "@mui/material";
 const FilterResume = () => {
   const [data, setData] = useState([]);
   let [filteredData, setFilteredData] = useState([]);
-  const [isDataPresent, setIsDataPresent] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedData, setSelectedData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -127,10 +126,10 @@ const FilterResume = () => {
     if (searchParams.has("employers")) {
       tempFilteredData = tempFilteredData.filter((x) => {
         if (x.company_names) {
-          let test = true;
+          let test = false;
           searchParams.getAll("employers").forEach((k) => {
-            if (!x.company_names.toLowerCase().includes(k.toLowerCase())) {
-              test = false;
+            if (x.company_names.toLowerCase().includes(k.toLowerCase())) {
+              test = true;
             }
           });
           return test;
@@ -218,9 +217,6 @@ const FilterResume = () => {
           return test;
         }
       });
-    }
-    if (tempFilteredData.length == 0) {
-      setIsDataPresent(false);
     }
     setFilteredData(tempFilteredData);
   }, [data]);
@@ -312,7 +308,7 @@ const FilterResume = () => {
           </Backdrop>
         ) : (
           <React.Fragment>
-            {isDataPresent ? (
+            {filteredData.length === 0 ? (
               <Dialog
                 open={openDialog}
                 onClose={() => setOpenDialog(false)}
