@@ -278,14 +278,18 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           </MDTypography>
         </MDBox>
         <MDBox component={NavLink} to="/" display="flex" alignItems="center">
-          {/* {brand && <MDBox component="img" src={"/public/S.png"} alt="Brand" width="2rem" />} */}
-          {/* <img src="/S.png" alt="Brand" width="85vm" />
-          <br /> */}
           <MDBox
             width={!brandName && "100%"}
             sx={(theme) => sidenavLogoLabel(theme, { miniSidenav })}
           >
-            <img src="/S.png" alt="Brand" width="85vm" />
+            <div style={{ margin: "0", padding: "0" }}>
+              <img
+                src="https://pin.ski/3RlDuTB"
+                alt="Brand"
+                width="150vm"
+                style={{ margin: "0", padding: "0" }}
+              />
+            </div>
             <br />
             <MDTypography
               component="h1"

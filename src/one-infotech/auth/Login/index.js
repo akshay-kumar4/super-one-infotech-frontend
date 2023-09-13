@@ -3,7 +3,10 @@ import { useState } from "react";
 // react-router-dom components
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // @mui material components
 import Card from "@mui/material/Card";
 import Switch from "@mui/material/Switch";
@@ -32,6 +35,15 @@ const Login = () => {
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
+  // const onSubmit = () => {
+  //   axios
+  //     .post("https://resume-api-6u3t4.ondigitalocean.app/login/", { username, password })
+  //     .then((response) => {
+  //       dispatch(login(response.data));
+  //       console.log(response);
+  //       navigate("/dashboards/search");
+  //     });
+  // };
   const onSubmit = () => {
     axios
       .post("https://resume-api-6u3t4.ondigitalocean.app/login/", { username, password })
@@ -39,6 +51,14 @@ const Login = () => {
         dispatch(login(response.data));
         console.log(response);
         navigate("/dashboards/search");
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("Incorrect Credentials", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+        });
       });
   };
 
@@ -89,38 +109,12 @@ const Login = () => {
                 InputLabelProps={{ shrink: true }}
               />
             </MDBox>
-            {/* <MDBox display="flex" alignItems="center" ml={-1}>
-              <Switch checked={rememberMe} onChange={handleSetRememberMe} />
-              <MDTypography
-                variant="button"
-                fontWeight="regular"
-                color="text"
-                onClick={handleSetRememberMe}
-                sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
-              >
-                &nbsp;&nbsp;Remember me
-              </MDTypography>
-            </MDBox> */}
+            <ToastContainer />
             <MDBox mt={4} mb={1}>
               <MDButton variant="gradient" color="info" fullWidth onClick={onSubmit}>
                 sign in
               </MDButton>
             </MDBox>
-            {/* <MDBox mt={3} mb={1} textAlign="center">
-              <MDTypography variant="button" color="text">
-                Don&apos;t have an account?
-                <MDTypography
-                  component={Link}
-                  to="/auth/sign-up"
-                  variant="button"
-                  color="info"
-                  fontWeight="medium"
-                  textGradient
-                >
-                  Sign up
-                </MDTypography>
-              </MDTypography>
-            </MDBox> */}
           </MDBox>
         </MDBox>
       </Card>

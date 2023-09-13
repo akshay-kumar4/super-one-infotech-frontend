@@ -288,7 +288,7 @@ const From = () => {
       <DashboardNavbar />
       <Box sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <Form.Group controlId="formFileMultiple">
+          <Form.Group controlId="formFileMultiple" style={{ paddingRight: "15px" }}>
             <Form.Control type="file" multiple ref={fileRef} />
           </Form.Group>
           <Button variant="primary" onClick={handleUpload}>
