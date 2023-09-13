@@ -282,11 +282,14 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             width={!brandName && "100%"}
             sx={(theme) => sidenavLogoLabel(theme, { miniSidenav })}
           >
-            <img
-              src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Flogo&psig=AOvVaw2OLdO0X3Q8VXSfNPpLXX9L&ust=1694696727292000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCIDBgbXTp4EDFQAAAAAdAAAAABAE"
-              alt="Brand"
-              width="85vm"
-            />
+            <div style={{ margin: "0", padding: "0" }}>
+              <img
+                src="https://pin.ski/3RlDuTB"
+                alt="Brand"
+                width="150vm"
+                style={{ margin: "0", padding: "0" }}
+              />
+            </div>
             <br />
             <MDTypography
               component="h1"
