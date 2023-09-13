@@ -229,26 +229,53 @@ const From = () => {
   //   }
   // };
 
+  // function handleUpload(e) {
+  //   e.preventDefault();
+  //   // console.log(fileRef.current.files);
+  //   let files = fileRef.current.files;
+  //   let formData = new FormData();
+  //   for (let i = 0; i < files.length; i++) {
+  //     formData.append("file", new File([files[i]], files[i].name.replace(/[^a-zA-Z0-9._]/g, "")));
+  //     // formData.append("file", files[i]);
+  //   }
+  //   console.log(formData.getAll("file"));
+  //   const headers = {
+  //     Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+  //     // "Content-Type": "multipart/form-data",
+  //   };
+  //   notifyOnPending();
+  //   axios
+  //     .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading/", formData, { headers })
+  //     .then((response) => {
+  //       notifyOnResolve();
+  //       console.log("success" + response.data);
+  //     })
+  //     .catch((err) => {
+  //       notifyOnReject();
+  //       console.error(err);
+  //     });
+  // }
   function handleUpload(e) {
     e.preventDefault();
-    // console.log(fileRef.current.files);
-    let files = fileRef.current.files;
-    let formData = new FormData();
+
+    const files = fileRef.current.files;
+    const formData = new FormData();
+
     for (let i = 0; i < files.length; i++) {
-      formData.append("file", new File([files[i]], files[i].name.replace(/[^a-zA-Z0-9._]/g, "")));
-      // formData.append("file", files[i]);
+      formData.append(`file[${i}]`, new File([files[i]], files[i].name.replace(/[^a-zA-Z0-9._]/g, "")));
     }
-    console.log(formData.getAll("file"));
+
     const headers = {
       Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
-      // "Content-Type": "multipart/form-data",
     };
+
     notifyOnPending();
+
     axios
       .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading/", formData, { headers })
       .then((response) => {
         notifyOnResolve();
-        console.log("success" + response.data);
+        console.log("success", response.data);
       })
       .catch((err) => {
         notifyOnReject();

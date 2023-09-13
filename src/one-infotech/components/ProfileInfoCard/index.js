@@ -65,32 +65,86 @@ const style = {
 };
 
 function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow }) {
+  const fileRef = React.useRef(null);
   // const [isOpen, setIsOpen] = useState(false);
   // const [selectedData, setSelectedData] = useState(null);
   const [open, setOpen] = React.useState(false);
 
-  const notifyOnFail = () => toast.error("Resume Not Found !!");
+  const notifyOnFail = () => toast.error("Resume Not Found !!", { autoClose: 500 });
+  // const handleDownload = () => {
+  //   // setOpen(true);
+  //   if (!data.resume_permanent_link) {
+  //     notifyOnFail();
+  //     return; // Don't proceed if resume link is not defined or null
+  //   }
+
+  //   // Now you can proceed with the Axios request and opening a new tab
+  //   axios
+  //     .get(
+  //       "https://resume-api-6u3t4.ondigitalocean.app/file-uploading/?file_link=" +
+  //         data.resume_permanent_link,
+  //       {
+  //         headers: {
+  //           Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+  //         },
+  //       }
+  //     )
+  //     .then((x) => {
+  //       console.log(x.data.public_file_link);
+  //       window.open(x.data.public_file_link);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       notifyOnFail();
+  //     });
+  // };
+  // const handleDownload = () => {
+  //   if (!data.resume_permanent_links || data.resume_permanent_links.length === 0) {
+  //     notifyOnFail();
+  //     return; // Don't proceed if resume links are not defined or empty
+  //   }
+  //   data.resume_permanent_links.forEach((link) => {
+  //     axios
+  //       .get("https://resume-api-6u3t4.ondigitalocean.app/file-uploading/?file_link=" + link, {
+  //         headers: {
+  //           Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+  //         },
+  //       })
+  //       .then((x) => {
+  //         window.open(x.data.public_file_link);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //         notifyOnFail();
+  //       });
+  //   });
+  // };
   const handleDownload = () => {
-    // setOpen(true);
-    if (!data.resume_permanent_link) {
+    const files = fileRef.current.files;
+
+    if (!files || files.length === 0) {
       notifyOnFail();
-      return; // Don't proceed if resume link is not defined or null
+      return; // Don't proceed if no files are selected
     }
 
-    // Now you can proceed with the Axios request and opening a new tab
+    const formData = new FormData();
+
+    // Append each file to the FormData object
+    for (let i = 0; i < files.length; i++) {
+      formData.append(`files[${i}]`, files[i]);
+    }
+
     axios
-      .get(
-        "https://resume-api-6u3t4.ondigitalocean.app/file-uploading/?file_link=" +
-          data.resume_permanent_link,
-        {
-          headers: {
-            Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
-          },
-        }
-      )
-      .then((x) => {
-        console.log(x.data.public_file_link);
-        window.open(x.data.public_file_link);
+      .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+        },
+      })
+      .then((response) => {
+        response.data.forEach((file) => {
+          window.open(file.public_file_link);
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -285,6 +339,7 @@ ProfileInfoCard.propTypes = {
     company_names: PropTypes.string,
     phone: PropTypes.string,
     resume_permanent_link: PropTypes.string,
+    resume_permanent_links: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
 };
 
