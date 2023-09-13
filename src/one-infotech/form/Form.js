@@ -262,7 +262,7 @@ const From = () => {
       <Box sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <Form.Group controlId="formFileMultiple">
-            <Form.Control type="file" ref={fileRef} />
+            <Form.Control type="file" multiple ref={fileRef} />
           </Form.Group>
           <Button variant="primary" onClick={handleUpload}>
             Upload Resume
