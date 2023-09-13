@@ -126,30 +126,38 @@ const From = () => {
     });
   };
   const handleDataUpload = () => {
+    // Check if any of the required fields is missing
+    if (
+      !missingDetails.name ||
+      !missingDetails.email ||
+      !missingDetails.phone ||
+      !missingDetails.keywords ||
+      !missingDetails.education ||
+      !missingDetails.experienceLevel ||
+      !missingDetails.skills ||
+      !missingDetails.industryExperience ||
+      !missingDetails.accomplishment ||
+      !missingDetails.jobTenure ||
+      !missingDetails.jobTitles ||
+      !missingDetails.salaryLevel ||
+      !missingDetails.companyNames ||
+      !missingDetails.referrals ||
+      !missingDetails.availability ||
+      !missingDetails.relevanceOfRole ||
+      !missingDetails.culturalFit ||
+      !missingDetails.keywordsInCoverletter ||
+      !missingDetails.remoteWork ||
+      !missingDetails.qualifications ||
+      !missingDetails.location ||
+      !missingDetails.applicantSources ||
+      !missingDetails.jobHopping
+    ) {
+      toast.error("Oops! It looks like you missed something. Please complete all required fields.");
+      return; // Stop form submission
+    }
+
     const formData = new FormData();
-    formData.append("name", missingDetails.name);
-    formData.append("email", missingDetails.email);
-    formData.append("phone", missingDetails.phone);
-    formData.append("keywords", missingDetails.keywords);
-    formData.append("education", missingDetails.education);
-    formData.append("experience_level", missingDetails.experienceLevel);
-    formData.append("skills", missingDetails.skills);
-    formData.append("industry_experience", missingDetails.industryExperience);
-    formData.append("accomplishment", missingDetails.accomplishment);
-    formData.append("job_tenure", missingDetails.jobTenure);
-    formData.append("job_titles", missingDetails.jobTitles);
-    formData.append("salary_level", missingDetails.salaryLevel);
-    formData.append("company_names", missingDetails.companyNames);
-    formData.append("referrals", missingDetails.referrals);
-    formData.append("avaialability", missingDetails.availability);
-    formData.append("relevance_of_role", missingDetails.relevanceOfRole);
-    formData.append("cultural_fit", missingDetails.culturalFit);
-    formData.append("keywords_in_coverletter", missingDetails.keywordsInCoverletter);
-    formData.append("remote_work", missingDetails.remoteWork);
-    formData.append("qualifications", missingDetails.qualifications);
-    formData.append("location", missingDetails.location);
-    formData.append("applicant_sources", missingDetails.applicantSources);
-    formData.append("job_hopping", missingDetails.jobHopping);
+    // Append form data here
 
     const headers = {
       Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
@@ -158,48 +166,15 @@ const From = () => {
     axios
       .post("https://resume-api-6u3t4.ondigitalocean.app/resume-data/", formData, { headers })
       .then((response) => {
-        if (
-          !missingDetails.name &&
-          !missingDetails.email &&
-          !missingDetails.phone &&
-          !missingDetails.keywords &&
-          !missingDetails.education &&
-          !missingDetails.experienceLevel &&
-          !missingDetails.skills &&
-          !missingDetails.industryExperience &&
-          !missingDetails.accomplishment &&
-          !missingDetails.jobTenure &&
-          !missingDetails.jobTitles &&
-          !missingDetails.salaryLevel &&
-          !missingDetails.companyNames &&
-          !missingDetails.referrals &&
-          !missingDetails.availability &&
-          !missingDetails.relevanceOfRole &&
-          !missingDetails.culturalFit &&
-          !missingDetails.keywordsInCoverletter &&
-          !missingDetails.remoteWork &&
-          !missingDetails.qualifications &&
-          !missingDetails.location &&
-          !missingDetails.applicantSources &&
-          !missingDetails.jobHopping
-        ) {
-          return toast.error(
-            "Oops! It looks like you missed something. Please complete all required fields."
-          ); // Stop form submission
-        } else {
-          // Handle success
-          console.log("Form Data uploaded successfully", response.data);
-          // setMissingDetails(initialFormData);
-          toast.success("Form submitted successfully");
-          clearInputs();
-        }
+        // Handle success
+        console.log("Form Data uploaded successfully", response.data);
+        toast.success("Form submitted successfully");
+        clearInputs();
       })
       .catch((error) => {
         // Handle error
         console.error("Error uploading Form Data", error);
-        toast.error(
-          "Oops! It looks like you missed something. Please complete all required fields."
-        );
+        toast.error("Oops! Something went wrong. Please try again later.");
       });
   };
 
@@ -284,13 +259,6 @@ const From = () => {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      {/* <MDBox sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <input type="file" multiple ref={fileRef} />
-        <button style={buttonStyles} onClick={handleUpload}>
-          Upload Resume
-        </button>
-        <ToastContainer />
-      </MDBox> */}
       <Box sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <Form.Group controlId="formFileMultiple">
@@ -627,7 +595,16 @@ const From = () => {
               variant="standard"
               label="Enter salary level"
               placeholder="Salary Level"
-              inputProps={{ style: { fontSize: "17px" } }}
+              // inputProps={{ style: { fontSize: "17px" } }}
+              inputProps={{
+                style: { fontSize: "17px" },
+                onKeyPress: (e) => {
+                  // Check if the key pressed is not a number
+                  if (!/[0-9+]/.test(e.key)) {
+                    e.preventDefault();
+                  }
+                },
+              }}
               InputLabelProps={{ style: { fontSize: "17px" } }}
               onChange={(e) =>
                 setMissingDetails({
@@ -871,8 +848,6 @@ const From = () => {
               required
             />
           </MDBox>
-
-          {/* </MDBox> */}
 
           <MDBox sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
             <MDButton variant="contained" color="primary" onClick={handleDataUpload}>
