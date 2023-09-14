@@ -146,18 +146,40 @@ const From = () => {
       !missingDetails.relevanceOfRole ||
       !missingDetails.culturalFit ||
       !missingDetails.keywordsInCoverletter ||
-      !missingDetails.remoteWork ||
       !missingDetails.qualifications ||
       !missingDetails.location ||
-      !missingDetails.applicantSources ||
-      !missingDetails.jobHopping
+      !missingDetails.applicantSources
     ) {
+      console.log(missingDetails);
       toast.error("Oops! It looks like you missed something. Please complete all required fields.");
       return; // Stop form submission
     }
 
     const formData = new FormData();
     // Append form data here
+    formData.append("name", missingDetails.name);
+    formData.append("email", missingDetails.email);
+    formData.append("phone", missingDetails.phone);
+    formData.append("keywords", missingDetails.keywords);
+    formData.append("education", missingDetails.education);
+    formData.append("experience_level", missingDetails.experienceLevel);
+    formData.append("skills", missingDetails.skills);
+    formData.append("industry_experience", missingDetails.industryExperience);
+    formData.append("accomplishment", missingDetails.accomplishment);
+    formData.append("job_tenure", missingDetails.jobTenure);
+    formData.append("job_titles", missingDetails.jobTitles);
+    formData.append("salary_level", missingDetails.salaryLevel);
+    formData.append("company_names", missingDetails.companyNames);
+    formData.append("referrals", missingDetails.referrals);
+    formData.append("avaialability", missingDetails.availability);
+    formData.append("relevance_of_role", missingDetails.relevanceOfRole);
+    formData.append("cultural_fit", missingDetails.culturalFit);
+    formData.append("keywords_in_coverletter", missingDetails.keywordsInCoverletter);
+    formData.append("remote_work", missingDetails.remoteWork);
+    formData.append("qualifications", missingDetails.qualifications);
+    formData.append("location", missingDetails.location);
+    formData.append("applicant_sources", missingDetails.applicantSources);
+    formData.append("job_hopping", missingDetails.jobHopping);
 
     const headers = {
       Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
