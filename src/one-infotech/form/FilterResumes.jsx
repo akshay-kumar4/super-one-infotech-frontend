@@ -229,73 +229,7 @@ const FilterResume = () => {
     }
   }, [filteredData]);
 
-  // return (
-  //   <DashboardLayout>
-  //     <Container>
-  //       {isLoading ? (
-  //         <Backdrop
-  //           sx={{ color: "#000", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-  //           open={isLoading}
-  //           onClick={() => setIsLoading(false)}
-  //         >
-  //           <CircularProgress color="inherit" />
-  //         </Backdrop>
-  //       ) : (
-  //         <React.Fragment>
-  //     {filteredData.length === 0 ? (
-  //       <Dialog
-  //         open={openDialog}
-  //         onClose={() => setOpenDialog(false)}
-  //         TransitionComponent={Grow}
-  //       >
-  //         <DialogTitle>
-  //           <Link to="/dashboards/search">
-  //             <IconButton
-  //               edge="end"
-  //               color="inherit"
-  //               onClick={() => setOpenDialog(false)}
-  //               aria-label="close"
-  //               sx={{ mr: 1 }}
-  //             >
-  //               <CloseIcon />
-  //             </IconButton>
-  //           </Link>
-  //           No Data Found
-  //         </DialogTitle>
-  //         <DialogContent>
-  //           <DialogContentText>
-  //             Sorry, we couldn&apos;t find any data matching your criteria.
-  //           </DialogContentText>
-  //         </DialogContent>
-  //       </Dialog>
-  //     ) : (
-  //       <Grid
-  //         container
-  //         spacing={1}
-  //         gap={4}
-  //         sx={{
-  //           justifyContent: "center",
-  //         }}
-  //       >
-  //         {filteredData.map((Data) => (
-  //           <Grid item xs={3.5} key={Data.id}>
-  //             <ProfileInfoCard
-  //               name={Data.name ? Data.name : "No name"}
-  //               jobTitle={Data.job_titles ? Data.job_titles : "N/A"}
-  //               phone={Data.phone ? Data.phone : "N/A"}
-  //               email={Data.email ? Data.email : "N/A"}
-  //               info=""
-  //               data={Data}
-  //             />
-  //           </Grid>
-  //         ))}
-  //       </Grid>
-  //     )}
-  //   </React.Fragment>
-  // )}
-  //     </Container>
-  //   </DashboardLayout>
-  // );
+  // rz
   return (
     <DashboardLayout>
       <Container>
@@ -308,7 +242,7 @@ const FilterResume = () => {
           </Backdrop>
         ) : (
           <React.Fragment>
-            {filteredData.length === 0 ? (
+            {filteredData.length == 0 ? (
               <Dialog
                 open={openDialog}
                 onClose={() => setOpenDialog(false)}

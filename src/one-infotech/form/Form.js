@@ -284,6 +284,7 @@ const From = () => {
             headers,
           })
           .then((response) => {
+            notifyOnResolve();
             console.log("success", response.data);
             // Send the next file
             sendFile(index + 1);
