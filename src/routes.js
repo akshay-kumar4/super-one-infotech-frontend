@@ -97,7 +97,7 @@ const routes = [
       {
         name: "Scrap Resume",
         key: "scrap-resume",
-        externalLink: "https://get-token-outlook.onrender.com/",
+        externalLink: "https://resume-parser-wl2zq.ondigitalocean.app/",
       },
       {
         name: "Logout",
