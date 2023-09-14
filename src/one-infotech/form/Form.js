@@ -178,7 +178,7 @@ const From = () => {
       });
   };
 
-  const notifyOnResolve = () => toast.success("file upload successful");
+  const notifyOnResolve = () => toast.success("File upload successful", { autoClose: 2000 });
   const notifyOnReject = () => toast.error("Failed to upload");
   const notifyOnPending = () => toast.info("File uploading");
 
@@ -288,6 +288,9 @@ const From = () => {
             console.log("success", response.data);
             // Send the next file
             sendFile(index + 1);
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
           })
           .catch((err) => {
             notifyOnReject();
