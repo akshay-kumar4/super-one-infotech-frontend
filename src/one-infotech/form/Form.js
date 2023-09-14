@@ -178,83 +178,12 @@ const From = () => {
       });
   };
 
-  const notifyOnResolve = () => toast.success("File upload successful", { autoClose: 2000 });
+  // const notifyOnResolve = () => toast.success("File upload successful", { autoClose: 2000 });
+  const notifyOnResolve = (currentIndex, total) =>
+    toast.success(`File upload successful (${currentIndex}/${total})`, { autoClose: 1000 });
   const notifyOnReject = () => toast.error("Failed to upload");
   const notifyOnPending = () => toast.info("File uploading");
 
-  // const handleFileChange = (event) => {
-  //   // console.log(event.target.files);
-  //   let fileList = event.target.files;
-  //   let newList = new DataTransfer();
-  //   for (let i = 0; i < fileList.length; i++) {
-  //     let newFile = new File([fileList[i]], fileList[i].name.replace(/[^a-zA-Z0-9._]/g, ""));
-  //     newList.items.add(newFile);
-  //   }
-  //   for (let i = 0; i < newList.files.length; i++) {
-  //     console.log(newList.files[i]);
-  //   }
-  //   event.target.files = newList.files;
-  //   // setFile(event.target.files);
-  //   setFile(newList.files);
-  // };
-
-  // const handleUpload = () => {
-  //   if (file) {
-  //     const formData = new FormData();
-  //     for (const f of file) {
-  //       // console.log(f);
-  //       formData.append("file", f);
-  //     }
-  //     console.log(formData);
-  //     const headers = {
-  //       Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
-  //     };
-  //     // Display the 'File uploading' message
-  //     notifyOnPending();
-  //     axios
-  //       .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading", formData, { headers })
-  //       .then((response) => {
-  //         // Handle success
-  //         notifyOnResolve();
-  //         console.log("File uploaded successfully", response.data);
-  //       })
-  //       .catch((error) => {
-  //         // Handle error
-  //         notifyOnReject();
-  //         console.error("Error uploading file", error);
-  //       });
-  //   } else {
-  //     // Handle no file selected error
-  //     console.error("No file selected");
-  //   }
-  // };
-
-  // function handleUpload(e) {
-  //   e.preventDefault();
-  //   // console.log(fileRef.current.files);
-  //   let files = fileRef.current.files;
-  //   let formData = new FormData();
-  //   for (let i = 0; i < files.length; i++) {
-  //     formData.append("file", new File([files[i]], files[i].name.replace(/[^a-zA-Z0-9._]/g, "")));
-  //     // formData.append("file", files[i]);
-  //   }
-  //   console.log(formData.getAll("file"));
-  //   const headers = {
-  //     Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
-  //     // "Content-Type": "multipart/form-data",
-  //   };
-  //   notifyOnPending();
-  //   axios
-  //     .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading/", formData, { headers })
-  //     .then((response) => {
-  //       notifyOnResolve();
-  //       console.log("success" + response.data);
-  //     })
-  //     .catch((err) => {
-  //       notifyOnReject();
-  //       console.error(err);
-  //     });
-  // }
   function handleUpload(e) {
     e.preventDefault();
 
@@ -284,13 +213,10 @@ const From = () => {
             headers,
           })
           .then((response) => {
-            notifyOnResolve();
+            notifyOnResolve(index + 1, files.length); // +1 because index starts from 0
             console.log("success", response.data);
             // Send the next file
             sendFile(index + 1);
-            setTimeout(() => {
-              window.location.reload();
-            }, 2000);
           })
           .catch((err) => {
             notifyOnReject();
