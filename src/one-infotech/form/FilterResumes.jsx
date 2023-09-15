@@ -33,7 +33,7 @@ const FilterResume = () => {
   const [selectedData, setSelectedData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [displayNoDataFound, setDisplayNoDataFound] = useState(true); // Set to true by default
   const [noDataFound, setNoDataFound] = useState(false);
 
   const onOpen = (Data) => {
@@ -65,18 +65,6 @@ const FilterResume = () => {
 
   useEffect(() => {
     let tempFilteredData = data;
-    // if (tempFilteredData.length === 0) {
-    //   toast.error("No data found", {
-    //     position: "top-center",
-    //     autoClose: 3000, // Close after 3 seconds
-    //     hideProgressBar: true,
-    //   });
-    // }
-
-    // console.log(tempFilteredData);
-    // console.log("Total docs : " + tempFilteredData.length);
-    // console.log(searchParams.getAll("keyword"));
-    // Now filtering from the received array.
     if (searchParams.has("any_keywords")) {
       // console.log(searchParams.getAll("any_keywords"));
       tempFilteredData = tempFilteredData.filter((x) => {
@@ -90,9 +78,7 @@ const FilterResume = () => {
           return test;
         }
         return false;
-        // console.log(x["keywords"]);
       });
-      // console.log("reduced to " + tempFilteredData.length + " by any keyword");
     }
     if (searchParams.has("all_keywords")) {
       tempFilteredData = tempFilteredData.filter((x) => {
@@ -140,10 +126,10 @@ const FilterResume = () => {
     if (searchParams.has("employers")) {
       tempFilteredData = tempFilteredData.filter((x) => {
         if (x.company_names) {
-          let test = true;
+          let test = false;
           searchParams.getAll("employers").forEach((k) => {
-            if (!x.company_names.toLowerCase().includes(k.toLowerCase())) {
-              test = false;
+            if (x.company_names.toLowerCase().includes(k.toLowerCase())) {
+              test = true;
             }
           });
           return test;
@@ -232,7 +218,6 @@ const FilterResume = () => {
         }
       });
     }
-
     setFilteredData(tempFilteredData);
   }, [data]);
   // data = JSON.stringify(data, null, 2);
@@ -244,61 +229,20 @@ const FilterResume = () => {
     }
   }, [filteredData]);
 
+  // rz
   return (
-    // <DashboardLayout>
-    //   <Container>
-    //     {isLoading ? (
-    //       <Backdrop
-    //         sx={{ color: "#000", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-    //         open={isLoading}
-    //         onClick={() => setIsLoading(false)}
-    //       >
-    //         <CircularProgress color="inherit" />
-    //       </Backdrop>
-    //     ) : (
-    //       <React.Fragment>
-    //         {filteredData.length === 0 ? (
-    //           <h3 style={{ color: "red", textAlign: "center" }}>No Data Found !</h3>
-    //         ) : (
-    //           <Grid
-    //             container
-    //             spacing={1}
-    //             gap={4}
-    //             sx={{
-    //               justifyContent: "center",
-    //             }}
-    //           >
-    //             {filteredData.map((Data) => (
-    //               <Grid item xs={3.5} key={Data.id}>
-    //                 <ProfileInfoCard
-    //                   name={Data.name ? Data.name : "No name"}
-    //                   jobTitle={Data.job_titles ? Data.job_titles : "N/A"}
-    //                   phone={Data.phone ? Data.phone : "N/A"}
-    //                   email={Data.email ? Data.email : "N/A"}
-    //                   info=""
-    //                   data={Data}
-    //                 />
-    //               </Grid>
-    //             ))}
-    //           </Grid>
-    //         )}
-    //       </React.Fragment>
-    //     )}
-    //   </Container>
-    // </DashboardLayout>
     <DashboardLayout>
       <Container>
         {isLoading ? (
           <Backdrop
             sx={{ color: "#000", zIndex: (theme) => theme.zIndex.drawer + 1 }}
             open={isLoading}
-            onClick={() => setIsLoading(false)}
           >
             <CircularProgress color="inherit" />
           </Backdrop>
         ) : (
           <React.Fragment>
-            {filteredData.length === 0 ? (
+            {filteredData.length == 0 ? (
               <Dialog
                 open={openDialog}
                 onClose={() => setOpenDialog(false)}

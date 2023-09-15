@@ -34,6 +34,7 @@ Popup.propTypes = {
     company_names: PropTypes.string.isRequired,
     phone: PropTypes.number.isRequired,
     resume_permanent_link: PropTypes.string.isRequired,
+    resume_permanent_links: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
 };
 

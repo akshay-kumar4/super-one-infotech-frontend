@@ -146,18 +146,40 @@ const From = () => {
       !missingDetails.relevanceOfRole ||
       !missingDetails.culturalFit ||
       !missingDetails.keywordsInCoverletter ||
-      !missingDetails.remoteWork ||
       !missingDetails.qualifications ||
       !missingDetails.location ||
-      !missingDetails.applicantSources ||
-      !missingDetails.jobHopping
+      !missingDetails.applicantSources
     ) {
+      console.log(missingDetails);
       toast.error("Oops! It looks like you missed something. Please complete all required fields.");
       return; // Stop form submission
     }
 
     const formData = new FormData();
     // Append form data here
+    formData.append("name", missingDetails.name);
+    formData.append("email", missingDetails.email);
+    formData.append("phone", missingDetails.phone);
+    formData.append("keywords", missingDetails.keywords);
+    formData.append("education", missingDetails.education);
+    formData.append("experience_level", missingDetails.experienceLevel);
+    formData.append("skills", missingDetails.skills);
+    formData.append("industry_experience", missingDetails.industryExperience);
+    formData.append("accomplishment", missingDetails.accomplishment);
+    formData.append("job_tenure", missingDetails.jobTenure);
+    formData.append("job_titles", missingDetails.jobTitles);
+    formData.append("salary_level", missingDetails.salaryLevel);
+    formData.append("company_names", missingDetails.companyNames);
+    formData.append("referrals", missingDetails.referrals);
+    formData.append("avaialability", missingDetails.availability);
+    formData.append("relevance_of_role", missingDetails.relevanceOfRole);
+    formData.append("cultural_fit", missingDetails.culturalFit);
+    formData.append("keywords_in_coverletter", missingDetails.keywordsInCoverletter);
+    formData.append("remote_work", missingDetails.remoteWork);
+    formData.append("qualifications", missingDetails.qualifications);
+    formData.append("location", missingDetails.location);
+    formData.append("applicant_sources", missingDetails.applicantSources);
+    formData.append("job_hopping", missingDetails.jobHopping);
 
     const headers = {
       Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
@@ -178,82 +200,57 @@ const From = () => {
       });
   };
 
-  const notifyOnResolve = () => toast.success("file upload successful");
+  // const notifyOnResolve = () => toast.success("File upload successful", { autoClose: 2000 });
+  const notifyOnResolve = (currentIndex, total) =>
+    toast.success(`File upload successful (${currentIndex}/${total})`, { autoClose: 1000 });
   const notifyOnReject = () => toast.error("Failed to upload");
   const notifyOnPending = () => toast.info("File uploading");
 
-  // const handleFileChange = (event) => {
-  //   // console.log(event.target.files);
-  //   let fileList = event.target.files;
-  //   let newList = new DataTransfer();
-  //   for (let i = 0; i < fileList.length; i++) {
-  //     let newFile = new File([fileList[i]], fileList[i].name.replace(/[^a-zA-Z0-9._]/g, ""));
-  //     newList.items.add(newFile);
-  //   }
-  //   for (let i = 0; i < newList.files.length; i++) {
-  //     console.log(newList.files[i]);
-  //   }
-  //   event.target.files = newList.files;
-  //   // setFile(event.target.files);
-  //   setFile(newList.files);
-  // };
-
-  // const handleUpload = () => {
-  //   if (file) {
-  //     const formData = new FormData();
-  //     for (const f of file) {
-  //       // console.log(f);
-  //       formData.append("file", f);
-  //     }
-  //     console.log(formData);
-  //     const headers = {
-  //       Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
-  //     };
-  //     // Display the 'File uploading' message
-  //     notifyOnPending();
-  //     axios
-  //       .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading", formData, { headers })
-  //       .then((response) => {
-  //         // Handle success
-  //         notifyOnResolve();
-  //         console.log("File uploaded successfully", response.data);
-  //       })
-  //       .catch((error) => {
-  //         // Handle error
-  //         notifyOnReject();
-  //         console.error("Error uploading file", error);
-  //       });
-  //   } else {
-  //     // Handle no file selected error
-  //     console.error("No file selected");
-  //   }
-  // };
-
   function handleUpload(e) {
     e.preventDefault();
-    // console.log(fileRef.current.files);
-    let files = fileRef.current.files;
-    let formData = new FormData();
-    for (let i = 0; i < files.length; i++) {
-      formData.append("file", new File([files[i]], files[i].name.replace(/[^a-zA-Z0-9._]/g, "")));
-      // formData.append("file", files[i]);
-    }
-    console.log(formData.getAll("file"));
+
+    const files = fileRef.current.files;
+    if (!files.length) return;
+
     const headers = {
       Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
-      // "Content-Type": "multipart/form-data",
     };
+
     notifyOnPending();
-    axios
-      .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading/", formData, { headers })
-      .then((response) => {
-        notifyOnResolve();
-        console.log("success" + response.data);
-      })
-      .catch((err) => {
-        notifyOnReject();
-        console.error(err);
-      });
+
+    // Function to send a single file
+    const sendFile = (index) => {
+      if (index >= files.length) return;
+
+      const file = files[index];
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        const formData = new FormData();
+        const blob = new Blob([event.target.result], { type: file.type });
+        formData.append("file", blob, file.name.replace(/[^a-zA-Z0-9._]/g, ""));
+
+        axios
+          .post("https://resume-api-6u3t4.ondigitalocean.app/file-uploading/", formData, {
+            headers,
+          })
+          .then((response) => {
+            notifyOnResolve(index + 1, files.length); // +1 because index starts from 0
+            console.log("success", response.data);
+            // Send the next file
+            sendFile(index + 1);
+          })
+          .catch((err) => {
+            notifyOnReject();
+            console.error(err);
+          });
+      };
+
+      reader.readAsArrayBuffer(file);
+    };
+
+    // Start sending files
+    sendFile(0);
   }
 
   return (
@@ -261,8 +258,8 @@ const From = () => {
       <DashboardNavbar />
       <Box sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <Form.Group controlId="formFileMultiple">
-            <Form.Control type="file" ref={fileRef} />
+          <Form.Group controlId="formFileMultiple" style={{ paddingRight: "15px" }}>
+            <Form.Control type="file" multiple ref={fileRef} />
           </Form.Group>
           <Button variant="primary" onClick={handleUpload}>
             Upload Resume
