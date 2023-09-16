@@ -80,7 +80,6 @@ function ProfileInfoCard({
   education,
   shadow,
 }) {
-  // const notifyOnFail = () => toast.error("Resume Not Found !!");
   const notifyOnFail = () => {
     toast.error("Resume Not Found !!", {
       position: "top-right",
@@ -89,14 +88,14 @@ function ProfileInfoCard({
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
-      progress: undefined,
+      // progress: undefined,
       style: {
         background: "#333",
         color: "#fff",
         fontSize: "18px",
         padding: "15px",
-        borderRadius: "10px",
-        boxShadow: "0px 0px 15px rgba(0,0,0,0.8)",
+        // borderRadius: "13px",
+        boxShadow: "0px 0px rgb(0,0,0)",
       },
     });
   };
@@ -309,14 +308,14 @@ function ProfileInfoCard({
               </Grid>
             </Grid>
           </MDBox>
-          <MDBox mb={2} lineHeight={2}>
+          <MDBox mb={2} lineHeight={0}>
             <Grid container direction="row" justifyContent="space-evenly" columns={8}>
               <Grid item xs={0.3}>
                 <Icon>
-                  <MilitaryTechIcon sx={{ marginTop: "-12px" }} />
+                  <MilitaryTechIcon sx={{ marginTop: "-5px" }} />
                 </Icon>
               </Grid>
-              <Grid item xs={7} sx={{ height: "80px" }}>
+              <Grid item xs={7} sx={{ height: "60px" }}>
                 <MDTypography variant="h6" fontWeight="regular" textTransform="capitalize">
                   {/* &nbsp; &nbsp; */}
                   {/* {skills} */}
@@ -330,13 +329,15 @@ function ProfileInfoCard({
               </Grid>
             </Grid>
           </MDBox>
-          <MDBox opacity={0.3}>
+          {/* <MDBox opacity={0.3}>
             <Divider />
-          </MDBox>
-          <MDButton color="dark" onClick={handleDownload}>
-            Download Resume
+          </MDBox> */}
+          <MDBox>
+            <MDButton color="dark" onClick={handleDownload}>
+              Download Resume
+            </MDButton>
             <ToastContainer />
-          </MDButton>
+          </MDBox>
         </MDBox>
       </Card>
       {/* </Grid>
@@ -346,16 +347,16 @@ function ProfileInfoCard({
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-      >
+        >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
-      </Modal> */}
+            </Typography>
+            </Box>
+          </Modal> */}
     </MDBox>
   );
 }
