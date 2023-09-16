@@ -29,6 +29,9 @@ import PersonIcon from "@mui/icons-material/Person";
 import MailIcon from "@mui/icons-material/Mail";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import PhoneIcon from "@mui/icons-material/Phone";
+import PlaceIcon from "@mui/icons-material/Place";
+import SchoolIcon from "@mui/icons-material/School";
+import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
 // import { Grid, Container } from "@mui/material";
 
 // Material Dashboard 2 PRO React components
@@ -51,6 +54,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
+import { Grid } from "@mui/material";
 
 const style = {
   position: "absolute as absolute",
@@ -64,7 +68,18 @@ const style = {
   p: 4,
 };
 
-function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow }) {
+function ProfileInfoCard({
+  name,
+  jobTitle,
+  phone,
+  info,
+  data,
+  email,
+  skills,
+  location,
+  education,
+  shadow,
+}) {
   // const [isOpen, setIsOpen] = useState(false);
   // const [selectedData, setSelectedData] = useState(null);
   const [open, setOpen] = React.useState(false);
@@ -117,7 +132,26 @@ function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow }) {
         notifyOnFail();
       });
   };
-  // const handleClose = () => setOpen(false);
+
+  skills = skills || "";
+  education = education || "";
+
+  // Trim any leading or trailing whitespace from the skills and education strings
+  const trimmedSkills = skills.trim();
+  const trimmedEducation = education.trim();
+
+  // Define the maximum number of characters to display
+  const maxSkillsCharactersToShow = 94;
+  const maxEducationCharactersToShow = 54;
+
+  // Get the first 40 characters of the skills and education strings
+  const displayedSkills = trimmedSkills.slice(0, maxSkillsCharactersToShow);
+  const displayedEducation = trimmedEducation.slice(0, maxEducationCharactersToShow);
+
+  // Check if there are more characters to display for skills and education
+  const moreSkills = trimmedSkills.length > maxSkillsCharactersToShow;
+  const moreEducation = trimmedEducation.length > maxEducationCharactersToShow;
+
   if (!phone) {
     return null; // You can also render a message or handle this case differently
   }
@@ -224,33 +258,101 @@ function ProfileInfoCard({ name, jobTitle, phone, info, data, email, shadow }) {
           </Tooltip>
         </MDTypography> */}
         </MDBox>
+        <MDBox>
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-evenly"
+            alignItems="center"
+            spacing={0}
+            // columns={12}
+            sx={{ marginTop: "5px" }}
+          >
+            <Grid item sx={{ margin: "3px" }}>
+              <MDTypography variant="h6" fontWeight="light" textTransform="capitalize">
+                <Icon>
+                  <PhoneIcon sx={{ marginTop: "-5px" }} />
+                </Icon>
+                &nbsp;
+                {firstPhoneNumber}
+              </MDTypography>
+            </Grid>
+            <Grid item sx={{ margin: "5px" }}>
+              <MDTypography variant="h6" fontWeight="light" textTransform="capitalize">
+                <Icon>
+                  <MailIcon sx={{ marginTop: "-5px" }} />
+                </Icon>
+                &nbsp;
+                {email}
+              </MDTypography>
+            </Grid>
+            <Grid item sx={{ margin: "5px" }}>
+              <MDTypography variant="h6" fontWeight="light" textTransform="capitalize">
+                <Icon>
+                  <PlaceIcon sx={{ marginTop: "-5px" }} />
+                </Icon>
+                &nbsp;
+                {location}
+              </MDTypography>
+            </Grid>
+          </Grid>
+        </MDBox>
         <MDBox p={2}>
           <MDBox mb={2} lineHeight={2}>
-            <MDTypography variant="h6" fontWeight="medium" textTransform="capitalize">
-              <Icon>
-                <WorkOutlineIcon sx={{ marginTop: "-5px" }} />
-              </Icon>
-              &nbsp;
-              {firstJobTitle}
-            </MDTypography>
+            <Grid container direction="row" justifyContent="space-evenly" columns={8}>
+              <Grid item xs={0.3}>
+                <Icon>
+                  <WorkOutlineIcon sx={{ marginTop: "-12px" }} />
+                </Icon>
+              </Grid>
+              <Grid item xs={7}>
+                <MDTypography variant="h6" fontWeight="regular" textTransform="capitalize">
+                  {/* &nbsp; &nbsp; */}
+                  {firstJobTitle}
+                </MDTypography>
+              </Grid>
+            </Grid>
           </MDBox>
           <MDBox mb={2} lineHeight={2}>
-            <MDTypography variant="h6" fontWeight="medium" textTransform="capitalize">
-              <Icon>
-                <PhoneIcon sx={{ marginTop: "-5px" }} />
-              </Icon>
-              &nbsp;
-              {firstPhoneNumber}
-            </MDTypography>
+            <Grid container direction="row" justifyContent="space-evenly" columns={8}>
+              <Grid item xs={0.3}>
+                <Icon>
+                  <SchoolIcon sx={{ marginTop: "-12px" }} />
+                </Icon>
+              </Grid>
+              <Grid item xs={7}>
+                <MDTypography variant="h6" fontWeight="regular" textTransform="capitalize">
+                  {/* &nbsp; &nbsp; */}
+                  {displayedEducation}
+                  {moreEducation && (
+                    <MDTypography sx={{ display: "inline-flex" }} variant="h6" fontWeight="light">
+                      &nbsp; and more...
+                    </MDTypography>
+                  )}
+                </MDTypography>
+              </Grid>
+            </Grid>
           </MDBox>
           <MDBox mb={2} lineHeight={2}>
-            <MDTypography variant="h6" fontWeight="medium" textTransform="capitalize">
-              <Icon>
-                <MailIcon sx={{ marginTop: "-5px" }} />
-              </Icon>
-              &nbsp;
-              {email}
-            </MDTypography>
+            <Grid container direction="row" justifyContent="space-evenly" columns={8}>
+              <Grid item xs={0.3}>
+                <Icon>
+                  <MilitaryTechIcon sx={{ marginTop: "-12px" }} />
+                </Icon>
+              </Grid>
+              <Grid item xs={7} sx={{ height: "80px" }}>
+                <MDTypography variant="h6" fontWeight="regular" textTransform="capitalize">
+                  {/* &nbsp; &nbsp; */}
+                  {/* {skills} */}
+                  {displayedSkills}
+                  {moreSkills && (
+                    <MDTypography sx={{ display: "inline-flex" }} variant="h6" fontWeight="light">
+                      &nbsp; and more...
+                    </MDTypography>
+                  )}
+                </MDTypography>
+              </Grid>
+            </Grid>
           </MDBox>
           <MDBox opacity={0.3}>
             <Divider />
@@ -295,6 +397,9 @@ ProfileInfoCard.propTypes = {
   info: PropTypes.string,
   shadow: PropTypes.bool,
   phone: PropTypes.string.isRequired,
+  skills: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+  education: PropTypes.string.isRequired,
   data: PropTypes.shape({
     name: PropTypes.string,
     job_titles: PropTypes.string,
