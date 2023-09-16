@@ -80,10 +80,6 @@ function ProfileInfoCard({
   education,
   shadow,
 }) {
-  // const [isOpen, setIsOpen] = useState(false);
-  // const [selectedData, setSelectedData] = useState(null);
-  const [open, setOpen] = React.useState(false);
-
   // const notifyOnFail = () => toast.error("Resume Not Found !!");
   const notifyOnFail = () => {
     toast.error("Resume Not Found !!", {
@@ -132,6 +128,20 @@ function ProfileInfoCard({
         notifyOnFail();
       });
   };
+  const firstEmail = email.split(/[,/]/)[0];
+  // Split the location string by ","
+  const locationParts = location.split(",");
+
+  // Extract the first location (index 0)
+  const firstLocation = locationParts[0];
+
+  // Extract the second location (index 1) if it exists, or an empty string if it doesn't
+  const secondLocation = locationParts[1] ? locationParts[1].trim() : "";
+
+  // Combine the first and second locations without the "india" part
+  const formattedLocation = secondLocation
+    ? `${firstLocation.trim()} ${secondLocation}`
+    : firstLocation.trim();
 
   skills = skills || "";
   education = education || "";
@@ -141,8 +151,8 @@ function ProfileInfoCard({
   const trimmedEducation = education.trim();
 
   // Define the maximum number of characters to display
-  const maxSkillsCharactersToShow = 94;
-  const maxEducationCharactersToShow = 54;
+  const maxSkillsCharactersToShow = 84;
+  const maxEducationCharactersToShow = 48;
 
   // Get the first 40 characters of the skills and education strings
   const displayedSkills = trimmedSkills.slice(0, maxSkillsCharactersToShow);
@@ -155,39 +165,22 @@ function ProfileInfoCard({
   if (!phone) {
     return null; // You can also render a message or handle this case differently
   }
-
   // Check if the jobTitle prop is provided and not null/undefined
   if (!jobTitle) {
     return null; // You can also render a message or handle this case differently
   }
-
   // Split the phone prop using a regular expression to match "," or "/"
   const phoneNumbers = phone.split(/[,/]/);
-
   // Trim any leading or trailing whitespace from each phone number
   const trimmedPhoneNumbers = phoneNumbers.map((number) => number.trim());
-
   // Split the jobTitle prop using a regular expression to match "," or "/"
   const jobTitles = jobTitle.split(/[,/]/);
-
   // Trim any leading or trailing whitespace from each job title
   const trimmedJobTitles = jobTitles.map((title) => title.trim());
-
   // Extract the first phone number (index 0)
   const firstPhoneNumber = trimmedPhoneNumbers[0];
-
   // Extract the first job title (index 0)
   const firstJobTitle = trimmedJobTitles[0];
-
-  // const onOpen = (data) => {
-  //   setSelectedData(data);
-  //   setIsOpen(true);
-  //   console.log(data.company_names);
-  // };
-
-  // const onClose = () => {
-  //   setIsOpen(false);
-  // };
 
   const labels = [];
   const values = [];
@@ -221,24 +214,6 @@ function ProfileInfoCard({
     </MDBox>
   ));
 
-  // Render the card social media icons
-  // const renderSocial = social.map(({ link, icon, color }) => (
-  //   <MDBox
-  //     key={color}
-  //     component="a"
-  //     href={link}
-  //     target="_blank"
-  //     rel="noreferrer"
-  //     fontSize={size.lg}
-  //     color={socialMediaColors[color].main}
-  //     pr={1}
-  //     pl={0.5}
-  //     lineHeight={1}
-  //   >
-  //     {icon}
-  //   </MDBox>
-  // ));
-
   return (
     <MDBox>
       {/* <Grid component> */}
@@ -267,6 +242,7 @@ function ProfileInfoCard({
             spacing={0}
             // columns={12}
             sx={{ marginTop: "5px" }}
+            wrap="wrap"
           >
             <Grid item sx={{ margin: "3px" }}>
               <MDTypography variant="h6" fontWeight="light" textTransform="capitalize">
@@ -283,7 +259,7 @@ function ProfileInfoCard({
                   <MailIcon sx={{ marginTop: "-5px" }} />
                 </Icon>
                 &nbsp;
-                {email}
+                {firstEmail}
               </MDTypography>
             </Grid>
             <Grid item sx={{ margin: "5px" }}>
@@ -292,7 +268,7 @@ function ProfileInfoCard({
                   <PlaceIcon sx={{ marginTop: "-5px" }} />
                 </Icon>
                 &nbsp;
-                {location}
+                {formattedLocation}
               </MDTypography>
             </Grid>
           </Grid>
@@ -305,7 +281,7 @@ function ProfileInfoCard({
                   <WorkOutlineIcon sx={{ marginTop: "-12px" }} />
                 </Icon>
               </Grid>
-              <Grid item xs={7}>
+              <Grid item xs={7} sx={{ marginTop: "3px" }}>
                 <MDTypography variant="h6" fontWeight="regular" textTransform="capitalize">
                   {/* &nbsp; &nbsp; */}
                   {firstJobTitle}
@@ -320,7 +296,7 @@ function ProfileInfoCard({
                   <SchoolIcon sx={{ marginTop: "-12px" }} />
                 </Icon>
               </Grid>
-              <Grid item xs={7}>
+              <Grid item xs={7} sx={{ marginTop: "3px" }}>
                 <MDTypography variant="h6" fontWeight="regular" textTransform="capitalize">
                   {/* &nbsp; &nbsp; */}
                   {displayedEducation}
