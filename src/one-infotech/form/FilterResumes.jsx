@@ -27,8 +27,8 @@ import { Grow } from "@mui/material";
 // import axios from 'axios'
 
 const FilterResume = () => {
-  const [data, setData] = useState([]);
-  let [filteredData, setFilteredData] = useState([]);
+  const [data, setData] = useState(undefined);
+  let [filteredData, setFilteredData] = useState(undefined);
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedData, setSelectedData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -64,176 +64,173 @@ const FilterResume = () => {
   }, []);
 
   useEffect(() => {
-    let tempFilteredData = data;
-    if (searchParams.has("any_keywords")) {
-      // console.log(searchParams.getAll("any_keywords"));
-      tempFilteredData = tempFilteredData.filter((x) => {
-        if (x.keywords) {
-          let test = false;
-          searchParams.getAll("any_keywords").forEach((k) => {
-            if (x.keywords.toLowerCase().includes(k.toLowerCase())) {
-              test = true;
-            }
-          });
-          return test;
-        }
-        return false;
-      });
+    if (data) {
+      let tempFilteredData = data;
+      if (searchParams.has("any_keywords")) {
+        // console.log(searchParams.getAll("any_keywords"));
+        tempFilteredData = tempFilteredData.filter((x) => {
+          if (x.keywords) {
+            let test = false;
+            searchParams.getAll("any_keywords").forEach((k) => {
+              if (x.keywords.toLowerCase().includes(k.toLowerCase())) {
+                test = true;
+              }
+            });
+            return test;
+          }
+          return false;
+        });
+      }
+      if (searchParams.has("all_keywords")) {
+        tempFilteredData = tempFilteredData.filter((x) => {
+          if (x.keywords) {
+            let test = true;
+            searchParams.getAll("all_keywords").forEach((k) => {
+              if (!x.keywords.toLowerCase().includes(k.toLowerCase())) {
+                test = false;
+              }
+            });
+            return test;
+          }
+          return false;
+        });
+        // console.log("reduced to " + tempFilteredData.length + " by all keyword");
+      }
+      if (searchParams.has("exclude_keywords")) {
+        tempFilteredData = tempFilteredData.filter((x) => {
+          if (x.keywords) {
+            return !searchParams
+              .getAll("exclude_keywords")
+              .some((k) => x.keywords.toLowerCase().includes(k.toLowerCase()));
+          }
+          return true; // If a resume doesn't have keywords, include it by default
+        });
+        // console.log("reduced to " + tempFilteredData.length + " by exclude keyword");
+      }
+      if (searchParams.has("location")) {
+        tempFilteredData = tempFilteredData.filter((x) =>
+          x.location
+            ? x.location.toLowerCase().includes(searchParams.get("location").toLowerCase())
+            : false
+        );
+        // console.log("reduced to " + tempFilteredData.length + " by location");
+      }
+      if (searchParams.has("jobHopping")) {
+        tempFilteredData = tempFilteredData.filter((x) => {
+          if (x.job_hopping) {
+            return x["job_hopping"] == (searchParams.get("jobHopping") === "yes");
+          }
+          return false;
+        });
+        // console.log("reduced to " + tempFilteredData.length + " by jobHopping");
+      }
+      if (searchParams.has("employers")) {
+        tempFilteredData = tempFilteredData.filter((x) => {
+          if (x.company_names) {
+            let test = false;
+            searchParams.getAll("employers").forEach((k) => {
+              if (x.company_names.toLowerCase().includes(k.toLowerCase())) {
+                test = true;
+              }
+            });
+            return test;
+          }
+          return false;
+        });
+        // console.log("reduced to " + tempFilteredData.length + " by employers");
+      }
+      if (searchParams.has("exclude_employers")) {
+        tempFilteredData = tempFilteredData.filter((x) => {
+          if (x.company_names) {
+            let test = true;
+            searchParams.getAll("exclude_employers").forEach((k) => {
+              if (x.company_names.toLowerCase().includes(k.toLowerCase())) {
+                test = false;
+              }
+            });
+            return test;
+          }
+          return false;
+        });
+        // console.log("reduced to " + tempFilteredData.length + " by employers");
+      }
+      if (searchParams.has("designation")) {
+        // tempFilteredData = tempFilteredData.filter((x) =>
+        //   x["job_titles"].toLowerCase().includes(searchParams.get("designation").toLowerCase())
+        // );
+        tempFilteredData = tempFilteredData.filter((x) => {
+          if (x.job_titles) {
+            let test = true;
+            searchParams.getAll("designation").forEach((k) => {
+              if (!x.job_titles.toLowerCase().includes(k.toLowerCase())) {
+                test = false;
+              }
+            });
+            return test;
+          }
+          return false;
+        });
+      }
+      if (searchParams.has("expMin")) {
+        tempFilteredData = tempFilteredData.filter((x) =>
+          x.experience_level
+            ? Number(x.experience_level) >= Number(searchParams.get("expMin"))
+            : false
+        );
+      }
+      if (searchParams.has("expMax")) {
+        tempFilteredData = tempFilteredData.filter((x) =>
+          x.experience_level
+            ? Number(x.experience_level) <= Number(searchParams.get("expMax"))
+            : false
+        );
+      }
+      if (searchParams.has("salMinLac")) {
+        tempFilteredData = tempFilteredData.filter((x) =>
+          x.salary_level
+            ? Number(x.salary_level.split("-").at(0)) >= Number(searchParams.get("salMinLac"))
+            : false
+        );
+      }
+      if (searchParams.has("salMaxLac")) {
+        tempFilteredData = tempFilteredData.filter((x) =>
+          x.salary_level
+            ? Number(x.salary_level.split("-").at(-1)) <= Number(searchParams.get("salMaxLac"))
+            : false
+        );
+      }
+      if (searchParams.has("education")) {
+        tempFilteredData = tempFilteredData.filter((x) =>
+          x.education
+            ? x.education.toLowerCase().includes(searchParams.get("education").toLowerCase())
+            : false
+        );
+      }
+      if (searchParams.has("skills")) {
+        tempFilteredData = tempFilteredData.filter((x) => {
+          if (x.skills) {
+            let test = true;
+            searchParams.getAll("skills").forEach((k) => {
+              if (!x.skills.toLowerCase().includes(k.toLowerCase())) {
+                test = false;
+              }
+            });
+            return test;
+          }
+        });
+      }
+      setFilteredData(tempFilteredData);
+      setOpenDialog(true);
     }
-    if (searchParams.has("all_keywords")) {
-      tempFilteredData = tempFilteredData.filter((x) => {
-        if (x.keywords) {
-          let test = true;
-          searchParams.getAll("all_keywords").forEach((k) => {
-            if (!x.keywords.toLowerCase().includes(k.toLowerCase())) {
-              test = false;
-            }
-          });
-          return test;
-        }
-        return false;
-      });
-      // console.log("reduced to " + tempFilteredData.length + " by all keyword");
-    }
-    if (searchParams.has("exclude_keywords")) {
-      tempFilteredData = tempFilteredData.filter((x) => {
-        if (x.keywords) {
-          return !searchParams
-            .getAll("exclude_keywords")
-            .some((k) => x.keywords.toLowerCase().includes(k.toLowerCase()));
-        }
-        return true; // If a resume doesn't have keywords, include it by default
-      });
-      // console.log("reduced to " + tempFilteredData.length + " by exclude keyword");
-    }
-    if (searchParams.has("location")) {
-      tempFilteredData = tempFilteredData.filter((x) =>
-        x.location
-          ? x.location.toLowerCase().includes(searchParams.get("location").toLowerCase())
-          : false
-      );
-      // console.log("reduced to " + tempFilteredData.length + " by location");
-    }
-    if (searchParams.has("jobHopping")) {
-      tempFilteredData = tempFilteredData.filter((x) => {
-        if (x.job_hopping) {
-          return x["job_hopping"] == (searchParams.get("jobHopping") === "yes");
-        }
-        return false;
-      });
-      // console.log("reduced to " + tempFilteredData.length + " by jobHopping");
-    }
-    if (searchParams.has("employers")) {
-      tempFilteredData = tempFilteredData.filter((x) => {
-        if (x.company_names) {
-          let test = false;
-          searchParams.getAll("employers").forEach((k) => {
-            if (x.company_names.toLowerCase().includes(k.toLowerCase())) {
-              test = true;
-            }
-          });
-          return test;
-        }
-        return false;
-      });
-      // console.log("reduced to " + tempFilteredData.length + " by employers");
-    }
-    if (searchParams.has("exclude_employers")) {
-      tempFilteredData = tempFilteredData.filter((x) => {
-        if (x.company_names) {
-          let test = true;
-          searchParams.getAll("exclude_employers").forEach((k) => {
-            if (x.company_names.toLowerCase().includes(k.toLowerCase())) {
-              test = false;
-            }
-          });
-          return test;
-        }
-        return false;
-      });
-      // console.log("reduced to " + tempFilteredData.length + " by employers");
-    }
-    if (searchParams.has("designation")) {
-      // tempFilteredData = tempFilteredData.filter((x) =>
-      //   x["job_titles"].toLowerCase().includes(searchParams.get("designation").toLowerCase())
-      // );
-      tempFilteredData = tempFilteredData.filter((x) => {
-        if (x.job_titles) {
-          let test = true;
-          searchParams.getAll("designation").forEach((k) => {
-            if (!x.job_titles.toLowerCase().includes(k.toLowerCase())) {
-              test = false;
-            }
-          });
-          return test;
-        }
-        return false;
-      });
-    }
-    if (searchParams.has("expMin")) {
-      tempFilteredData = tempFilteredData.filter((x) =>
-        x.experience_level
-          ? Number(x.experience_level) >= Number(searchParams.get("expMin"))
-          : false
-      );
-    }
-    if (searchParams.has("expMax")) {
-      tempFilteredData = tempFilteredData.filter((x) =>
-        x.experience_level
-          ? Number(x.experience_level) <= Number(searchParams.get("expMax"))
-          : false
-      );
-    }
-    if (searchParams.has("salMinLac")) {
-      tempFilteredData = tempFilteredData.filter((x) =>
-        x.salary_level
-          ? Number(x.salary_level.split("-").at(0)) >= Number(searchParams.get("salMinLac"))
-          : false
-      );
-    }
-    if (searchParams.has("salMaxLac")) {
-      tempFilteredData = tempFilteredData.filter((x) =>
-        x.salary_level
-          ? Number(x.salary_level.split("-").at(-1)) <= Number(searchParams.get("salMaxLac"))
-          : false
-      );
-    }
-    if (searchParams.has("education")) {
-      tempFilteredData = tempFilteredData.filter((x) =>
-        x.education
-          ? x.education.toLowerCase().includes(searchParams.get("education").toLowerCase())
-          : false
-      );
-    }
-    if (searchParams.has("skills")) {
-      tempFilteredData = tempFilteredData.filter((x) => {
-        if (x.skills) {
-          let test = true;
-          searchParams.getAll("skills").forEach((k) => {
-            if (!x.skills.toLowerCase().includes(k.toLowerCase())) {
-              test = false;
-            }
-          });
-          return test;
-        }
-      });
-    }
-    setFilteredData(tempFilteredData);
   }, [data]);
   // data = JSON.stringify(data, null, 2);
   const [openDialog, setOpenDialog] = useState(false);
-
-  useEffect(() => {
-    if (filteredData.length === 0) {
-      setOpenDialog(true);
-    }
-  }, [filteredData]);
 
   // rz
   return (
     <DashboardLayout>
       <Container>
-        {isLoading ? (
+        {!filteredData ? (
           <Backdrop
             sx={{ color: "#000", zIndex: (theme) => theme.zIndex.drawer + 1 }}
             open={isLoading}
@@ -242,7 +239,7 @@ const FilterResume = () => {
           </Backdrop>
         ) : (
           <React.Fragment>
-            {filteredData.length == 0 ? (
+            {filteredData.length === 0 ? (
               <Dialog
                 open={openDialog}
                 onClose={() => setOpenDialog(false)}
