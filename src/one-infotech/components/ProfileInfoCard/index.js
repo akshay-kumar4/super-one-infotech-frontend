@@ -129,7 +129,7 @@ function ProfileInfoCard({
   };
   const firstEmail = email.split(/[,/]/)[0];
   // Split the location string by ","
-  const locationParts = location.split(",");
+  const locationParts = location.split(/[,\s/]/);
 
   // Extract the first location (index 0)
   const firstLocation = locationParts[0];
@@ -150,8 +150,8 @@ function ProfileInfoCard({
   const trimmedEducation = education.trim();
 
   // Define the maximum number of characters to display
-  const maxSkillsCharactersToShow = 84;
-  const maxEducationCharactersToShow = 48;
+  const maxSkillsCharactersToShow = 55;
+  const maxEducationCharactersToShow = 58;
 
   // Get the first 40 characters of the skills and education strings
   const displayedSkills = trimmedSkills.slice(0, maxSkillsCharactersToShow);
@@ -169,9 +169,11 @@ function ProfileInfoCard({
     return null; // You can also render a message or handle this case differently
   }
   // Split the phone prop using a regular expression to match "," or "/"
-  const phoneNumbers = phone.split(/[,/]/);
+  // const phoneNumbers = phone.split(/[ ,/]+/);
+  // const phoneNumbers = phone.split(/[,/]/);
+  const phoneNumbers = phone.split(/[,/]+/);
   // Trim any leading or trailing whitespace from each phone number
-  const trimmedPhoneNumbers = phoneNumbers.map((number) => number.trim());
+  const trimmedPhoneNumbers = phoneNumbers.map((number) => number.trim().slice(0, 17));
   // Split the jobTitle prop using a regular expression to match "," or "/"
   const jobTitles = jobTitle.split(/[,/]/);
   // Trim any leading or trailing whitespace from each job title
@@ -301,7 +303,7 @@ function ProfileInfoCard({
                   {displayedEducation}
                   {moreEducation && (
                     <MDTypography sx={{ display: "inline-flex" }} variant="h6" fontWeight="light">
-                      &nbsp; and more...
+                      ...
                     </MDTypography>
                   )}
                 </MDTypography>
@@ -309,20 +311,26 @@ function ProfileInfoCard({
             </Grid>
           </MDBox>
           <MDBox mb={2} lineHeight={0}>
-            <Grid container direction="row" justifyContent="space-evenly" columns={8}>
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-evenly"
+              columns={8}
+              // sx={{ border: "2px solid black" }}
+            >
               <Grid item xs={0.3}>
                 <Icon>
                   <MilitaryTechIcon sx={{ marginTop: "-5px" }} />
                 </Icon>
               </Grid>
-              <Grid item xs={7} sx={{ height: "60px" }}>
+              <Grid item xs={7} sx={{ height: "30px" }}>
                 <MDTypography variant="h6" fontWeight="regular" textTransform="capitalize">
                   {/* &nbsp; &nbsp; */}
                   {/* {skills} */}
                   {displayedSkills}
                   {moreSkills && (
                     <MDTypography sx={{ display: "inline-flex" }} variant="h6" fontWeight="light">
-                      &nbsp; and more...
+                      ...
                     </MDTypography>
                   )}
                 </MDTypography>
@@ -332,7 +340,7 @@ function ProfileInfoCard({
           {/* <MDBox opacity={0.3}>
             <Divider />
           </MDBox> */}
-          <MDBox>
+          <MDBox marginTop={2}>
             <MDButton color="dark" onClick={handleDownload}>
               Download Resume
             </MDButton>
