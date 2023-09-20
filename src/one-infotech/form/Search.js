@@ -590,7 +590,7 @@ const Search = () => {
           name="location"
         />
       </MDBox>
-      <MDInput
+      {/* <MDInput
         type="text"
         label="Education"
         placeholder="Education Details"
@@ -603,10 +603,33 @@ const Search = () => {
             education: e.target.value,
           });
         }}
+      /> */}
+      <Autocomplete
+        freeSolo
+        id="tags-standard"
+        sx={{ marginTop: "10px" }}
+        options={CourseKeywords.map((x) => x.title)}
+        // getOptionLabel={(option) => option.title}
+        // defaultValue={[top18Keywords[13]]}
+        onChange={(e, val) => {
+          setAdvancedSearchData({
+            ...advancedSearchData,
+            education: val,
+          });
+        }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            variant="standard"
+            label="Education"
+            placeholder="Education Details"
+          />
+        )}
       />
       <Autocomplete
         multiple
         freeSolo
+        sx={{ marginTop: "10px" }}
         id="tags-standard"
         options={top18Keywords.map((x) => x.title)}
         // getOptionLabel={(option) => option.title}
@@ -839,10 +862,8 @@ const top18Keywords = [
   { title: "Predictive Maintenance" },
   { title: "CNC Maintenance" },
   { title: "PLC Maintenance" },
-  { title: "PLC Maintenance" },
   { title: "Erection" },
   { title: "Commissioning" },
-  { title: "CAPEX" },
   { title: "Machine Installation" },
   { title: "Machine Maintenance" },
   { title: "Utility" },
@@ -864,7 +885,6 @@ const top18Keywords = [
   { title: "Dealer Training" },
   { title: "Business Development" },
   { title: "Branding" },
-  { title: "Pricing" },
   { title: "Area sales" },
   { title: "Territory sales" },
   { title: "National Sales" },
@@ -905,7 +925,6 @@ const top18Keywords = [
   { title: "Tax" },
   { title: "Audit" },
   { title: "Internal Control" },
-  { title: "Internal Audit" },
   { title: "Transfer Pricing" },
   { title: "Factory Accounts" },
   { title: "Plant Accounts" },
@@ -931,14 +950,11 @@ const top18Keywords = [
   { title: "Vehicle Integration" },
   { title: "Vehicle Testing" },
   { title: "Prototype Development" },
-  { title: "APQP" },
-  { title: "PPAP" },
   { title: "FEA" },
   { title: "FMEA" },
   { title: "Abacus" },
   { title: "Ansys" },
   { title: "Dyna" },
-  { title: "Product Research" },
   { title: "Environment" },
   { title: "Safety" },
   { title: "Health" },
@@ -948,8 +964,6 @@ const top18Keywords = [
   { title: "OHSAS" },
   { title: "Sustainability" },
   { title: "Recycling" },
-  { title: "CSR" },
-  { title: "Corporate Social Responsibility" },
   { title: "RLI" },
   { title: "CLI" },
   { title: "Regional Labour Institute" },
@@ -960,7 +974,6 @@ const top18Keywords = [
   { title: "Lean Manufacturing" },
   { title: "TPS" },
   { title: "Toyota Production System" },
-  { title: "New Product development" },
   { title: "Production Engineering" },
   { title: "New Projects" },
   { title: "KANBAN" },
@@ -1057,7 +1070,6 @@ const employerList = [
   "Disney",
   "Warner Bros.",
   "Universal Pictures",
-  "Netflix",
   "Comcast",
   "Verizon",
   "AT&T",
@@ -1145,17 +1157,62 @@ const employerList = [
   "Geico",
   "Berkshire Hathaway",
   "General Electric",
-  "Siemens",
   "Honeywell",
-  "3M",
   "Danaher",
   "Emerson Electric",
-  "ABB",
-  "Schneider Electric",
   "Mitsubishi Electric",
-  "Hitachi",
   "Thermo Fisher Scientific",
   "Johnson Controls",
+];
+
+const CourseKeywords = [
+  { title: "Ph.D/Doctorate" },
+  { title: "MPHIL" },
+  { title: "MBA/PGDM" },
+  { title: "M.Tech" },
+  { title: "MS/M.Sc(Science)" },
+  { title: "MCA" },
+  { title: "M.Com" },
+  { title: "PG Diploma" },
+  { title: "M.A" },
+  { title: "CA" },
+  { title: "DM" },
+  { title: "ICWA (CMA)" },
+  { title: "Integrated PG" },
+  { title: "LLM" },
+  { title: "M.Arch" },
+  { title: "M.Ch" },
+  { title: "M.Des" },
+  { title: "M.Ed" },
+  { title: "M.Pharma" },
+  { title: "MCM" },
+  { title: "MDS" },
+  { title: "Medical-MS/MD" },
+  { title: "MFA" },
+  { title: "MVSC" },
+  { title: "B.Tech/B.E" },
+  { title: "B.Com" },
+  { title: "B.Sc" },
+  { title: "B.A" },
+  { title: "Diploma" },
+  { title: "B.Arch" },
+  { title: "B.B.A/B.M.S" },
+  { title: "B.Des" },
+  { title: "B.Ed" },
+  { title: "B.EI.ED" },
+  { title: "B.P.ED" },
+  { title: "B.Pharma" },
+  { title: "B.U.M.S" },
+  { title: "BAMS" },
+  { title: "BCA" },
+  { title: "BDS" },
+  { title: "BFA" },
+  { title: "BHM" },
+  { title: "BHMCT" },
+  { title: "BHMS" },
+  { title: "BVSC" },
+  { title: "LLB" },
+  { title: "MBBS" },
 ];
 
 export default Search;

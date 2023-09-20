@@ -310,7 +310,7 @@ const From = () => {
                 style: { fontSize: "17px" },
                 onKeyPress: (e) => {
                   // Check if the key pressed is not a number
-                  if (!/[a-zA-Z+]/.test(e.key)) {
+                  if (!/[a-z A-Z]/.test(e.key)) {
                     e.preventDefault();
                   }
                 },
@@ -345,7 +345,7 @@ const From = () => {
 
                 setMissingDetails({
                   ...missingDetails,
-                  email: emailValue,
+                  email: emailValue.split(" ").join(""),
                 });
               }}
               required
