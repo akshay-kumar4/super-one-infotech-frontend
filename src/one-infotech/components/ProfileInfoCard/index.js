@@ -219,17 +219,19 @@ function ProfileInfoCard({
       <Card sx={{ height: "100%", boxShadow: !shadow && "none" }}>
         <MDBox
           display="flex"
-          justifyContent="space-between"
+          // justifyContent="space-between"
           alignItems="center"
           pt={2}
           px={2}
           wrap="wrap"
           // sx={{ border: "2px solid green" }}
         >
-          <MDTypography variant="h6" fontWeight="medium" textTransform="capitalize">
+          <MDTypography variant="h5" fontWeight="medium" textTransform="capitalize">
             <Icon>
               <PersonIcon />
             </Icon>
+          </MDTypography>
+          <MDTypography variant="h6" fontWeight="medium" textTransform="capitalize">
             &nbsp; &nbsp;
             {name}
           </MDTypography>
