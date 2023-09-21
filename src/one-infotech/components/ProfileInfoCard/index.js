@@ -15,7 +15,7 @@ Coded by www.creative-tim.com
 
 // react-routers components
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // prop-types is library for typechecking of props
 import PropTypes from "prop-types";
@@ -143,22 +143,51 @@ function ProfileInfoCard({
     : firstLocation.trim();
 
   skills = skills || "";
+  const [maxSkillsCharactersToShow, setMaxSkillsCharactersToShow] = useState(40);
+  const [maxEducationCharactersToShow, setMaxEducationCharactersToShow] = useState(35);
+  const trimmedSkills = skills.trim();
+  // let maxSkillsCharactersToShow = 50;
+  let displayedSkills = trimmedSkills.slice(0, maxSkillsCharactersToShow);
+  const moreSkills = trimmedSkills.length > maxSkillsCharactersToShow;
+
+  // Update maxSkillsCharactersToShow based on window.innerWidth
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+
+      if (width >= 850 && width <= 1100) {
+        setMaxSkillsCharactersToShow(28);
+        setMaxEducationCharactersToShow(25); // Set max characters to 10 for both skills and education
+      } else {
+        setMaxSkillsCharactersToShow(40); // Default value for other screen widths
+        setMaxEducationCharactersToShow(35); // Default value for other screen widths
+      }
+    };
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Call the handler once to set the initial value
+    handleResize();
+
+    // Remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   education = education || "";
 
   // Trim any leading or trailing whitespace from the skills and education strings
-  const trimmedSkills = skills.trim();
   const trimmedEducation = education.trim();
 
-  // Define the maximum number of characters to display
-  const maxSkillsCharactersToShow = 55;
-  const maxEducationCharactersToShow = 58;
+  // // Define the maximum number of characters to display
+  // let maxEducationCharactersToShow = 58;
 
   // Get the first 40 characters of the skills and education strings
-  const displayedSkills = trimmedSkills.slice(0, maxSkillsCharactersToShow);
-  const displayedEducation = trimmedEducation.slice(0, maxEducationCharactersToShow);
+  let displayedEducation = trimmedEducation.slice(0, maxEducationCharactersToShow);
 
   // Check if there are more characters to display for skills and education
-  const moreSkills = trimmedSkills.length > maxSkillsCharactersToShow;
   const moreEducation = trimmedEducation.length > maxEducationCharactersToShow;
 
   if (!phone) {
@@ -183,66 +212,38 @@ function ProfileInfoCard({
   // Extract the first job title (index 0)
   const firstJobTitle = trimmedJobTitles[0];
 
-  const labels = [];
-  const values = [];
-  const { socialMediaColors } = colors;
-  const { size } = typography;
-
-  // Convert this form `objectKey` of the object key in to this `object key`
-  Object.keys(info).forEach((el) => {
-    if (el.match(/[A-Z\s]+/)) {
-      const uppercaseLetter = Array.from(el).find((i) => i.match(/[A-Z]+/));
-      const newElement = el.replace(uppercaseLetter, ` ${uppercaseLetter.toLowerCase()}`);
-
-      labels.push(newElement);
-    } else {
-      labels.push(el);
-    }
-  });
-
-  // Push the object values into the values array
-  Object.values(info).forEach((el) => values.push(el));
-
-  // Render the card info items
-  const renderItems = labels.map((label, key) => (
-    <MDBox key={label} display="flex" py={1} pr={2}>
-      <MDTypography variant="button" fontWeight="bold" textTransform="capitalize">
-        {label}: &nbsp;
-      </MDTypography>
-      <MDTypography variant="button" fontWeight="regular" color="text">
-        &nbsp;{values[key]}
-      </MDTypography>
-    </MDBox>
-  ));
-
   return (
     <MDBox>
-      {/* <Grid component> */}
-      {/* <Grid item> */}
+      {/* <Grid component>
+        <Grid item> */}
       <Card sx={{ height: "100%", boxShadow: !shadow && "none" }}>
-        <MDBox display="flex" justifyContent="space-between" alignItems="center" pt={2} px={2}>
-          <MDTypography variant="h5" fontWeight="medium" textTransform="capitalize">
+        <MDBox
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          pt={2}
+          px={2}
+          wrap="wrap"
+          // sx={{ border: "2px solid green" }}
+        >
+          <MDTypography variant="h6" fontWeight="medium" textTransform="capitalize">
             <Icon>
               <PersonIcon />
             </Icon>
             &nbsp; &nbsp;
             {name}
           </MDTypography>
-          {/* <MDTypography component={Link} to={action.route} variant="body2" color="secondary">
-          <Tooltip name={action.tooltip} placement="top">
-          <Icon>edit</Icon>
-          </Tooltip>
-        </MDTypography> */}
         </MDBox>
         <MDBox>
           <Grid
             container
             direction="row"
-            justifyContent="space-evenly"
+            justifyContent="space-around"
             alignItems="center"
-            spacing={0}
+            // spacing={0}
+            // padding={0}
             // columns={12}
-            sx={{ marginTop: "5px" }}
+            sx={{ marginTop: "5px", height: "75px" }}
             wrap="wrap"
           >
             <Grid item sx={{ margin: "3px" }}>
@@ -274,9 +275,18 @@ function ProfileInfoCard({
             </Grid>
           </Grid>
         </MDBox>
-        <MDBox p={2}>
+        <MDBox opacity={0.3}>
+          <Divider sx={{ marginBottom: "7px", marginTop: "3px" }} />
+        </MDBox>
+        <MDBox p={1}>
           <MDBox mb={2} lineHeight={2}>
-            <Grid container direction="row" justifyContent="space-evenly" columns={8}>
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-evenly"
+              columns={8}
+              // sx={{ border: "2px solid red" }}
+            >
               <Grid item xs={0.3}>
                 <Icon>
                   <WorkOutlineIcon sx={{ marginTop: "-12px" }} />
@@ -326,7 +336,6 @@ function ProfileInfoCard({
               <Grid item xs={7} sx={{ height: "30px" }}>
                 <MDTypography variant="h6" fontWeight="regular" textTransform="capitalize">
                   {/* &nbsp; &nbsp; */}
-                  {/* {skills} */}
                   {displayedSkills}
                   {moreSkills && (
                     <MDTypography sx={{ display: "inline-flex" }} variant="h6" fontWeight="light">
@@ -334,13 +343,26 @@ function ProfileInfoCard({
                     </MDTypography>
                   )}
                 </MDTypography>
+                {/* <MDTypography
+                  variant="h6"
+                  fontWeight="regular"
+                  textTransform="capitalize"
+                  style={{ whiteSpace: "nowrap" }}
+                >
+                  {displayedSkills}
+                  {moreSkills && (
+                    <MDTypography sx={{ display: "inline-flex" }} variant="h6" fontWeight="light">
+                      ...
+                    </MDTypography>
+                  )}
+                </MDTypography> */}
               </Grid>
             </Grid>
           </MDBox>
-          {/* <MDBox opacity={0.3}>
-            <Divider />
-          </MDBox> */}
-          <MDBox marginTop={2}>
+          <MDBox>
+            <Divider sx={{ marginBottom: "7px", marginTop: "3px" }} />
+          </MDBox>
+          <MDBox marginTop={2} mb={1}>
             <MDButton color="dark" onClick={handleDownload}>
               Download Resume
             </MDButton>
@@ -365,6 +387,8 @@ function ProfileInfoCard({
             </Typography>
             </Box>
           </Modal> */}
+      {/* </Grid>
+      </Grid> */}
     </MDBox>
   );
 }

@@ -268,14 +268,14 @@ const FilterResume = () => {
             ) : (
               <Grid
                 container
-                spacing={1}
-                gap={3}
+                spacing={3}
+                // gap={0.3}
                 sx={{
                   justifyContent: "space-evenly",
                 }}
               >
                 {filteredData.map((Data) => (
-                  <Grid item xs={5.8} key={Data.id}>
+                  <Grid item xs={24} key={Data.id} md={6} gap={1}>
                     <ProfileInfoCard
                       name={Data.name ? Data.name : "No name"}
                       jobTitle={Data.job_titles ? Data.job_titles : "N/A"}
