@@ -422,7 +422,34 @@ const From = () => {
               marginBottom: "10px",
             }}
           >
-            <TextField
+            <Autocomplete
+              sx={{ width: 450 }}
+              value={missingDetails.education}
+              freeSolo
+              id="tags-standard"
+              options={CourseKeywords.map((x) => x.title)}
+              // getOptionLabel={(option) => option.title}
+              // defaultValue={[top100Keywords[13]]}
+              onChange={(e, val) => {
+                setMissingDetails({
+                  ...missingDetails,
+                  education: val,
+                });
+              }}
+              renderInput={(params) => (
+                <TextField
+                  sx={{ width: 450 }}
+                  {...params}
+                  variant="standard"
+                  label="Education"
+                  placeholder="Enter Your education"
+                  // inputProps={{ style: { fontSize: "17px" } }}
+                  InputLabelProps={{ style: { fontSize: "17px" } }}
+                  required
+                />
+              )}
+            />
+            {/* <TextField
               sx={{ width: 450 }}
               value={missingDetails.education}
               variant="standard"
@@ -437,7 +464,7 @@ const From = () => {
                 })
               }
               required
-            />
+            /> */}
             {/* <TextField
               sx={{ width: 450 }}
               value={missingDetails.experienceLevel}
@@ -1129,4 +1156,55 @@ const top100Keywords = [
   { title: "Motion Study" },
   { title: "Method Study" },
 ];
+
+const CourseKeywords = [
+  { title: "Ph.D/Doctorate" },
+  { title: "MPHIL" },
+  { title: "MBA/PGDM" },
+  { title: "M.Tech" },
+  { title: "MS/M.Sc(Science)" },
+  { title: "MCA" },
+  { title: "M.Com" },
+  { title: "PG Diploma" },
+  { title: "M.A" },
+  { title: "CA" },
+  { title: "DM" },
+  { title: "ICWA (CMA)" },
+  { title: "Integrated PG" },
+  { title: "LLM" },
+  { title: "M.Arch" },
+  { title: "M.Ch" },
+  { title: "M.Des" },
+  { title: "M.Ed" },
+  { title: "M.Pharma" },
+  { title: "MCM" },
+  { title: "MDS" },
+  { title: "Medical-MS/MD" },
+  { title: "MFA" },
+  { title: "MVSC" },
+  { title: "B.Tech/B.E" },
+  { title: "B.Com" },
+  { title: "B.Sc" },
+  { title: "B.A" },
+  { title: "Diploma" },
+  { title: "B.Arch" },
+  { title: "B.B.A/B.M.S" },
+  { title: "B.Des" },
+  { title: "B.Ed" },
+  { title: "B.EI.ED" },
+  { title: "B.P.ED" },
+  { title: "B.Pharma" },
+  { title: "B.U.M.S" },
+  { title: "BAMS" },
+  { title: "BCA" },
+  { title: "BDS" },
+  { title: "BFA" },
+  { title: "BHM" },
+  { title: "BHMCT" },
+  { title: "BHMS" },
+  { title: "BVSC" },
+  { title: "LLB" },
+  { title: "MBBS" },
+];
+
 export default From;

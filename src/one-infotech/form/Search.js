@@ -360,7 +360,7 @@ const Search = () => {
       </MDBox>
       <MDBox className="input" sx={{ display: "flex", marginTop: "20px", marginBottom: "20px" }}>
         <Typography fontSize={16}>Annual Salary:</Typography>
-        <Autocomplete
+        {/* <Autocomplete
           className="experience"
           sx={{ width: 80, marginLeft: "20px" }}
           // defaultValue="₹"
@@ -372,7 +372,10 @@ const Search = () => {
             });
           }}
           renderInput={(params) => <MDInput {...params} variant="standard" />}
-        />
+        /> */}
+        <Typography sx={{ marginInline: "1.5em" }} fontSize={16}>
+          INR
+        </Typography>
         <MDBox sx={{ display: "flex" }}>
           <Autocomplete
             className="experience"
@@ -1167,33 +1170,33 @@ const employerList = [
 
 const CourseKeywords = [
   { title: "Ph.D/Doctorate" },
-  { title: "MPHIL" },
+  { title: "MPHIL (Masters of Philosophy)" },
   { title: "MBA/PGDM" },
-  { title: "M.Tech" },
-  { title: "MS/M.Sc(Science)" },
-  { title: "MCA" },
-  { title: "M.Com" },
-  { title: "PG Diploma" },
-  { title: "M.A" },
-  { title: "CA" },
+  { title: "M.Tech (Masters Of Technology)" },
+  { title: "M.S (Master of Science)" },
+  { title: "MCA (Master of Computer Application)" },
+  { title: "M.Com (Master of Commerce)" },
+  { title: "PG (Diploma Postgraduate)" },
+  { title: "M.A (Aaster of Arts)" },
+  { title: "CA (Chartered Accountant)" },
   { title: "DM" },
-  { title: "ICWA (CMA)" },
+  { title: "ICWA CMA (institute of cost and works accountants of india)" },
   { title: "Integrated PG" },
   { title: "LLM" },
-  { title: "M.Arch" },
-  { title: "M.Ch" },
-  { title: "M.Des" },
-  { title: "M.Ed" },
-  { title: "M.Pharma" },
-  { title: "MCM" },
-  { title: "MDS" },
+  { title: "M.Arch (Masters Of Architecture)" },
+  { title: "M.Ch (Master Of Chirurgiae)" },
+  { title: "M.Des (Master of Design)" },
+  { title: "M.Ed (Master of Education)" },
+  { title: "M.Pharma (Masters of Pharmacy)" },
+  { title: "MCM (Masters Of Computer Management)" },
+  { title: "MDS (Master Of Dental Surgery)" },
   { title: "Medical-MS/MD" },
-  { title: "MFA" },
-  { title: "MVSC" },
-  { title: "B.Tech/B.E" },
-  { title: "B.Com" },
-  { title: "B.Sc" },
-  { title: "B.A" },
+  { title: "MFA (Masters Of Fine Arts)" },
+  { title: "MVSC (Masters Of Veterinary Science)" },
+  { title: "B.Tech (Bachelors Of Technology)" },
+  { title: "B.Com (Bachelor Of Commerce)" },
+  { title: "B.Sc (Bachelors Of Science)" },
+  { title: "B.A (Bachelors Of Arts)" },
   { title: "Diploma" },
   { title: "B.Arch" },
   { title: "B.B.A/B.M.S" },
