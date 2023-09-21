@@ -200,19 +200,31 @@ const FilterResume = () => {
         );
       }
       if (searchParams.has("education")) {
-        tempFilteredData = tempFilteredData.filter((x) =>
-          x.education
-            ? x.education.toLowerCase().includes(searchParams.get("education").toLowerCase())
-            : false
-        );
+        console.log("searching for " + searchParams.get("education"));
+        let education = searchParams.get("education").split(" (");
+        education[1] = education[1].slice(0, -1);
+        console.log(education);
+        tempFilteredData = tempFilteredData.filter((x) => {
+          if (!x.education) {
+            return false;
+          }
+          // console.log(x.education);
+          let status = false;
+          education.forEach((e) => {
+            if (x.education.toLowerCase().includes(e.toLowerCase())) {
+              status = true;
+            }
+          });
+          return status;
+        });
       }
       if (searchParams.has("skills")) {
         tempFilteredData = tempFilteredData.filter((x) => {
           if (x.skills) {
-            let test = true;
+            let test = false;
             searchParams.getAll("skills").forEach((k) => {
-              if (!x.skills.toLowerCase().includes(k.toLowerCase())) {
-                test = false;
+              if (x.skills.toLowerCase().includes(k.toLowerCase())) {
+                test = true;
               }
             });
             return test;
@@ -297,5 +309,31 @@ const FilterResume = () => {
     </DashboardLayout>
   );
 };
+
+const educationList = [
+  ["b.com", "bachelor of commerce"],
+  ["b.sc", "bachelor of science"],
+  ["b.a", "bachelor of arts"],
+  ["mfa", "master of fine arts"],
+  ["mvsc", "masters of veterinary science"],
+  ["b.tech", "bachelor of technology"],
+  ["m.arc", "master of architecture"],
+  ["m.ch", "master of chirurgiae"],
+  ["m.des", "master of design"],
+  ["m.ed", "master of education"],
+  ["m.pharma", "masters of pharmacy"],
+  ["mcm", "masters of computer management"],
+  ["mds", "master of dental surgery"],
+  ["mphil", "master of philosophy"],
+  ["mba/pgdm", "masters of business administration/post graduate diploma in management"],
+  ["m.tech", "master of technology"],
+  ["ms/m.sc", "master of science"],
+  ["mca", "master of computer application"],
+  ["m.com", "master of commerce"],
+  ["pg", "diploma postgraduate"],
+  ["m.a", "master of arts"],
+  ["ca", "chartered accountant"],
+  ["icma cwa", "institute of cost and works accountants of india"],
+];
 
 export default FilterResume;

@@ -360,7 +360,7 @@ const Search = () => {
       </MDBox>
       <MDBox className="input" sx={{ display: "flex", marginTop: "20px", marginBottom: "20px" }}>
         <Typography fontSize={16}>Annual Salary:</Typography>
-        <Autocomplete
+        {/* <Autocomplete
           className="experience"
           sx={{ width: 80, marginLeft: "20px" }}
           // defaultValue="₹"
@@ -372,7 +372,10 @@ const Search = () => {
             });
           }}
           renderInput={(params) => <MDInput {...params} variant="standard" />}
-        />
+        /> */}
+        <Typography sx={{ marginInline: "1.5em" }} fontSize={16}>
+          INR
+        </Typography>
         <MDBox sx={{ display: "flex" }}>
           <Autocomplete
             className="experience"
@@ -590,7 +593,7 @@ const Search = () => {
           name="location"
         />
       </MDBox>
-      <MDInput
+      {/* <MDInput
         type="text"
         label="Education"
         placeholder="Education Details"
@@ -603,10 +606,33 @@ const Search = () => {
             education: e.target.value,
           });
         }}
+      /> */}
+      <Autocomplete
+        freeSolo
+        id="tags-standard"
+        sx={{ marginTop: "10px" }}
+        options={CourseKeywords.map((x) => x.title)}
+        // getOptionLabel={(option) => option.title}
+        // defaultValue={[top18Keywords[13]]}
+        onChange={(e, val) => {
+          setAdvancedSearchData({
+            ...advancedSearchData,
+            education: val,
+          });
+        }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            variant="standard"
+            label="Education"
+            placeholder="Education Details"
+          />
+        )}
       />
       <Autocomplete
         multiple
         freeSolo
+        sx={{ marginTop: "10px" }}
         id="tags-standard"
         options={top18Keywords.map((x) => x.title)}
         // getOptionLabel={(option) => option.title}
@@ -839,10 +865,8 @@ const top18Keywords = [
   { title: "Predictive Maintenance" },
   { title: "CNC Maintenance" },
   { title: "PLC Maintenance" },
-  { title: "PLC Maintenance" },
   { title: "Erection" },
   { title: "Commissioning" },
-  { title: "CAPEX" },
   { title: "Machine Installation" },
   { title: "Machine Maintenance" },
   { title: "Utility" },
@@ -864,7 +888,6 @@ const top18Keywords = [
   { title: "Dealer Training" },
   { title: "Business Development" },
   { title: "Branding" },
-  { title: "Pricing" },
   { title: "Area sales" },
   { title: "Territory sales" },
   { title: "National Sales" },
@@ -905,7 +928,6 @@ const top18Keywords = [
   { title: "Tax" },
   { title: "Audit" },
   { title: "Internal Control" },
-  { title: "Internal Audit" },
   { title: "Transfer Pricing" },
   { title: "Factory Accounts" },
   { title: "Plant Accounts" },
@@ -931,14 +953,11 @@ const top18Keywords = [
   { title: "Vehicle Integration" },
   { title: "Vehicle Testing" },
   { title: "Prototype Development" },
-  { title: "APQP" },
-  { title: "PPAP" },
   { title: "FEA" },
   { title: "FMEA" },
   { title: "Abacus" },
   { title: "Ansys" },
   { title: "Dyna" },
-  { title: "Product Research" },
   { title: "Environment" },
   { title: "Safety" },
   { title: "Health" },
@@ -948,8 +967,6 @@ const top18Keywords = [
   { title: "OHSAS" },
   { title: "Sustainability" },
   { title: "Recycling" },
-  { title: "CSR" },
-  { title: "Corporate Social Responsibility" },
   { title: "RLI" },
   { title: "CLI" },
   { title: "Regional Labour Institute" },
@@ -960,7 +977,6 @@ const top18Keywords = [
   { title: "Lean Manufacturing" },
   { title: "TPS" },
   { title: "Toyota Production System" },
-  { title: "New Product development" },
   { title: "Production Engineering" },
   { title: "New Projects" },
   { title: "KANBAN" },
@@ -1057,7 +1073,6 @@ const employerList = [
   "Disney",
   "Warner Bros.",
   "Universal Pictures",
-  "Netflix",
   "Comcast",
   "Verizon",
   "AT&T",
@@ -1145,17 +1160,62 @@ const employerList = [
   "Geico",
   "Berkshire Hathaway",
   "General Electric",
-  "Siemens",
   "Honeywell",
-  "3M",
   "Danaher",
   "Emerson Electric",
-  "ABB",
-  "Schneider Electric",
   "Mitsubishi Electric",
-  "Hitachi",
   "Thermo Fisher Scientific",
   "Johnson Controls",
+];
+
+const CourseKeywords = [
+  { title: "Ph.D/Doctorate" },
+  { title: "MPHIL (Masters of Philosophy)" },
+  { title: "MBA/PGDM" },
+  { title: "M.Tech (Masters Of Technology)" },
+  { title: "M.S (Master of Science)" },
+  { title: "MCA (Master of Computer Application)" },
+  { title: "M.Com (Master of Commerce)" },
+  { title: "PG (Diploma Postgraduate)" },
+  { title: "M.A (Aaster of Arts)" },
+  { title: "CA (Chartered Accountant)" },
+  { title: "DM" },
+  { title: "ICWA CMA (institute of cost and works accountants of india)" },
+  { title: "Integrated PG" },
+  { title: "LLM" },
+  { title: "M.Arch (Masters Of Architecture)" },
+  { title: "M.Ch (Master Of Chirurgiae)" },
+  { title: "M.Des (Master of Design)" },
+  { title: "M.Ed (Master of Education)" },
+  { title: "M.Pharma (Masters of Pharmacy)" },
+  { title: "MCM (Masters Of Computer Management)" },
+  { title: "MDS (Master Of Dental Surgery)" },
+  { title: "Medical-MS/MD" },
+  { title: "MFA (Masters Of Fine Arts)" },
+  { title: "MVSC (Masters Of Veterinary Science)" },
+  { title: "B.Tech (Bachelors Of Technology)" },
+  { title: "B.Com (Bachelor Of Commerce)" },
+  { title: "B.Sc (Bachelors Of Science)" },
+  { title: "B.A (Bachelors Of Arts)" },
+  { title: "Diploma" },
+  { title: "B.Arch" },
+  { title: "B.B.A/B.M.S" },
+  { title: "B.Des" },
+  { title: "B.Ed" },
+  { title: "B.EI.ED" },
+  { title: "B.P.ED" },
+  { title: "B.Pharma" },
+  { title: "B.U.M.S" },
+  { title: "BAMS" },
+  { title: "BCA" },
+  { title: "BDS" },
+  { title: "BFA" },
+  { title: "BHM" },
+  { title: "BHMCT" },
+  { title: "BHMS" },
+  { title: "BVSC" },
+  { title: "LLB" },
+  { title: "MBBS" },
 ];
 
 export default Search;
