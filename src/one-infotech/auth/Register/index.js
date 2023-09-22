@@ -90,7 +90,7 @@ const Register = () => {
   }
 
   return (
-    <CoverLayout image={bgImage}>
+    <CoverLayout>
       <ToastContainer />
       <Card>
         <MDBox
