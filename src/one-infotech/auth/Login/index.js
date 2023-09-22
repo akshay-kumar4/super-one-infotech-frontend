@@ -116,6 +116,21 @@ const Login = () => {
               </MDButton>
             </MDBox>
           </MDBox>
+          <MDBox mt={3} mb={1} textAlign="center">
+            <MDTypography variant="button" color="text">
+              Don&apos;t have an account?{" "}
+              <MDTypography
+                component={Link}
+                to="/auth/sign-up"
+                variant="button"
+                color="info"
+                fontWeight="medium"
+                textGradient
+              >
+                Sign Up
+              </MDTypography>
+            </MDTypography>
+          </MDBox>
         </MDBox>
       </Card>
     </CoverLayout>
