@@ -228,7 +228,7 @@ function ProfileInfoCard({
         >
           <MDTypography variant="h5" fontWeight="medium" textTransform="capitalize">
             <Icon>
-              <PersonIcon />
+              <PersonIcon sx={{ marginTop: "-5px" }} />
             </Icon>
           </MDTypography>
           <MDTypography variant="h6" fontWeight="medium" textTransform="capitalize">
@@ -245,7 +245,7 @@ function ProfileInfoCard({
             // spacing={0}
             // padding={0}
             // columns={12}
-            sx={{ marginTop: "5px", height: "75px" }}
+            sx={{ marginTop: "5px", height: "62px" }}
             wrap="wrap"
           >
             <Grid item sx={{ margin: "3px" }}>
@@ -277,8 +277,8 @@ function ProfileInfoCard({
             </Grid>
           </Grid>
         </MDBox>
-        <MDBox opacity={0.3}>
-          <Divider sx={{ marginBottom: "7px", marginTop: "3px" }} />
+        <MDBox opacity={1}>
+          <Divider sx={{ marginBottom: "3px", marginTop: "3px" }} />
         </MDBox>
         <MDBox p={1}>
           <MDBox mb={2} lineHeight={2}>
