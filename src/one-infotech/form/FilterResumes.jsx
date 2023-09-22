@@ -300,7 +300,7 @@ const FilterResume = () => {
                 }}
               >
                 {filteredData.map((Data) => (
-                  <Grid item xs={24} key={Data.id} md={6} gap={1}>
+                  <Grid item xs={20} key={Data.id} sm={12} md={6} gap={0.5}>
                     <ProfileInfoCard
                       name={Data.name ? Data.name : "No name"}
                       jobTitle={Data.job_titles ? Data.job_titles : "N/A"}
