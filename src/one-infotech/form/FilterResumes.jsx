@@ -24,6 +24,7 @@ import { Dialog, DialogTitle, DialogContent, DialogContentText, IconButton } fro
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 import { Grow } from "@mui/material";
+import { useSelector } from "react-redux";
 // import axios from 'axios'
 
 const FilterResume = () => {
@@ -35,6 +36,7 @@ const FilterResume = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [displayNoDataFound, setDisplayNoDataFound] = useState(true); // Set to true by default
   const [noDataFound, setNoDataFound] = useState(false);
+  const getUser = useSelector((state) => state.user);
 
   const onOpen = (Data) => {
     setSelectedData(Data);
@@ -50,7 +52,7 @@ const FilterResume = () => {
     axios
       .get("https://resume-api-6u3t4.ondigitalocean.app/resume-data/", {
         headers: {
-          Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+          Authorization: `Token ${getUser.token}`,
         },
       })
       .then((response) => {
@@ -201,8 +203,18 @@ const FilterResume = () => {
       }
       if (searchParams.has("education")) {
         console.log("searching for " + searchParams.get("education"));
-        let education = searchParams.get("education").split(" (");
-        education[1] = education[1].slice(0, -1);
+        let education = searchParams.get("education").split(/[,/()]/);
+        // if (education.length > 1) {
+        //   education[1] = education[1].slice(0, -1);
+        // }
+        if (education.includes("")) {
+          education = education
+            .slice(
+              0,
+              education.findIndex((x) => "" === x)
+            )
+            .concat(education.slice(education.findIndex((x) => "" === x) + 1, education.length));
+        }
         console.log(education);
         tempFilteredData = tempFilteredData.filter((x) => {
           if (!x.education) {
@@ -210,11 +222,12 @@ const FilterResume = () => {
           }
           // console.log(x.education);
           let status = false;
-          education.forEach((e) => {
-            if (x.education.toLowerCase().includes(e.toLowerCase())) {
+          for (let i = 0; i < education.length; i++) {
+            if (x.education.toLowerCase().includes(education[i].trim().toLowerCase())) {
+              console.log(x.education);
               status = true;
             }
-          });
+          }
           return status;
         });
       }

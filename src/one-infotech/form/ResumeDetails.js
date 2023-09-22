@@ -3,16 +3,18 @@ import MDBox from "components/MDBox";
 import { Accordion } from "@mui/material";
 import React from "react";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const ResumeDetails = () => {
   const [data, setData] = useState([]);
+  const getUser = useSelector((state) => state.user);
 
   useEffect(() => {
     // Make a GET request when the component mounts
     axios
       .get("https://resume-api-6u3t4.ondigitalocean.app/resume-data/", {
         headers: {
-          Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+          Authorization: `Token ${getUser.token}`,
         },
       })
       .then((response) => {

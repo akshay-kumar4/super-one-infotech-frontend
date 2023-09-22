@@ -41,6 +41,7 @@ import Stack from "@mui/material/Stack";
 // import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -95,6 +96,7 @@ const buttonStyles = {
 
 const From = () => {
   const [alignment, setAlignment] = React.useState("web");
+  const getUser = useSelector((state) => state.user);
 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
@@ -172,7 +174,7 @@ const From = () => {
       }
 
       const headers = {
-        Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+        Authorization: `Token ${getUser.token}`,
       };
 
       axios
@@ -241,7 +243,7 @@ const From = () => {
     formData.append("job_hopping", missingDetails.jobHopping);
 
     const headers = {
-      Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+      Authorization: `Token ${getUser.token}`,
     };
 
     axios

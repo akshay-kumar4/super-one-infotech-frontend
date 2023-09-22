@@ -45,6 +45,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Typography } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from "react-redux";
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
@@ -98,6 +99,7 @@ const buttonStyles = {
 
 const Search = () => {
   const [alignment, setAlignment] = useState("web");
+  const getUser = useSelector((state) => state.user);
 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
@@ -107,6 +109,8 @@ const Search = () => {
   const handleChangeAccordion = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
+
+  console.log(getUser.token);
 
   const [advancedSearchData, setAdvancedSearchData] = useState({
     anyKeys: [],
@@ -141,7 +145,7 @@ const Search = () => {
       // console.log(formData);
 
       const headers = {
-        Authorization: "Token e06ac2eca287fc7136dceb7780bdee299a23a6d6",
+        Authorization: `Token ${getUser.token}`,
       };
 
       // Display the 'File uploading' message
@@ -1189,10 +1193,10 @@ const CourseKeywords = [
   { title: "MDS (Master Of Dental Surgery)" },
   { title: "MFA (Masters Of Fine Arts)" },
   { title: "MVSC (Masters Of Veterinary Science)" },
-  { title: "B.Tech (Bachelors Of Technology)" },
+  { title: "B.Tech (Bachelor Of Technology)" },
   { title: "B.Com (Bachelor Of Commerce)" },
-  { title: "B.Sc (Bachelors Of Science)" },
-  { title: "B.A (Bachelors Of Arts)" },
+  { title: "B.Sc (Bachelor Of Science)" },
+  { title: "B.A (Bachelor Of Arts)" },
   { title: "B.Arch (Bachelor of Architecture)" },
   { title: "B.B.A/B.M.S (Bachelor of Business Administration)" },
   { title: "B.Des (Bachelor of Design)" },
