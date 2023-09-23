@@ -110,8 +110,6 @@ const Search = () => {
     setExpanded(newExpanded ? panel : false);
   };
 
-  console.log(getUser.token);
-
   const [advancedSearchData, setAdvancedSearchData] = useState({
     anyKeys: [],
     allKeys: [],
@@ -1174,9 +1172,9 @@ const employerList = [
 
 const CourseKeywords = [
   { title: "Ph.D/Doctorate" },
-  { title: "MPHIL (Masters of Philosophy)" },
+  { title: "MPHIL (Master of Philosophy)" },
   { title: "MBA/PGDM (Master of Business Administration)" },
-  { title: "M.Tech (Masters Of Technology)" },
+  { title: "M.Tech (Master Of Technology)" },
   { title: "M.S (Master of Science)" },
   { title: "MCA (Master of Computer Application)" },
   { title: "M.Com (Master of Commerce)" },
@@ -1184,15 +1182,15 @@ const CourseKeywords = [
   { title: "M.A (Aaster of Arts)" },
   { title: "CA (Chartered Accountant)" },
   { title: "ICWA CMA (Institute of Cost and Works Accountants of India)" },
-  { title: "M.Arch (Masters Of Architecture)" },
+  { title: "M.Arch (Master Of Architecture)" },
   { title: "M.Ch (Master Of Chirurgiae)" },
   { title: "M.Des (Master of Design)" },
   { title: "M.Ed (Master of Education)" },
-  { title: "M.Pharma (Masters of Pharmacy)" },
-  { title: "MCM (Masters Of Computer Management)" },
+  { title: "M.Pharma (Master of Pharmacy)" },
+  { title: "MCM (Master Of Computer Management)" },
   { title: "MDS (Master Of Dental Surgery)" },
-  { title: "MFA (Masters Of Fine Arts)" },
-  { title: "MVSC (Masters Of Veterinary Science)" },
+  { title: "MFA (Master Of Fine Arts)" },
+  { title: "MVSC (Master Of Veterinary Science)" },
   { title: "B.Tech (Bachelor Of Technology)" },
   { title: "B.Com (Bachelor Of Commerce)" },
   { title: "B.Sc (Bachelor Of Science)" },

@@ -48,6 +48,15 @@ const Register = () => {
         .then((x) => {
           console.log(x);
           toast.success("Registered Successfully. Redirecting to login page..");
+          setNewUser({
+            fname: "",
+            lname: "",
+            uname: "",
+            pwd1: "",
+            pwd2: "",
+            email: "",
+            termsAccepted: false,
+          });
           setTimeout(() => {
             navigate("/auth/sign-in");
           }, 5000);
