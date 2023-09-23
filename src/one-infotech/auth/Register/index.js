@@ -29,7 +29,6 @@ const Register = () => {
     pwd1: "",
     pwd2: "",
     email: "",
-    termsAccepted: false,
   });
 
   function submitRegistration() {
@@ -55,7 +54,6 @@ const Register = () => {
             pwd1: "",
             pwd2: "",
             email: "",
-            termsAccepted: false,
           });
           setTimeout(() => {
             navigate("/auth/sign-in");
@@ -90,9 +88,6 @@ const Register = () => {
     if (newUser.pwd1 !== newUser.pwd2) {
       throw new Error("Passwords should be same.");
     }
-    if (!newUser.termsAccepted) {
-      throw new Error("Please Accept the Terms and Conditions to register.");
-    }
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(newUser.email)) {
       throw new Error("Email is invalid.");
     }
@@ -122,125 +117,104 @@ const Register = () => {
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
-            <MDBox mb={2}>
-              <MDInput
-                type="text"
-                label="First Name"
-                variant="standard"
-                fullWidth
-                value={newUser.fname}
-                onChange={(e) =>
-                  setNewUser((prev) => {
-                    return { ...prev, fname: e.target.value.trim() };
-                  })
-                }
-              />
+            <MDBox sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <MDBox mb={2} sx={{ width: "45%" }}>
+                <MDInput
+                  type="text"
+                  label="First Name"
+                  variant="standard"
+                  fullWidth
+                  value={newUser.fname}
+                  onChange={(e) =>
+                    setNewUser((prev) => {
+                      return { ...prev, fname: e.target.value.trim() };
+                    })
+                  }
+                />
+              </MDBox>
+              <MDBox mb={2} sx={{ width: "45%" }}>
+                <MDInput
+                  type="text"
+                  label="Last Name"
+                  variant="standard"
+                  fullWidth
+                  value={newUser.lname}
+                  onChange={(e) =>
+                    setNewUser((prev) => {
+                      return { ...prev, lname: e.target.value.trim() };
+                    })
+                  }
+                />
+              </MDBox>
             </MDBox>
-            <MDBox mb={2}>
-              <MDInput
-                type="text"
-                label="Last Name"
-                variant="standard"
-                fullWidth
-                value={newUser.lname}
-                onChange={(e) =>
-                  setNewUser((prev) => {
-                    return { ...prev, lname: e.target.value.trim() };
-                  })
-                }
-              />
+            <MDBox sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <MDBox mb={2} sx={{ width: "45%" }}>
+                <MDInput
+                  type="email"
+                  label="Email"
+                  variant="standard"
+                  fullWidth
+                  value={newUser.email}
+                  onChange={(e) =>
+                    setNewUser((prev) => {
+                      return { ...prev, email: e.target.value.trim() };
+                    })
+                  }
+                />
+              </MDBox>
+              <MDBox mb={2} sx={{ width: "45%" }}>
+                <MDInput
+                  type="text"
+                  label="Username"
+                  variant="standard"
+                  fullWidth
+                  value={newUser.uname}
+                  onChange={(e) =>
+                    setNewUser((prev) => {
+                      return { ...prev, uname: e.target.value.trim() };
+                    })
+                  }
+                />
+              </MDBox>
             </MDBox>
-            <MDBox mb={2}>
-              <MDInput
-                type="email"
-                label="Email"
-                variant="standard"
-                fullWidth
-                value={newUser.email}
-                onChange={(e) =>
-                  setNewUser((prev) => {
-                    return { ...prev, email: e.target.value.trim() };
-                  })
-                }
-              />
+            <MDBox sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <MDBox mb={2} sx={{ width: "45%" }}>
+                <MDInput
+                  type="password"
+                  label="Password"
+                  variant="standard"
+                  fullWidth
+                  value={newUser.pwd1}
+                  onChange={(e) =>
+                    setNewUser((prev) => {
+                      return { ...prev, pwd1: e.target.value.trim() };
+                    })
+                  }
+                />
+              </MDBox>
+              <MDBox mb={2} sx={{ width: "45%" }}>
+                <MDInput
+                  type="password"
+                  label="Confirm Password"
+                  variant="standard"
+                  fullWidth
+                  value={newUser.pwd2}
+                  onChange={(e) =>
+                    setNewUser((prev) => {
+                      return { ...prev, pwd2: e.target.value.trim() };
+                    })
+                  }
+                />
+              </MDBox>
             </MDBox>
-            <MDBox mb={2}>
-              <MDInput
-                type="text"
-                label="Username"
-                variant="standard"
-                fullWidth
-                value={newUser.uname}
-                onChange={(e) =>
-                  setNewUser((prev) => {
-                    return { ...prev, uname: e.target.value.trim() };
-                  })
-                }
-              />
-            </MDBox>
-            <MDBox mb={2}>
-              <MDInput
-                type="password"
-                label="Password"
-                variant="standard"
-                fullWidth
-                value={newUser.pwd1}
-                onChange={(e) =>
-                  setNewUser((prev) => {
-                    return { ...prev, pwd1: e.target.value.trim() };
-                  })
-                }
-              />
-            </MDBox>
-            <MDBox mb={2}>
-              <MDInput
-                type="password"
-                label="Confirm Password"
-                variant="standard"
-                fullWidth
-                value={newUser.pwd2}
-                onChange={(e) =>
-                  setNewUser((prev) => {
-                    return { ...prev, pwd2: e.target.value.trim() };
-                  })
-                }
-              />
-            </MDBox>
-            <MDBox display="flex" alignItems="center" ml={-1}>
-              <Checkbox
-                onChange={(e) =>
-                  setNewUser((prev) => {
-                    return { ...prev, termsAccepted: e.target.checked };
-                  })
-                }
-              />
-              <MDTypography
-                variant="button"
-                fontWeight="regular"
-                color="text"
-                sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
-              >
-                &nbsp;&nbsp;I agree the&nbsp;
-              </MDTypography>
-              <MDTypography
-                component="a"
-                href="#"
-                variant="button"
-                fontWeight="bold"
-                color="info"
-                textGradient
-              >
-                Terms and Conditions
-              </MDTypography>
-            </MDBox>
-            <MDBox mt={4} mb={1}>
+            <MDBox mt={2} mb={1}>
               <MDButton variant="gradient" color="info" fullWidth onClick={submitRegistration}>
                 sign up
               </MDButton>
             </MDBox>
             <MDBox mt={3} mb={1} textAlign="center">
               <MDTypography variant="button" color="text">
-                Already have an account?{" "}
+                Already have an account?
                 <MDTypography
                   component={Link}
                   to="/auth/sign-in"
