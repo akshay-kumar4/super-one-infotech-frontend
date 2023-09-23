@@ -110,8 +110,6 @@ const Search = () => {
     setExpanded(newExpanded ? panel : false);
   };
 
-  console.log(getUser.token);
-
   const [advancedSearchData, setAdvancedSearchData] = useState({
     anyKeys: [],
     allKeys: [],
