@@ -203,18 +203,12 @@ const FilterResume = () => {
       }
       if (searchParams.has("education")) {
         console.log("searching for " + searchParams.get("education"));
-        let education = searchParams.get("education").split(/[,/()]/);
-        // if (education.length > 1) {
-        //   education[1] = education[1].slice(0, -1);
-        // }
-        if (education.includes("")) {
-          education = education
-            .slice(
-              0,
-              education.findIndex((x) => "" === x)
-            )
-            .concat(education.slice(education.findIndex((x) => "" === x) + 1, education.length));
-        }
+        let education = searchParams
+          .get("education")
+          .split(/[()\/]/)
+          .filter((x) => x.trim() != "")
+          .map((x) => x.trim().replace(".", ""));
+
         console.log(education);
         tempFilteredData = tempFilteredData.filter((x) => {
           if (!x.education) {
@@ -223,9 +217,17 @@ const FilterResume = () => {
           // console.log(x.education);
           let status = false;
           for (let i = 0; i < education.length; i++) {
-            if (x.education.toLowerCase().includes(education[i].trim().toLowerCase())) {
-              console.log(x.education);
-              status = true;
+            if (education[i].includes(" ")) {
+              //contains spaces means it is long form thus matched without exact case
+              if (x.education.replace(".", "").toLowerCase().includes(education[i].toLowerCase())) {
+                console.log(x.education);
+                status = true;
+              }
+            } else {
+              // does not contain space thus it is short form and matched with exact case
+              if (x.education.replace(".", "").includes(education[i])) {
+                status = true;
+              }
             }
           }
           return status;
