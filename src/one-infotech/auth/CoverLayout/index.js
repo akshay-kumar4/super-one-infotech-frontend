@@ -17,47 +17,25 @@ import Footer from "layouts/authentication/components/Footer";
 // Material Dashboard 2 PRO React page layout routes
 import pageRoutes from "page.routes";
 
-const CoverLayout = ({ coverHeight, image, children }) => {
+const CoverLayout = ({ coverHeight, children }) => {
   return (
     <PageLayout>
-      {/* <DefaultNavbar
-        routes={pageRoutes}
-        action={{
-          type: "external",
-          route: "https://creative-tim.com/product/material-dashboard-pro-react",
-          label: "buy now",
-        }}
-        transparent
-        light
-      /> */}
       <MDBox
         width="calc(100% - 2rem)"
         minHeight={coverHeight}
         borderRadius="xl"
         mx={2}
-        my={2}
+        // my={2}
         pt={6}
         pb={28}
-        // sx={{
-        //   backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
-        //     image &&
-        //     `${linearGradient(
-        //       rgba(gradients.dark.main, 0.4),
-        //       rgba(gradients.dark.state, 0.4)
-        //     )}, url(${image})`,
-        //   backgroundSize: "cover",
-        //   backgroundPosition: "center",
-        //   backgroundRepeat: "no-repeat",
-        // }}
       />
-      <MDBox mt={{ xs: -20, lg: -18 }} px={1} width="calc(100% - 2rem)" mx="auto">
+      <MDBox mt={{ xs: -20, lg: -25 }} px={1} width="calc(100% - 2rem)" mx="auto">
         <Grid container spacing={1} justifyContent="center">
           <Grid item xs={11} sm={9} md={6} lg={5} xl={4}>
             {children}
           </Grid>
         </Grid>
       </MDBox>
-      {/* <Footer /> */}
     </PageLayout>
   );
 };
@@ -70,7 +48,6 @@ CoverLayout.defaultProps = {
 // Typechecking props for the CoverLayout
 CoverLayout.propTypes = {
   coverHeight: PropTypes.string,
-  image: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
 };
 
