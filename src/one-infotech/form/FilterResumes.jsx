@@ -220,12 +220,13 @@ const FilterResume = () => {
             if (education[i].includes(" ")) {
               //contains spaces means it is long form thus matched without exact case
               if (x.education.replace(".", "").toLowerCase().includes(education[i].toLowerCase())) {
-                console.log(x.education);
+                // console.log(x.education);
                 status = true;
               }
             } else {
               // does not contain space thus it is short form and matched with exact case
               if (x.education.replace(".", "").includes(education[i])) {
+                // console.log(x.education);
                 status = true;
               }
             }

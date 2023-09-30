@@ -1191,7 +1191,7 @@ const CourseKeywords = [
   { title: "MDS (Master Of Dental Surgery)" },
   { title: "MFA (Master Of Fine Arts)" },
   { title: "MVSC (Master Of Veterinary Science)" },
-  { title: "B.Tech (Bachelor Of Technology)" },
+  { title: "B.Tech/B.E (Bachelor Of Technology/Bachelor of Engineering)" },
   { title: "B.Com (Bachelor Of Commerce)" },
   { title: "B.Sc (Bachelor Of Science)" },
   { title: "B.A (Bachelor Of Arts)" },
