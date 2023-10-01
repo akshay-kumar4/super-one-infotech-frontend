@@ -74,7 +74,7 @@ const FilterResume = () => {
           if (x.keywords) {
             let test = false;
             searchParams.getAll("any_keywords").forEach((k) => {
-              if (x.keywords.toLowerCase().includes(k.toLowerCase())) {
+              if (JSON.stringify(x).toLowerCase().includes(k.toLowerCase())) {
                 test = true;
               }
             });
@@ -88,7 +88,7 @@ const FilterResume = () => {
           if (x.keywords) {
             let test = true;
             searchParams.getAll("all_keywords").forEach((k) => {
-              if (!x.keywords.toLowerCase().includes(k.toLowerCase())) {
+              if (!JSON.stringify(x).toLowerCase().includes(k.toLowerCase())) {
                 test = false;
               }
             });
@@ -103,7 +103,7 @@ const FilterResume = () => {
           if (x.keywords) {
             return !searchParams
               .getAll("exclude_keywords")
-              .some((k) => x.keywords.toLowerCase().includes(k.toLowerCase()));
+              .some((k) => JSON.stringify(x).toLowerCase().includes(k.toLowerCase()));
           }
           return true; // If a resume doesn't have keywords, include it by default
         });

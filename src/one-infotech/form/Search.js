@@ -34,6 +34,7 @@ import MuiAccordionDetails from "@mui/material/AccordionDetails";
 // import Switch from "@mui/material/Switch";
 // import Grid from "@mui/material/Grid";
 import Autocomplete from "@mui/material/Autocomplete";
+import "./hideOptions.css";
 // import MDTypography from "components/MDTypography";
 // import Chip from "@mui/material/Chip";
 import TextField from "@mui/material/TextField";
@@ -259,8 +260,10 @@ const Search = () => {
         <Autocomplete
           multiple
           freeSolo
+          open={false}
           id="tags-standard"
-          options={top18Keywords.map((x) => x.title)}
+          // options={top18Keywords.map((x) => x.title)}
+          options={[]}
           // getOptionLabel={(option) => option.title}
           // defaultValue={[top18Keywords[13]]}
           onChange={(e, val) => {
@@ -280,8 +283,11 @@ const Search = () => {
         />
         <Autocomplete
           multiple
+          freeSolo
           id="tags-standard"
-          options={top18Keywords.map((x) => x.title)}
+          open={false}
+          options={[]}
+          // options={top18Keywords.map((x) => x.title)}
           // getOptionLabel={(option) => option.title}
           // defaultValue={[top18Keywords[13]]}
           onChange={(e, val) => {
@@ -301,8 +307,11 @@ const Search = () => {
         />
         <Autocomplete
           multiple
+          freesolo
           id="tags-standard"
-          options={top18Keywords.map((x) => x.title)}
+          open={false}
+          options={[]}
+          // options={top18Keywords.map((x) => x.title)}
           // getOptionLabel={(option) => option.title}
           // defaultValue={[top18Keywords[13]]}
           onChange={(e, val) => {
