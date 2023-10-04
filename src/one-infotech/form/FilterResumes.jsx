@@ -37,6 +37,7 @@ const FilterResume = () => {
   const [displayNoDataFound, setDisplayNoDataFound] = useState(true); // Set to true by default
   const [noDataFound, setNoDataFound] = useState(false);
   const getUser = useSelector((state) => state.user);
+  let count;
 
   const onOpen = (Data) => {
     setSelectedData(Data);
@@ -253,6 +254,7 @@ const FilterResume = () => {
   }, [data]);
   // data = JSON.stringify(data, null, 2);
   const [openDialog, setOpenDialog] = useState(false);
+  console.log(count);
 
   // rz
   return (
@@ -294,30 +296,56 @@ const FilterResume = () => {
                 </DialogContent>
               </Dialog>
             ) : (
-              <Grid
-                container
-                spacing={3}
-                // gap={0.3}
-                sx={{
-                  justifyContent: "space-evenly",
-                }}
-              >
-                {filteredData.map((Data) => (
-                  <Grid item xs={20} key={Data.id} sm={12} md={6} gap={0.5}>
-                    <ProfileInfoCard
-                      name={Data.name ? Data.name : "No name"}
-                      jobTitle={Data.job_titles ? Data.job_titles : "N/A"}
-                      phone={Data.phone ? Data.phone : "N/A"}
-                      email={Data.email ? Data.email : "N/A"}
-                      skills={Data.skills ? Data.skills : "N/A"}
-                      location={Data.location ? Data.location : "N/A"}
-                      education={Data.education ? Data.education : "N/A"}
-                      info=""
-                      data={Data}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
+              <>
+                <MDBox>
+                  {filteredData === undefined ||
+                  filteredData === null ||
+                  filteredData.length === 0 ? (
+                    <MDTypography
+                      marginBottom={2}
+                      variant="h3"
+                      fontWeight="medium"
+                      textTransform="capitalize"
+                    >
+                      Total Resumes: {data.length}
+                    </MDTypography>
+                  ) : (
+                    <MDTypography
+                      marginBottom={2}
+                      variant="h3"
+                      fontWeight="medium"
+                      textTransform="capitalize"
+                    >
+                      Total Resumes: {filteredData.length}
+                    </MDTypography>
+                  )}
+                </MDBox>
+
+                <Grid
+                  container
+                  spacing={3}
+                  // gap={0.3}
+                  sx={{
+                    justifyContent: "space-evenly",
+                  }}
+                >
+                  {filteredData.map((Data) => (
+                    <Grid item xs={20} key={Data.id} sm={12} md={6} gap={0.5}>
+                      <ProfileInfoCard
+                        name={Data.name ? Data.name : "No name"}
+                        jobTitle={Data.job_titles ? Data.job_titles : "N/A"}
+                        phone={Data.phone ? Data.phone : "N/A"}
+                        email={Data.email ? Data.email : "N/A"}
+                        skills={Data.skills ? Data.skills : "N/A"}
+                        location={Data.location ? Data.location : "N/A"}
+                        education={Data.education ? Data.education : "N/A"}
+                        info=""
+                        data={Data}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+              </>
             )}
           </React.Fragment>
         )}
