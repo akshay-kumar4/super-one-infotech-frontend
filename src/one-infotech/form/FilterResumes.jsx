@@ -71,32 +71,18 @@ const FilterResume = () => {
       let tempFilteredData = data;
       if (searchParams.has("any_keywords")) {
         // console.log(searchParams.getAll("any_keywords"));
-        tempFilteredData = tempFilteredData.filter((x) => {
-          if (x.keywords) {
-            let test = false;
-            searchParams.getAll("any_keywords").forEach((k) => {
-              if (JSON.stringify(x).toLowerCase().includes(k.toLowerCase())) {
-                test = true;
-              }
-            });
-            return test;
-          }
-          return false;
-        });
+        tempFilteredData = tempFilteredData.filter((doc) =>
+          searchParams
+            .getAll("any_keywords")
+            .some((key) => JSON.stringify(doc).toLowerCase().includes(key.toLowerCase()))
+        );
       }
       if (searchParams.has("all_keywords")) {
-        tempFilteredData = tempFilteredData.filter((x) => {
-          if (x.keywords) {
-            let test = true;
-            searchParams.getAll("all_keywords").forEach((k) => {
-              if (!JSON.stringify(x).toLowerCase().includes(k.toLowerCase())) {
-                test = false;
-              }
-            });
-            return test;
-          }
-          return false;
-        });
+        tempFilteredData = tempFilteredData.filter((doc) =>
+          searchParams
+            .getAll("all_keywords")
+            .every((key) => JSON.stringify(doc).toLowerCase().includes(key.toLowerCase()))
+        );
         // console.log("reduced to " + tempFilteredData.length + " by all keyword");
       }
       if (searchParams.has("exclude_keywords")) {
