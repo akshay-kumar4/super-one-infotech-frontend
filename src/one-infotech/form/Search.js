@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 // @mui material components
 // import Grid from "@mui/material/Grid";
@@ -101,6 +101,13 @@ const buttonStyles = {
 const Search = () => {
   const [alignment, setAlignment] = useState("web");
   const getUser = useSelector((state) => state.user);
+  var anyKeywordsRef = useRef(null);
+  var allKeywordsRef = useRef(null);
+  var excludingKeywordsRef = useRef(null);
+  var skillsKeywordsRef = useRef(null);
+  var employersRef = useRef(null);
+  var excludingEmployersRef = useRef(null);
+  var designationRef = useRef(null);
 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
@@ -226,6 +233,26 @@ const Search = () => {
     if (advancedSearchData.skills) {
       params.skills = advancedSearchData.skills;
     }
+    if (anyKeywordsRef.current.querySelector("input").value != "") {
+      params.any_keywords = params.any_keywords
+        ? [...params.any_keywords, anyKeywordsRef.current.querySelector("input").value]
+        : anyKeywordsRef.current.querySelector("input").value;
+    }
+    if (allKeywordsRef.current.querySelector("input").value != "") {
+      params.all_keywords = params.all_keywords
+        ? [...params.all_keywords, allKeywordsRef.current.querySelector("input").value]
+        : allKeywordsRef.current.querySelector("input").value;
+    }
+    if (excludingKeywordsRef.current.querySelector("input").value != "") {
+      params.exclude_keywords = params.exclude_keywords
+        ? [...params.exclude_keywords, excludingKeywordsRef.current.querySelector("input").value]
+        : excludingKeywordsRef.current.querySelector("input").value;
+    }
+    if (skillsKeywordsRef.current.querySelector("input").value != "") {
+      params.skills = params.skills
+        ? [...params.skills, skillsKeywordsRef.current.querySelector("input").value]
+        : skillsKeywordsRef.current.querySelector("input").value;
+    }
 
     // console.log(params);
 
@@ -275,6 +302,7 @@ const Search = () => {
           renderInput={(params) => (
             <TextField
               {...params}
+              ref={anyKeywordsRef}
               variant="standard"
               label="Any Keywords"
               placeholder="Skills, Designation, Role"
@@ -299,6 +327,7 @@ const Search = () => {
           renderInput={(params) => (
             <TextField
               {...params}
+              ref={allKeywordsRef}
               variant="standard"
               label="All Keywords"
               placeholder="Skills, Designation, Role"
@@ -307,7 +336,7 @@ const Search = () => {
         />
         <Autocomplete
           multiple
-          freesolo
+          freeSolo
           id="tags-standard"
           open={false}
           options={[]}
@@ -323,6 +352,7 @@ const Search = () => {
           renderInput={(params) => (
             <TextField
               {...params}
+              ref={excludingKeywordsRef}
               variant="standard"
               label="Excluding Keywords"
               placeholder="Skills, Designation, Role"
@@ -657,6 +687,7 @@ const Search = () => {
         renderInput={(params) => (
           <TextField
             {...params}
+            ref={skillsKeywordsRef}
             variant="standard"
             label="Skills"
             placeholder="Enter your Skills"
@@ -681,6 +712,7 @@ const Search = () => {
         renderInput={(params) => (
           <TextField
             {...params}
+            ref={employersRef}
             variant="standard"
             label="Employers"
             placeholder="Enter previous employers"
@@ -705,6 +737,7 @@ const Search = () => {
         renderInput={(params) => (
           <TextField
             {...params}
+            ref={excludingEmployersRef}
             variant="standard"
             label="Exclude Employers"
             placeholder="Enter previous employers to exclude"
@@ -729,6 +762,7 @@ const Search = () => {
         renderInput={(params) => (
           <TextField
             {...params}
+            ref={designationRef}
             variant="standard"
             label="Designation"
             placeholder="Enter designation to search for"
