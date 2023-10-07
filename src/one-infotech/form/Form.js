@@ -96,6 +96,9 @@ const From = () => {
     applicantSources: "",
     jobHopping: false,
   });
+  var skillRef = useRef(null);
+  var keywordsRef = useRef(null);
+  var coverLetterKeywordsRef = useRef(null);
   const [showError, setShowError] = useState(false);
   const [file, setFile] = useState(null);
   const fileRef = useRef(null);
@@ -140,14 +143,17 @@ const From = () => {
   };
   const handleDataUpload = () => {
     // Check if any of the required fields is missing
+    console.log([...missingDetails.keywords, keywordsRef.current.querySelector("input").value]);
     if (
       !missingDetails.name ||
       !missingDetails.email ||
       !missingDetails.phone ||
-      !missingDetails.keywords ||
+      // [...missingDetails.keywords, keywordsRef.current.querySelector("input").value].length == 0 ||
+      (missingDetails.keywords.length == 0 &&
+        keywordsRef.current.querySelector("input").value == "") ||
       !missingDetails.education ||
       !missingDetails.experienceLevel ||
-      !missingDetails.skills ||
+      (missingDetails.skills.length == 0 && skillRef.current.querySelector("input").value == "") ||
       !missingDetails.industryExperience ||
       !missingDetails.accomplishment ||
       !missingDetails.jobTenure ||
@@ -158,13 +164,86 @@ const From = () => {
       !missingDetails.availability ||
       !missingDetails.relevanceOfRole ||
       !missingDetails.culturalFit ||
-      !missingDetails.keywordsInCoverletter ||
+      (missingDetails.keywordsInCoverletter.length == 0 &&
+        coverLetterKeywordsRef.current.querySelector("input").value == "") ||
       !missingDetails.qualifications ||
       !missingDetails.location ||
       !missingDetails.applicantSources
     ) {
-      console.log(missingDetails);
-      toast.error("Oops! It looks like you missed something. Please complete all required fields.");
+      if (!missingDetails.name) {
+        toast.error("Please enter your name.");
+      }
+      if (!missingDetails.email) {
+        toast.error("Please enter your email.");
+      }
+      if (!missingDetails.phone) {
+        toast.error("Please enter your phone.");
+      }
+      if (
+        missingDetails.keywords.length == 0 &&
+        keywordsRef.current.querySelector("input").value == ""
+      ) {
+        toast.error("Please enter some keywords.");
+      }
+      if (!missingDetails.education) {
+        toast.error("Please enter your education.");
+      }
+      if (!missingDetails.experienceLevel) {
+        toast.error("Please enter your experience level.");
+      }
+      if (
+        missingDetails.skills.length == 0 &&
+        skillRef.current.querySelector("input").value == ""
+      ) {
+        toast.error("Please enter your skills.");
+      }
+      if (!missingDetails.industryExperience) {
+        toast.error("Please enter your industry experience.");
+      }
+      if (!missingDetails.accomplishment) {
+        toast.error("Please enter your accomplishments.");
+      }
+      if (!missingDetails.jobTenure) {
+        toast.error("Please enter job tenure.");
+      }
+      if (!missingDetails.jobTitles) {
+        toast.error("Please enter your job title.");
+      }
+      if (!missingDetails.salaryLevel) {
+        toast.error("Please enter your salary level.");
+      }
+      if (!missingDetails.companyNames) {
+        toast.error("Please enter your previous company names.");
+      }
+      if (!missingDetails.referrals) {
+        toast.error("Please enter your referrals.");
+      }
+      if (!missingDetails.availability) {
+        toast.error("Please enter job availability.");
+      }
+      if (!missingDetails.relevanceOfRole) {
+        toast.error("Please enter your role relevance.");
+      }
+      if (!missingDetails.culturalFit) {
+        toast.error("Please enter your cultural fit.");
+      }
+      if (
+        missingDetails.keywordsInCoverletter.length == 0 &&
+        coverLetterKeywordsRef.current.querySelector("input").value == ""
+      ) {
+        toast.error("Please enter your cover letter keywords.");
+      }
+      if (!missingDetails.qualifications) {
+        toast.error("Please enter your qualification.");
+      }
+      if (!missingDetails.location) {
+        toast.error("Please enter your location.");
+      }
+      if (!missingDetails.applicantSources) {
+        toast.error("Please enter your application source.");
+      }
+      // console.log(missingDetails);
+      // toast.error("Oops! It looks like you missed something. Please complete all required fields.");
       return; // Stop form submission
     }
 
@@ -173,10 +252,20 @@ const From = () => {
     formData.append("name", missingDetails.name);
     formData.append("email", missingDetails.email);
     formData.append("phone", missingDetails.phone);
-    formData.append("keywords", missingDetails.keywords);
+    formData.append(
+      "keywords",
+      keywordsRef.current.querySelector("input").value
+        ? [...missingDetails.keywords, keywordsRef.current.querySelector("input").value]
+        : missingDetails.keywords
+    );
     formData.append("education", missingDetails.education);
     formData.append("experience_level", missingDetails.experienceLevel);
-    formData.append("skills", missingDetails.skills);
+    formData.append(
+      "skills",
+      skillRef.current.querySelector("input").value
+        ? [...missingDetails.skills, skillRef.current.querySelector("input").value]
+        : missingDetails.skills
+    );
     formData.append("industry_experience", missingDetails.industryExperience);
     formData.append("accomplishment", missingDetails.accomplishment);
     formData.append("job_tenure", missingDetails.jobTenure);
@@ -187,7 +276,15 @@ const From = () => {
     formData.append("avaialability", missingDetails.availability);
     formData.append("relevance_of_role", missingDetails.relevanceOfRole);
     formData.append("cultural_fit", missingDetails.culturalFit);
-    formData.append("keywords_in_coverletter", missingDetails.keywordsInCoverletter);
+    formData.append(
+      "keywords_in_coverletter",
+      coverLetterKeywordsRef.current.querySelector("input").value
+        ? [
+            ...missingDetails.keywordsInCoverletter,
+            coverLetterKeywordsRef.current.querySelector("input").value,
+          ]
+        : missingDetails.keywordsInCoverletter
+    );
     formData.append("remote_work", missingDetails.remoteWork);
     formData.append("qualifications", missingDetails.qualifications);
     formData.append("location", missingDetails.location);
@@ -197,6 +294,7 @@ const From = () => {
     const headers = {
       Authorization: `Token ${getUser.token}`,
     };
+    console.log(formData.get("skills"));
 
     axios
       .post("https://resume-api-6u3t4.ondigitalocean.app/resume-data/", formData, { headers })
@@ -406,6 +504,7 @@ const From = () => {
                 <TextField
                   sx={{ width: 450 }}
                   {...params}
+                  ref={keywordsRef}
                   variant="standard"
                   label="Keywords"
                   placeholder="Skills, Designation, Role"
@@ -522,6 +621,7 @@ const From = () => {
               multiple
               freeSolo
               id="tags-standard"
+              // clearOnBlur={true}
               options={top100Keywords.map((x) => x.title)}
               // getOptionLabel={(option) => option.title}
               // defaultValue={[top100Keywords[13]]}
@@ -535,6 +635,7 @@ const From = () => {
                 <TextField
                   sx={{ width: 450 }}
                   {...params}
+                  ref={skillRef}
                   variant="standard"
                   label="Skills"
                   placeholder="Enter Your Skills"
@@ -777,6 +878,7 @@ const From = () => {
                 <TextField
                   sx={{ width: 450 }}
                   {...params}
+                  ref={coverLetterKeywordsRef}
                   variant="standard"
                   label="Keywords in Cover Letter"
                   placeholder="Enter keywords in your cover letter"
