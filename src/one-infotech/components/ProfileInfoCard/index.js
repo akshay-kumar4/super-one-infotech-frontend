@@ -266,15 +266,19 @@ function ProfileInfoCard({
                 {firstEmail}
               </MDTypography>
             </Grid>
-            <Grid item sx={{ margin: "5px" }}>
-              <MDTypography variant="h6" fontWeight="light" textTransform="capitalize">
-                <Icon>
-                  <PlaceIcon sx={{ marginTop: "-5px" }} />
-                </Icon>
-                &nbsp;
-                {formattedLocation}
-              </MDTypography>
-            </Grid>
+            {formattedLocation != "NULL" ? (
+              <Grid item sx={{ margin: "5px" }}>
+                <MDTypography variant="h6" fontWeight="light" textTransform="capitalize">
+                  <Icon>
+                    <PlaceIcon sx={{ marginTop: "-5px" }} />
+                  </Icon>
+                  &nbsp;
+                  {formattedLocation}
+                </MDTypography>
+              </Grid>
+            ) : (
+              <></>
+            )}
           </Grid>
         </MDBox>
         <MDBox opacity={1}>
