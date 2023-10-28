@@ -354,6 +354,7 @@ const From = () => {
           .catch((err) => {
             notifyOnReject();
             console.error(err);
+            sendFile(index + 1);
           });
       };
 
