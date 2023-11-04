@@ -306,7 +306,12 @@ const FilterResume = () => {
                       >
                         Total Resumes: {filteredData.length}
                       </MDTypography>
-                      <ExportExcel excelData={filteredData} fileName={"Excel_Exported"} />
+                      <ExportExcel
+                        excelData={filteredData.map((x) => {
+                          return { name: x.name, email: x.email, phone: x.phone };
+                        })}
+                        fileName={"Excel_Exported"}
+                      />
                     </>
                   )}
                 </MDBox>
