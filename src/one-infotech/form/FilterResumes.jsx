@@ -17,6 +17,7 @@ import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
 import Popup from "./Popup";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import ProfileInfoCard from "one-infotech/components/ProfileInfoCard";
+import ExportExcel from "one-infotech/components/ExcelExport";
 import Backdrop from "@mui/material/Backdrop"; // Import Backdrop from Material-UI
 import CircularProgress from "@mui/material/CircularProgress"; // Import CircularProgress from Material-UI
 import Button from "@mui/material/Button";
@@ -296,14 +297,17 @@ const FilterResume = () => {
                       Total Resumes: {data.length}
                     </MDTypography>
                   ) : (
-                    <MDTypography
-                      marginBottom={2}
-                      variant="h3"
-                      fontWeight="medium"
-                      textTransform="capitalize"
-                    >
-                      Total Resumes: {filteredData.length}
-                    </MDTypography>
+                    <>
+                      <MDTypography
+                        marginBottom={2}
+                        variant="h3"
+                        fontWeight="medium"
+                        textTransform="capitalize"
+                      >
+                        Total Resumes: {filteredData.length}
+                      </MDTypography>
+                      <ExportExcel excelData={filteredData} fileName={"Excel_Exported"} />
+                    </>
                   )}
                 </MDBox>
 
