@@ -26,6 +26,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 import { Grow } from "@mui/material";
 import { useSelector } from "react-redux";
+let admin = localStorage.getItem("isAdmin");
+console.log("admin is ok0", admin);
 // import axios from 'axios'
 
 const FilterResume = () => {
@@ -306,12 +308,14 @@ const FilterResume = () => {
                       >
                         Total Resumes: {filteredData.length}
                       </MDTypography>
-                      <ExportExcel
-                        excelData={filteredData.map((x) => {
-                          return { name: x.name, email: x.email, phone: x.phone };
-                        })}
-                        fileName={"Excel_Exported"}
-                      />
+                      {admin && (
+                        <ExportExcel
+                          excelData={filteredData.map((x) => {
+                            return { name: x.name, email: x.email, phone: x.phone };
+                          })}
+                          fileName={"Excel_Exported"}
+                        />
+                      )}
                     </>
                   )}
                 </MDBox>
