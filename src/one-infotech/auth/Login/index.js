@@ -35,16 +35,15 @@ const Login = () => {
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
   const onSubmit = () => {
-    if (username === "resume-admin" && password === "admin@123") {
-      // If the user is an admin, save a key in local storage
-      localStorage.setItem("isAdmin", "abc");
-    }
-
     const response = axios
       .post("https://resume-api-6u3t4.ondigitalocean.app/login/", { username, password })
       .then((response) => {
         dispatch(login(response.data));
         console.log(response.data);
+        let token = response.data.token;
+        // console.log(token)
+
+        let Admintoken = localStorage.setItem("token", token);
         navigate("/dashboards/search");
       })
       .catch((error) => {
