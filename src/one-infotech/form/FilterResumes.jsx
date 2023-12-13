@@ -26,8 +26,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 import { Grow } from "@mui/material";
 import { useSelector } from "react-redux";
-let admin = localStorage.getItem("isAdmin");
-console.log("admin is ok0", admin);
 // import axios from 'axios'
 
 const FilterResume = () => {
@@ -41,7 +39,13 @@ const FilterResume = () => {
   const [noDataFound, setNoDataFound] = useState(false);
   const getUser = useSelector((state) => state.user);
   let count;
+  const Admintoken = localStorage.getItem("token");
 
+  // Define the expected token value
+  const expectedToken = "e06ac2eca287fc7136dceb7780bdee299a23a6d6";
+
+  // Conditionally render the button based on token equality
+  const renderButton = Admintoken === expectedToken;
   const onOpen = (Data) => {
     setSelectedData(Data);
     setIsOpen(true);
@@ -308,7 +312,7 @@ const FilterResume = () => {
                       >
                         Total Resumes: {filteredData.length}
                       </MDTypography>
-                      {admin && (
+                      {renderButton && (
                         <ExportExcel
                           excelData={filteredData.map((x) => {
                             return { name: x.name, email: x.email, phone: x.phone };
