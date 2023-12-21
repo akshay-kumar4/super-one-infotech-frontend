@@ -99,7 +99,7 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 fullWidth
-                placeholder="************"
+                placeholder="****"
                 InputLabelProps={{ shrink: true }}
               />
             </MDBox>
