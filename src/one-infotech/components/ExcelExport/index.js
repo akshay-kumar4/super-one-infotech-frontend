@@ -20,7 +20,10 @@ function ExportExcel({ excelData, fileName }) {
   return (
     <>
       <MDBox style={{ margin: "1em" }}>
-        <MDButton onClick={exportToExcel}>Export as Excel Sheet</MDButton>
+        <MDButton onClick={exportToExcel}>
+          {fileName === "Filtered_Excel_Exported" ? "Export Filtered Data" : "Export All Data"} as
+          Excel sheet
+        </MDButton>
       </MDBox>
     </>
   );
