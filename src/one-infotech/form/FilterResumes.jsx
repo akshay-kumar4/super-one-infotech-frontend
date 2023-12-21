@@ -75,17 +75,17 @@ const FilterResume = () => {
 
   useEffect(() => {
     if (data) {
-      let tempFilteredData = data;
+      let tempFilteredData = data.slice(-100);
       if (searchParams.has("any_keywords")) {
         // console.log(searchParams.getAll("any_keywords"));
-        tempFilteredData = tempFilteredData.filter((doc) =>
+        tempFilteredData = data.filter((doc) =>
           searchParams
             .getAll("any_keywords")
             .some((key) => JSON.stringify(doc).toLowerCase().includes(key.toLowerCase()))
         );
       }
       if (searchParams.has("all_keywords")) {
-        tempFilteredData = tempFilteredData.filter((doc) =>
+        tempFilteredData = data.filter((doc) =>
           searchParams
             .getAll("all_keywords")
             .every((key) => JSON.stringify(doc).toLowerCase().includes(key.toLowerCase()))
@@ -93,7 +93,7 @@ const FilterResume = () => {
         // console.log("reduced to " + tempFilteredData.length + " by all keyword");
       }
       if (searchParams.has("exclude_keywords")) {
-        tempFilteredData = tempFilteredData.filter((x) => {
+        tempFilteredData = data.filter((x) => {
           if (x.keywords) {
             return !searchParams
               .getAll("exclude_keywords")
@@ -104,7 +104,7 @@ const FilterResume = () => {
         // console.log("reduced to " + tempFilteredData.length + " by exclude keyword");
       }
       if (searchParams.has("location")) {
-        tempFilteredData = tempFilteredData.filter((x) =>
+        tempFilteredData = data.filter((x) =>
           x.location
             ? x.location.toLowerCase().includes(searchParams.get("location").toLowerCase())
             : false
@@ -112,7 +112,7 @@ const FilterResume = () => {
         // console.log("reduced to " + tempFilteredData.length + " by location");
       }
       if (searchParams.has("jobHopping")) {
-        tempFilteredData = tempFilteredData.filter((x) => {
+        tempFilteredData = data.filter((x) => {
           if (x.job_hopping) {
             return x["job_hopping"] == (searchParams.get("jobHopping") === "yes");
           }
@@ -121,7 +121,7 @@ const FilterResume = () => {
         // console.log("reduced to " + tempFilteredData.length + " by jobHopping");
       }
       if (searchParams.has("employers")) {
-        tempFilteredData = tempFilteredData.filter((x) => {
+        tempFilteredData = data.filter((x) => {
           if (x.company_names) {
             let test = false;
             searchParams.getAll("employers").forEach((k) => {
@@ -136,7 +136,7 @@ const FilterResume = () => {
         // console.log("reduced to " + tempFilteredData.length + " by employers");
       }
       if (searchParams.has("exclude_employers")) {
-        tempFilteredData = tempFilteredData.filter((x) => {
+        tempFilteredData = data.filter((x) => {
           if (x.company_names) {
             let test = true;
             searchParams.getAll("exclude_employers").forEach((k) => {
@@ -154,7 +154,7 @@ const FilterResume = () => {
         // tempFilteredData = tempFilteredData.filter((x) =>
         //   x["job_titles"].toLowerCase().includes(searchParams.get("designation").toLowerCase())
         // );
-        tempFilteredData = tempFilteredData.filter((x) => {
+        tempFilteredData = data.filter((x) => {
           if (x.job_titles) {
             let test = true;
             searchParams.getAll("designation").forEach((k) => {
@@ -168,28 +168,28 @@ const FilterResume = () => {
         });
       }
       if (searchParams.has("expMin")) {
-        tempFilteredData = tempFilteredData.filter((x) =>
+        tempFilteredData = data.filter((x) =>
           x.experience_level
             ? Number(x.experience_level) >= Number(searchParams.get("expMin"))
             : false
         );
       }
       if (searchParams.has("expMax")) {
-        tempFilteredData = tempFilteredData.filter((x) =>
+        tempFilteredData = data.filter((x) =>
           x.experience_level
             ? Number(x.experience_level) <= Number(searchParams.get("expMax"))
             : false
         );
       }
       if (searchParams.has("salMinLac")) {
-        tempFilteredData = tempFilteredData.filter((x) =>
+        tempFilteredData = data.filter((x) =>
           x.salary_level
             ? Number(x.salary_level.split("-").at(0)) >= Number(searchParams.get("salMinLac"))
             : false
         );
       }
       if (searchParams.has("salMaxLac")) {
-        tempFilteredData = tempFilteredData.filter((x) =>
+        tempFilteredData = data.filter((x) =>
           x.salary_level
             ? Number(x.salary_level.split("-").at(-1)) <= Number(searchParams.get("salMaxLac"))
             : false
@@ -204,7 +204,7 @@ const FilterResume = () => {
           .map((x) => x.trim().replace(".", ""));
 
         console.log(education);
-        tempFilteredData = tempFilteredData.filter((x) => {
+        tempFilteredData = data.filter((x) => {
           if (!x.education) {
             return false;
           }
@@ -229,7 +229,7 @@ const FilterResume = () => {
         });
       }
       if (searchParams.has("skills")) {
-        tempFilteredData = tempFilteredData.filter((x) => {
+        tempFilteredData = data.filter((x) => {
           if (x.skills) {
             let test = false;
             searchParams.getAll("skills").forEach((k) => {
@@ -294,31 +294,55 @@ const FilterResume = () => {
                   {filteredData === undefined ||
                   filteredData === null ||
                   filteredData.length === 0 ? (
-                    <MDTypography
-                      marginBottom={2}
-                      variant="h3"
-                      fontWeight="medium"
-                      textTransform="capitalize"
-                    >
-                      Total Resumes: {data.length}
-                    </MDTypography>
-                  ) : (
-                    <>
+                    <div>
                       <MDTypography
                         marginBottom={2}
                         variant="h3"
                         fontWeight="medium"
                         textTransform="capitalize"
                       >
-                        Total Resumes: {filteredData.length}
+                        Filtered Resumes: {filteredData.length}
                       </MDTypography>
+                    </div>
+                  ) : (
+                    <>
+                      <div>
+                        <MDTypography
+                          marginBottom={2}
+                          variant="h3"
+                          fontWeight="medium"
+                          textTransform="capitalize"
+                        >
+                          Filtered Resumes: {filteredData.length}
+                        </MDTypography>
+                        <MDTypography
+                          marginBottom={2}
+                          variant="h3"
+                          fontWeight="medium"
+                          textTransform="capitalize"
+                        >
+                          Total Resumes: {data.length}
+                        </MDTypography>
+                      </div>
                       {renderButton && (
-                        <ExportExcel
-                          excelData={filteredData.map((x) => {
-                            return { name: x.name, email: x.email, phone: x.phone };
-                          })}
-                          fileName={"Excel_Exported"}
-                        />
+                        <div style={{ display: "flex" }}>
+                          <ExportExcel
+                            excelData={filteredData.map((x) => ({
+                              name: x.name,
+                              email: x.email,
+                              phone: x.phone,
+                            }))}
+                            fileName={"Filtered_Excel_Exported"}
+                          />
+                          <ExportExcel
+                            excelData={data.map((x) => ({
+                              name: x.name,
+                              email: x.email,
+                              phone: x.phone,
+                            }))}
+                            fileName={"All_Excel_Exported"}
+                          />
+                        </div>
                       )}
                     </>
                   )}
